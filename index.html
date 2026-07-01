@@ -225,7 +225,7 @@
             color: var(--white);
         }
 
-        /* أزرار الراديو (عام / تجريبي) */
+        /* أزرار الراديو */
         .radio-group {
             display: flex;
             gap: 15px;
@@ -355,8 +355,8 @@
     <!-- هيدر المنصة -->
     <header>
         <div class="avatar-container">
-            <!-- تم تثبيت رابط صورتك الشخصية الجديدة والاحترافية هنا بشكل دائم للجميع -->
-            <img id="teacherAvatar" class="profile-img" src="https://images2.imgbox.com/ce/93/2N97w98x_o.png" alt="مستر محمد الشهاوي">
+            <!-- تم التحديث والربط المباشر بملف me.png المرفوع في المستودع -->
+            <img id="teacherAvatar" class="profile-img" src="me.png" alt="مستر محمد الشهاوي">
         </div>
         <h1>مستر محمد الشهاوي</h1>
         <p class="subtitle">معلم اللغة الإنجليزية للمرحلتين الإعدادية والثانوية</p>
@@ -451,6 +451,9 @@
                 <input type="password" id="passwordInput" class="form-control" placeholder="••••••" style="text-align: center;">
                 <div id="loginError" class="alert-error hidden"><i class="fas fa-exclamation-triangle"></i> الباسورد غير صحيح!</div>
             </div>
+            <div class="form-group" style="text-align: center; color: var(--text-gray); font-size: 0.85rem;">
+                ℹ️ لتغيير الصورة الشخصية بشكل دائم مستقبلاً، يرجى استبدال ملف <span style="color: var(--gold)">me.png</span> داخل مستودع الـ GitHub.
+            </div>
             <button type="button" class="btn-submit" onclick="checkPassword()">دخول اللوحة</button>
         </div>
 
@@ -496,10 +499,8 @@
     </div>
 
     <script>
-        // رابط الـ Web App المباشر والمفعل لجوجل شيت الخاص بك
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzJbxprMAaBatfRXtfzQ533hLt4yZ9d_uATN4NBlTDqePNfoMtftRPxanLeFg4eg-se/exec";
 
-        // مصفوفة المواعيد
         const schedules = {
             "الصف السادس الإبتدائي": ["الاحد الساعه 2"],
             "الصف الأول الاعدادي": ["الاحد الساعه 4"],
@@ -510,7 +511,6 @@
             "الصف الثالث الثانوي": ["السبت الساعه 3"]
         };
 
-        // التبديل بين الواجهات
         function switchTab(tab) {
             const bookingBtn = document.querySelectorAll('.tab-btn')[0];
             const dashBtn = document.querySelectorAll('.tab-btn')[1];
@@ -530,7 +530,6 @@
             }
         }
 
-        // تحديث خيارات المواعيد
         function updateScheduleOptions() {
             const grade = document.getElementById('gradeSelect').value;
             const timeSelect = document.getElementById('timeSelect');
@@ -546,7 +545,6 @@
             }
         }
 
-        // إرسال الحجز للسيرفر وجوجل شيت
         function handleBooking(event) {
             event.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
@@ -583,7 +581,6 @@
             });
         }
 
-        // التحقق من كلمة السر
         function checkPassword() {
             const passwordInput = document.getElementById('passwordInput').value;
             const loginError = document.getElementById('loginError');
@@ -600,7 +597,6 @@
             }
         }
 
-        // سحب وعرض البيانات الحية
         function fetchReservations() {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '<tr><td colspan="6" class="loading-text"><i class="fas fa-sync fa-spin"></i> جاري جلب الحجوزات من جوجل شيت...</td></tr>';
@@ -631,7 +627,6 @@
             });
         }
 
-        // فلترة الجدول فورياً
         function filterTable() {
             const filterValue = document.getElementById('filterGrade').value;
             const rows = document.querySelectorAll('#reservationsTable tbody tr');
