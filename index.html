@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مستر محمد الشهاوي - منصة الحجز الذكية</title>
     
+    <!-- استيراد الخطوط وأيقونات فونت أوسم المودرن -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -347,27 +348,21 @@
             color: var(--gold);
             padding: 30px;
         }
-
-        /* صندوق إعدادات الصورة الشخصية الجديد */
-        .image-settings {
-            background: rgba(255,255,255,0.02);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px dashed var(--gold);
-            margin-bottom: 25px;
-        }
     </style>
 </head>
 <body>
 
+    <!-- هيدر المنصة -->
     <header>
         <div class="avatar-container">
-            <img id="teacherAvatar" class="profile-img" src="https://images2.imgbox.com/7b/fc/9WzNfCgR_o.png" alt="مستر محمد الشهاوي">
+            <!-- تم تثبيت رابط صورتك الشخصية الجديدة والاحترافية هنا بشكل دائم للجميع -->
+            <img id="teacherAvatar" class="profile-img" src="https://images2.imgbox.com/ce/93/2N97w98x_o.png" alt="مستر محمد الشهاوي">
         </div>
         <h1>مستر محمد الشهاوي</h1>
         <p class="subtitle">معلم اللغة الإنجليزية للمرحلتين الإعدادية والثانوية</p>
         <div class="hashtag">#من_ميح_الشهاوي_هيخليك_دحيح</div>
         
+        <!-- قنوات التواصل المباشرة والجروبات -->
         <div class="social-grid">
             <a href="https://www.facebook.com/share/1Bz1RMgQbR/" target="_blank" class="social-btn facebook">
                 <i class="fab fa-facebook-f"></i> صفحة الفيسبوك
@@ -381,11 +376,13 @@
         </div>
     </header>
 
+    <!-- أزرار التنقل -->
     <div class="nav-tabs">
         <button class="tab-btn active" onclick="switchTab('booking')">إستمارة الحجز</button>
         <button class="tab-btn" onclick="switchTab('dashboard')">لوحة التحكم</button>
     </div>
 
+    <!-- استمارة الحجز للطلاب -->
     <div id="booking-section" class="container">
         <h2 class="section-title"><i class="fas fa-user-edit"></i> حجز درس اللغة الإنجليزية</h2>
         <form id="bookingForm" onsubmit="handleBooking(event)">
@@ -443,8 +440,10 @@
         </form>
     </div>
 
+    <!-- لوحة التحكم المؤمنة بكلمة السر -->
     <div id="dashboard-section" class="container hidden">
         
+        <!-- صندوق التأمين (102030) -->
         <div id="authBox" class="auth-container">
             <h2 class="section-title"><i class="fas fa-lock"></i> تسجيل دخول المعلم</h2>
             <div class="form-group">
@@ -455,19 +454,11 @@
             <button type="button" class="btn-submit" onclick="checkPassword()">دخول اللوحة</button>
         </div>
 
+        <!-- محتوى الإدارة بعد التحقق من الباسورد -->
         <div id="dataBox" class="hidden">
             <h2 class="section-title"><i class="fas fa-sliders-h"></i> إعدادات المنصة والحجوزات</h2>
-            
-            <div class="image-settings">
-                <label style="font-weight: bold; color: var(--gold); display: block; margin-bottom: 8px;">
-                    <i class="fas fa-camera"></i> اختر صورتك الشخصية مباشرة من جهازك:
-                </label>
-                <input type="file" id="imageInput" accept="image/*" class="form-control" style="padding: 8px; margin-bottom: 12px;">
-                <button type="button" class="btn-submit" onclick="uploadAvatar()" style="padding: 10px; font-size: 0.9rem;">
-                    <i class="fas fa-save"></i> حفظ الصورة وتحديث الواجهة
-                </button>
-            </div>
 
+            <!-- أداة الفلترة -->
             <div class="filter-box">
                 <label for="filterGrade" style="font-weight: bold; display: block; margin-bottom: 8px; color: var(--text-light)">تصفية الطلاب حسب المرحلة:</label>
                 <select id="filterGrade" class="form-control" onchange="filterTable()">
@@ -482,6 +473,7 @@
                 </select>
             </div>
 
+            <!-- جدول الطلاب القادم لايف من الجوجل شيت -->
             <div class="table-responsive">
                 <table id="reservationsTable">
                     <thead>
@@ -517,37 +509,6 @@
             "الصف الثاني الثانوي": ["السبت الساعه 2"],
             "الصف الثالث الثانوي": ["السبت الساعه 3"]
         };
-
-        // التحقق من وجود صورة محفوظة مسبقاً في الذاكرة عند فتح الصفحة
-        window.addEventListener('DOMContentLoaded', () => {
-            const savedAvatar = localStorage.getItem('teacher_avatar_url');
-            if (savedAvatar) {
-                document.getElementById('teacherAvatar').src = savedAvatar;
-            }
-        });
-
-        // دالة قراءة وحفظ الصورة الشخصية مباشرة من ملفات الجهاز
-        function uploadAvatar() {
-            const fileInput = document.getElementById('imageInput');
-            const file = fileInput.files[0];
-            
-            if (file) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    const imageData = e.target.result;
-                    // تحديث الصورة في أعلى الواجهة فوراً
-                    document.getElementById('teacherAvatar').src = imageData;
-                    // تخزين الصورة مشفرة بذاكرة المتصفح للدوام
-                    localStorage.setItem('teacher_avatar_url', imageData);
-                    alert("تم حفظ وتحديث صورتك الشخصية بنجاح على هذا المتصفح!");
-                }
-                
-                reader.readAsDataURL(file);
-            } else {
-                alert("يرجى اختيار ملف صورة من جهازك أولاً.");
-            }
-        }
 
         // التبديل بين الواجهات
         function switchTab(tab) {
