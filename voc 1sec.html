@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MOHAMED ELSHAHAWY - Secondary 1 Master Dictionary</title>
+    <style>
+        :root {
+            --primary: #1e3a8a; 
+            --secondary: #ffffff; 
+            --accent: #dc2626; 
+            --bg: #f8fafc; 
+            --card: #ffffff; 
+            --text: #0f172a; 
+            --nav-bg: #e2e8f0;
+            --border: #cbd5e1;
+        }
+        [data-theme="midnight"] { 
+            --primary: #38bdf8; 
+            --secondary: #0f172a; 
+            --accent: #f59e0b; 
+            --bg: #0f172a; 
+            --card: #1e293b; 
+            --text: #f8fafc; 
+            --nav-bg: #334155;
+            --border: #475569;
+        }
+        [data-theme="forest"] { 
+            --primary: #15803d; 
+            --secondary: #ffffff; 
+            --accent: #d97706; 
+            --bg: #f0fdf4; 
+            --card: #ffffff; 
+            --text: #14532d; 
+            --nav-bg: #dcfce7;
+            --border: #bbf7d0;
+        }
+        [data-theme="purple"] { 
+            --primary: #c084fc; 
+            --secondary: #2e1065; 
+            --accent: #22d3ee; 
+            --bg: #2e1065; 
+            --card: #3b0764; 
+            --text: #faf5ff; 
+            --nav-bg: #581c87;
+            --border: #6b21a8;
+        }
+        [data-theme="golden"] { 
+            --primary: #fbbf24; 
+            --secondary: #18181b; 
+            --accent: #f97316; 
+            --bg: #18181b; 
+            --card: #27272a; 
+            --text: #f4f4f5; 
+            --nav-bg: #3f3f46;
+            --border: #52525b;
+        }
+        [data-theme="contrast"] { 
+            --primary: #000000; 
+            --secondary: #ffffff; 
+            --accent: #cc0000; 
+            --bg: #ffffff; 
+            --card: #ffffff; 
+            --text: #000000; 
+            --nav-bg: #e5e5e5;
+            --border: #000000;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; color: var(--text); }
+        .brand { text-align: center; padding: 12px; font-size: 0.85rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+        .header { background: var(--primary); color: var(--secondary); padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: background 0.3s, color 0.3s; }
+        
+        .speed-control { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.85rem; flex-wrap: wrap; }
+        .speed-control input { width: 100px; accent-color: var(--accent); cursor: pointer; }
+
+        .play-all-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-top: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .play-all-btn.playing { background: #555; }
+
+        .controls { display: flex; justify-content: center; margin-top: -22px; padding: 0 10px; }
+        .theme-toggle { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: var(--card); color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; }
+        
+        .search-wrapper { max-width: 500px; margin: 25px auto; padding: 0 15px; }
+        .search-box { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--primary); outline: none; background: var(--card); color: var(--text); box-sizing: border-box; font-size: 1rem; }
+        
+        .unit-nav { display: flex; overflow-x: auto; gap: 8px; padding: 10px 15px; scrollbar-width: none; }
+        .unit-btn { padding: 10px 20px; border-radius: 12px; border: 1.5px solid var(--primary); background: transparent; color: var(--text); font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s; }
+        .unit-btn.active { background: var(--primary); color: var(--secondary); }
+        
+        .lesson-nav { display: flex; background: var(--nav-bg); margin: 15px; border-radius: 12px; padding: 5px; gap: 5px; }
+        .tab { flex: 1; text-align: center; padding: 12px 5px; cursor: pointer; border-radius: 10px; font-weight: bold; font-size: 0.85rem; color: var(--text); transition: 0.2s; }
+        .tab.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px; }
+        .section-title { font-weight: 800; color: var(--accent); font-size: 0.95rem; text-transform: uppercase; border-right: 4px solid var(--accent); padding-right: 8px; }
+        .word-count { font-size: 0.75rem; background: var(--primary); color: var(--secondary); padding: 2px 10px; border-radius: 20px; font-weight: bold; }
+        
+        .content-card { background: var(--card); margin: 10px 15px 25px; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: right; }
+        tr:last-child td { border-bottom: none; }
+        .word-en { color: var(--text); font-weight: 700; font-size: 1.05rem; cursor: pointer; display: inline-block; transition: color 0.2s; }
+        .word-ar { color: var(--text); font-size: 1rem; }
+        .word-en.active-speak { color: var(--accent) !important; text-decoration: underline; background: rgba(220, 38, 38, 0.1); border-radius: 5px; padding: 0 4px; }
+        .word-type { font-size: 0.75rem; color: var(--accent); font-weight: normal; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="brand">POWERED BY " MR MOHAMED ELSHAHAWY "</div>
+
+<div class="header">
+    <h2 style="margin:0; font-size: 1.3rem;">Secondary 1 Master Dictionary</h2>
+    
+    <div style="margin-top:10px; font-size:0.8rem; display: flex; justify-content: center; gap: 15px;">
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-US" checked onclick="vL='en-US'"> American 🇺🇸</label>
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-GB" onclick="vL='en-GB'"> British 🇬🇧</label>
+    </div>
+
+    <div class="speed-control">
+        <span>🐢 Slow</span>
+        <input type="range" id="speedRate" min="0.3" max="1.5" step="0.1" value="0.7" oninput="document.getElementById('speedVal').innerText = this.value + 'x'">
+        <span>Fast ⚡</span>
+        <span id="speedVal" style="font-weight:bold; width: 35px;">0.7x</span>
+        
+        <button id="playAllBtn" class="play-all-btn" onclick="togglePlayAll()">🔊 Play All</button>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="theme-toggle" onclick="cycleThemes()">🎨 Mode: <span id="themeName">Classic Blue</span></button>
+</div>
+
+<div class="search-wrapper">
+    <input type="text" id="search" class="search-box" placeholder="Search... ابحث هنا" onkeyup="render()">
+</div>
+
+<div class="unit-nav" id="unitNav"></div>
+
+<div class="lesson-nav">
+    <div id="tab12" class="tab active" onclick="setL('12', this)">Lessons 1&2</div>
+    <div id="tab34" class="tab" onclick="setL('34', this)">Lessons 3&4</div>
+    <div id="tabAll" class="tab" onclick="setL('all', this)">All Words</div>
+</div>
+
+<div id="dictionaryContent"></div>
+
+<div class="brand" style="margin-bottom:40px; opacity:0.6;">MR MOHAMED ELSHAHAWY © 2026</div>
+
+<script>
+    let vL = 'en-US'; let currU = 'u1'; let currL = '12';
+    let themeIdx = 0; let isPlayingAll = false; let playAllIndex = 0;
+    const themes = [
+        {id:'default',n:'Classic Blue'},
+        {id:'midnight',n:'Midnight'},
+        {id:'forest',n:'Forest'},
+        {id:'purple',n:'Purple'},
+        {id:'golden',n:'Golden'},
+        {id:'contrast',n:'Contrast'}
+    ];
+
+    function cycleThemes(){
+        themeIdx=(themeIdx+1)%themes.length;
+        document.body.setAttribute('data-theme', themes[themeIdx].id);
+        document.getElementById('themeName').innerText = themes[themeIdx].n;
+    }
+
+    function speak(text, el, callback) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = vL;
+        ut.rate = parseFloat(document.getElementById('speedRate').value);
+        document.querySelectorAll('.word-en').forEach(w => w.classList.remove('active-speak'));
+        if(el) el.classList.add('active-speak');
+        ut.onend = () => {
+            if(el) el.classList.remove('active-speak');
+            if(callback) callback();
+        };
+        window.speechSynthesis.speak(ut);
+    }
+
+    function togglePlayAll() {
+        const btn = document.getElementById('playAllBtn');
+        if (isPlayingAll) { stopPlayAll(); } 
+        else {
+            isPlayingAll = true;
+            btn.innerText = "🛑 Stop";
+            btn.classList.add('playing');
+            playAllIndex = 0;
+            playNextWord();
+        }
+    }
+
+    function stopPlayAll() {
+        isPlayingAll = false;
+        window.speechSynthesis.cancel();
+        const btn = document.getElementById('playAllBtn');
+        btn.innerText = "🔊 Play All";
+        btn.classList.remove('playing');
+        document.querySelectorAll('.word-en').forEach(w => w.classList.remove('active-speak'));
+    }
+
+    function playNextWord() {
+        if (!isPlayingAll) return;
+        const words = document.querySelectorAll('.word-en');
+        if (playAllIndex < words.length) {
+            const wordEl = words[playAllIndex];
+            wordEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            speak(wordEl.innerText, wordEl, () => {
+                playAllIndex++;
+                setTimeout(playNextWord, 600);
+            });
+        } else { stopPlayAll(); }
+    }
+
+    const data = {
+        u1: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"civilization", ar:"حضارة", t:"n"},
+                    {en:"crossroads", ar:"ملتقى طرق / موقع ذو أهمية", t:"n"},
+                    {en:"heritage", ar:"إرث / تراث", t:"n"},
+                    {en:"identity", ar:"هوية", t:"n"},
+                    {en:"merchant", ar:"تاجر", t:"n"},
+                    {en:"neighborhood", ar:"حي سكني", t:"n"},
+                    {en:"preserve", ar:"يحافظ على", t:"v"},
+                    {en:"pride", ar:"فخر", t:"n"},
+                    {en:"restore", ar:"يرمم / يسترجع", t:"v"},
+                    {en:"trade", ar:"تجارة / يتاجر", t:"n/v"}
+                ],
+                "Reading & Listening": [
+                    {en:"ancestors", ar:"أجداد", t:"n"},
+                    {en:"anxiety", ar:"قلق", t:"n"},
+                    {en:"archaeologist", ar:"عالم آثار", t:"n"},
+                    {en:"architect", ar:"مهندس معماري", t:"n"},
+                    {en:"ancient", ar:"قديم", t:"adj"},
+                    {en:"attraction", ar:"جذب / عامل جذب", t:"n"},
+                    {en:"awareness", ar:"وعي / إدراك", t:"n"},
+                    {en:"beat", ar:"ينبض", t:"v"},
+                    {en:"beloved", ar:"محبوب", t:"adj"},
+                    {en:"carve", ar:"ينحت", t:"v"},
+                    {en:"challenge", ar:"تحدٍّ / يتحدى", t:"n/v"},
+                    {en:"citizen", ar:"مواطن", t:"n"},
+                    {en:"context", ar:"نص / سياق", t:"n"},
+                    {en:"core", ar:"جوهر / نواة / لب", t:"n"},
+                    {en:"culture", ar:"ثقافة", t:"n"},
+                    {en:"decoration", ar:"تزيين (ديكور)", t:"n"},
+                    {en:"demonstrate", ar:"يوضح / يظهر", t:"v"},
+                    {en:"determination", ar:"عزيمة", t:"n"},
+                    {en:"developing country", ar:"دولة نامية", t:"n"},
+                    {en:"development", ar:"تنمية", t:"n"},
+                    {en:"economy", ar:"اقتصاد", t:"n"},
+                    {en:"exchange", ar:"يتبادل", t:"v"},
+                    {en:"face", ar:"يواجه", t:"v"},
+                    {en:"figure", ar:"شخصية", t:"n"},
+                    {en:"flood", ar:"فيضان", t:"n"},
+                    {en:"gather", ar:"يجمع", t:"v"},
+                    {en:"generation", ar:"جيل", t:"n"},
+                    {en:"grain", ar:"الحبوب", t:"n"},
+                    {en:"harmony", ar:"تناغم / انسجام", t:"n"},
+                    {en:"hieroglyphs", ar:"اللغة الهيروغليفية / الحروف الهيروغليفية", t:"n"},
+                    {en:"historian", ar:"مؤرخ", t:"n"},
+                    {en:"historical", ar:"تاريخي", t:"adj"},
+                    {en:"homeland", ar:"أرض الوطن", t:"n"},
+                    {en:"honor", ar:"يكرم", t:"v"},
+                    {en:"host", ar:"مقدم برامج / مضيف", t:"n"},
+                    {en:"immense", ar:"هائل / ضخم", t:"adj"},
+                    {en:"inspiration", ar:"إلهام", t:"n"},
+                    {en:"invent", ar:"يخترع", t:"v"},
+                    {en:"knowledge", ar:"معرفة", t:"n"},
+                    {en:"legacy", ar:"إرث / ميراث", t:"n"},
+                    {en:"material", ar:"مادة (للبناء مثلاً)", t:"n"},
+                    {en:"medicine", ar:"الطب", t:"n"},
+                    {en:"mission", ar:"مهمة / بعثة", t:"n"},
+                    {en:"nation", ar:"أمة / دولة", t:"n"},
+                    {en:"national", ar:"وطني / قومي", t:"adj"},
+                    {en:"papyrus", ar:"ورق البردي", t:"n"},
+                    {en:"privilege", ar:"امتياز", t:"n"},
+                    {en:"profession", ar:"مهنة", t:"n"},
+                    {en:"progress", ar:"تقدم / يتقدم", t:"n/v"},
+                    {en:"protect", ar:"يحمي", t:"v"},
+                    {en:"record", ar:"يسجل", t:"v"},
+                    {en:"remind", ar:"يُذكِّر", t:"v"},
+                    {en:"require", ar:"يتطلب", t:"v"},
+                    {en:"rise", ar:"ينهض / يرتفع / تشرق (الشمس)", t:"v"},
+                    {en:"sacrifice", ar:"تضحية / يضحي", t:"n/v"},
+                    {en:"shape", ar:"يشكل / شكل", t:"v/n"},
+                    {en:"site", ar:"موقع", t:"n"},
+                    {en:"source", ar:"مصدر", t:"n"},
+                    {en:"spices", ar:"توابل", t:"n"},
+                    {en:"superior", ar:"متفوق / رفيع", t:"adj"},
+                    {en:"symbol", ar:"رمز", t:"n"},
+                    {en:"temple", ar:"معبد", t:"n"},
+                    {en:"treasures", ar:"كنوز", t:"n"},
+                    {en:"urban", ar:"حضري / مدني", t:"adj"},
+                    {en:"value", ar:"قيمة", t:"n"},
+                    {en:"will", ar:"إرادة", t:"n"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"achieve a goal", ar:"يحقق هدفاً"},
+                    {en:"feel proud of", ar:"يشعر بالفخر بـ"},
+                    {en:"feel united", ar:"يشعر بالاتحاد"},
+                    {en:"have a deep feeling of", ar:"لديه شعور عميق بـ"},
+                    {en:"make it easier", ar:"يسهل الأمر"},
+                    {en:"make money", ar:"يجني المال"},
+                    {en:"make sacrifices", ar:"يقوم بالتضحيات"},
+                    {en:"play an important role", ar:"يلعب دوراً هاماً"},
+                    {en:"shape our future", ar:"يشكل / يصوغ مستقبلنا"},
+                    {en:"stand with pride", ar:"يقف بفخر"},
+                    {en:"I see your point", ar:"أفهم قصدك"},
+                    {en:"take pride in", ar:"يفخر / يعتز بـ"},
+                    {en:"carve into", ar:"ينحت في", t:"prep"},
+                    {en:"contribute to", ar:"يساهم في", t:"prep"},
+                    {en:"essential for", ar:"ضروري لـ", t:"prep"},
+                    {en:"focus on", ar:"تركيز على / يركز على", t:"prep"},
+                    {en:"lead to", ar:"يؤدي إلى", t:"prep"},
+                    {en:"prevent ... from", ar:"يمنع ... عن", t:"prep"},
+                    {en:"result of", ar:"نتيجة لـ", t:"prep"},
+                    {en:"share with", ar:"يشارك مع", t:"prep"},
+                    {en:"source of", ar:"مصدر لـ", t:"prep"},
+                    {en:"trade ... with", ar:"يتاجر / يتبادل مع", t:"prep"},
+                    {en:"type of", ar:"نوع من", t:"prep"},
+                    {en:"work on", ar:"يعمل على", t:"prep"}
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    {en:"heritage", ar:"تراث", t:"n"},
+                    {en:"mighty", ar:"شامخ / عظيم", t:"adj"},
+                    {en:"monuments", ar:"آثار", t:"n"},
+                    {en:"magnificent", ar:"رائع / عظيم", t:"adj"},
+                    {en:"inspire", ar:"يلهم", t:"v"}
+                ],
+                "Reading & Listening": [
+                    {en:"achievement", ar:"إنجاز", t:"n"},
+                    {en:"admiration", ar:"إعجاب", t:"n"},
+                    {en:"advanced", ar:"متقدم / متطور", t:"adj"},
+                    {en:"amaze", ar:"يدهش / يذهل", t:"v"},
+                    {en:"appear", ar:"يظهر", t:"v"},
+                    {en:"author", ar:"مؤلف", t:"n"},
+                    {en:"beliefs", ar:"معتقدات", t:"n"},
+                    {en:"benefit", ar:"فائدة / منفعة / يستفيد", t:"n/v"},
+                    {en:"celebrate", ar:"يحتفل / يحتفي بـ", t:"v"},
+                    {en:"connection", ar:"ارتباط", t:"n"},
+                    {en:"construction", ar:"مبنى", t:"n"},
+                    {en:"convenient", ar:"مناسب / ملائم", t:"adj"},
+                    {en:"create", ar:"ينتج / يبدع", t:"v"},
+                    {en:"creativity", ar:"إبداع", t:"n"},
+                    {en:"crop", ar:"محصول", t:"n"},
+                    {en:"develop", ar:"يطور / ينمي", t:"v"},
+                    {en:"distance", ar:"مسافة / بُعد", t:"n"},
+                    {en:"distant", ar:"بعيد", t:"adj"},
+                    {en:"embrace", ar:"يعتنق / يحتضن", t:"v"},
+                    {en:"entire", ar:"بالكامل", t:"adj"},
+                    {en:"expression", ar:"تعبير", t:"n"},
+                    {en:"farming", ar:"الزراعة", t:"n"},
+                    {en:"fishing", ar:"الصيد", t:"n"},
+                    {en:"gift", ar:"هدية", t:"n"},
+                    {en:"greatness", ar:"عظَمة", t:"n"},
+                    {en:"grow", ar:"ينمو", t:"v"},
+                    {en:"human", ar:"بشري / إنسان", t:"adj/n"},
+                    {en:"improve", ar:"يُحسّن / يتحسن", t:"v"},
+                    {en:"influence", ar:"يؤثر على", t:"v"},
+                    {en:"inherit", ar:"يرث", t:"v"},
+                    {en:"leader", ar:"قائد", t:"n"},
+                    {en:"learn", ar:"يتعلم", t:"v"},
+                    {en:"medical", ar:"طبي", t:"adj"},
+                    {en:"metal", ar:"معدن", t:"n"},
+                    {en:"motivate", ar:"يحفز / يشجع", t:"v"},
+                    {en:"non-fiction", ar:"واقعي / غير خيالي", t:"n/adj"},
+                    {en:"poet", ar:"شاعر", t:"n"},
+                    {en:"practice", ar:"ممارسة / تدريب / يمارس", t:"n/v"},
+                    {en:"produce", ar:"يُنتج", t:"v"},
+                    {en:"reflect", ar:"يعكس", t:"v"},
+                    {en:"respect", ar:"احترام / يحترم", t:"n/v"},
+                    {en:"responsibility", ar:"مسئولية", t:"n"},
+                    {en:"roots", ar:"جذور", t:"n"},
+                    {en:"route", ar:"طريق / مسار", t:"n"},
+                    {en:"scientific", ar:"علمي", t:"adj"},
+                    {en:"shared", ar:"مشترَكة", t:"adj"},
+                    {en:"show", ar:"يظهر", t:"v"},
+                    {en:"society", ar:"مجتمع", t:"n"},
+                    {en:"strength", ar:"قوة", t:"n"},
+                    {en:"structure", ar:"مبنى / تركيب", t:"n"},
+                    {en:"struggle", ar:"كفاح / يكافح", t:"n/v"},
+                    {en:"survive", ar:"ينجو / يبقى على قيد الحياة", t:"v"},
+                    {en:"thinker", ar:"مفكر", t:"n"},
+                    {en:"tool", ar:"أداة", t:"n"},
+                    {en:"united", ar:"مُتَّحِد", t:"adj"},
+                    {en:"value", ar:"قيمة / يُقَدِّر", t:"n/v"},
+                    {en:"vision", ar:"رؤية", t:"n"},
+                    {en:"visualize", ar:"يتصور / يرسم صورة ذهنية", t:"v"},
+                    {en:"wisdom", ar:"الحكمة", t:"n"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"across the world", ar:"عبر العالم"},
+                    {en:"change human life", ar:"يغير حياة الإنسان"},
+                    {en:"compare pride to", ar:"يشبه الفخر بـ"},
+                    {en:"give advice", ar:"يقدم نصيحة"},
+                    {en:"give our nation respect", ar:"يمنح وطننا الاحترام"},
+                    {en:"give strength", ar:"يمنح القوة"},
+                    {en:"over time", ar:"مع مرور الوقت / بمرور الزمن"},
+                    {en:"record knowledge and history", ar:"يسجل / يدون المعرفة والتاريخ"},
+                    {en:"run deep", ar:"تمتد لعمق بعيد"},
+                    {en:"shape our minds", ar:"يشكل عقولنا"},
+                    {en:"stay united", ar:"نبقى متحدين"},
+                    {en:"step by step", ar:"خطوة بخطوة"}
+                ]
+            }
+        },
+        u2: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"community", ar:"مجتمع", t:"n"},
+                    {en:"confidence", ar:"الثقة", t:"n"},
+                    {en:"fade", ar:"يتلاشى / يختفي", t:"v"},
+                    {en:"irresistible", ar:"لا يقاوم", t:"adj"},
+                    {en:"isolated", ar:"معزول / منعزل", t:"adj"},
+                    {en:"light up", ar:"ينير / يشرق الوجه", t:"v"},
+                    {en:"optimism", ar:"تفاؤل", t:"n"},
+                    {en:"overwhelmed", ar:"مُثقَل / مَرهَق", t:"adj"},
+                    {en:"saplings", ar:"شتلات (أشجار صغيرة)", t:"n"},
+                    {en:"slip", ar:"يتراجع / ينزلق", t:"v"},
+                    {en:"stare", ar:"يدقق النظر / يحملق", t:"v"},
+                    {en:"support", ar:"يدعم / دعم / تأييد", t:"v/n"},
+                    {en:"transform", ar:"يتحول / يتغير", t:"v"},
+                    {en:"volunteer", ar:"متطوع / يتطوع", t:"n/v"}
+                ],
+                "Reading & Listening": [
+                    {en:"act", ar:"تصرف / فعل / يمثل / يتصرف", t:"n/v"},
+                    {en:"area", ar:"منطقة", t:"n"},
+                    {en:"bitter", ar:"مُر / لاذع", t:"adj"},
+                    {en:"campaign", ar:"حملة / يقوم بحملة", t:"n/v"},
+                    {en:"chat", ar:"يدردش / دردشة", t:"v/n"},
+                    {en:"cloth", ar:"قماش / قطعة قماش", t:"n"},
+                    {en:"conflict", ar:"صراع", t:"n"},
+                    {en:"contact", ar:"يتصل / اتصال", t:"v/n"},
+                    {en:"cousin", ar:"ابن / ابنة العم", t:"n"},
+                    {en:"encouragement", ar:"تشجيع / تحفيز", t:"n"},
+                    {en:"grade", ar:"درجة / تقدير", t:"n"},
+                    {en:"grey", ar:"رمادي", t:"adj/n"},
+                    {en:"guess", ar:"يخمن", t:"v"},
+                    {en:"hold", ar:"يمسك / يعقد", t:"v"},
+                    {en:"hug", ar:"حضن / يحضن", t:"n/v"},
+                    {en:"ignore", ar:"يتجاهل", t:"v"},
+                    {en:"kindness", ar:"عطف / طيبة", t:"n"},
+                    {en:"knock", ar:"طرق / يطرق", t:"n/v"},
+                    {en:"lifelong", ar:"مدى الحياة / دائم طوال الحياة", t:"adj"},
+                    {en:"meaningful", ar:"ذو مغزى", t:"adj"},
+                    {en:"mirror", ar:"يعكس / مرآة", t:"v/n"},
+                    {en:"neighbor", ar:"جار", t:"n"},
+                    {en:"oven", ar:"فرن", t:"n"},
+                    {en:"pay", ar:"يدفع / راتب", t:"v/n"},
+                    {en:"personal", ar:"شخصي", t:"adj"},
+                    {en:"personality", ar:"شخصية", t:"n"},
+                    {en:"positive", ar:"إيجابي", t:"adj"},
+                    {en:"prevent", ar:"يمنع", t:"v"},
+                    {en:"quality", ar:"جودة / صفة", t:"n"},
+                    {en:"realize", ar:"يدرك", t:"v"},
+                    {en:"recycling", ar:"إعادة التدوير", t:"n"},
+                    {en:"relationship", ar:"علاقة", t:"n"},
+                    {en:"shade", ar:"ظل / يظلل", t:"n/v"},
+                    {en:"stressed", ar:"مضغوط / متوتر", t:"adj"},
+                    {en:"tap", ar:"ينقر / يضرب بخفة", t:"v"},
+                    {en:"teamwork", ar:"العمل الجماعي", t:"n"},
+                    {en:"upstairs", ar:"بالطابق العلوي / بالأعلى", t:"adv"},
+                    {en:"wrap", ar:"يلف / يغلف", t:"v"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"change your own heart", ar:"غير قناعاتك الداخلية"},
+                    {en:"give a speech", ar:"يلقي خطاباً"},
+                    {en:"have something in common", ar:"لديهم شيء مشترك"},
+                    {en:"make a big difference", ar:"يحدث فرقاً كبيراً"},
+                    {en:"mirror her mood", ar:"يعكس حالتها النفسية"},
+                    {en:"stay in my mind", ar:"يبقى في ذهني"},
+                    {en:"belief in", ar:"إيمان بـ", t:"prep"},
+                    {en:"care about", ar:"يهتم بـ", t:"prep"},
+                    {en:"chat about", ar:"يدردش بخصوص", t:"prep"},
+                    {en:"isolated from", ar:"معزول عن", t:"prep"},
+                    {en:"speak up", ar:"يعبر عن الرأي", t:"prep"},
+                    {en:"stare at", ar:"يحدق في", t:"prep"},
+                    {en:"tap on", ar:"ينقر / ينقر على", t:"prep"},
+                    {en:"wrap around", ar:"يلتف حول", t:"prep"}
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    {en:"emergency", ar:"حالة الطوارئ", t:"n"},
+                    {en:"obligation", ar:"إلتزام / فرض", t:"n"},
+                    {en:"protect", ar:"يحمي", t:"v"},
+                    {en:"rescue", ar:"ينقذ", t:"v"},
+                    {en:"risky", ar:"خطير / محفوف بالمخاطر", t:"adj"},
+                    {en:"trust", ar:"ثقة / يثق", t:"n/v"}
+                ],
+                "Reading & Listening": [
+                    {en:"accident", ar:"حادثة", t:"n"},
+                    {en:"aspect", ar:"جانب", t:"n"},
+                    {en:"assist", ar:"يساعد", t:"v"},
+                    {en:"attend", ar:"يحضر", t:"v"},
+                    {en:"background", ar:"خلفية", t:"n"},
+                    {en:"breathe", ar:"يتنفس", t:"v"},
+                    {en:"burning", ar:"مشتعل", t:"adj"},
+                    {en:"cheat", ar:"يغش / غشاش", t:"v/n"},
+                    {en:"citizen", ar:"مواطن", t:"n"},
+                    {en:"classmate", ar:"زميل الفصل", t:"n"},
+                    {en:"comfort", ar:"راحة", t:"n"},
+                    {en:"community service", ar:"خدمة المجتمع", t:"n"},
+                    {en:"contribution", ar:"مساهمة", t:"n"},
+                    {en:"cooperate", ar:"يتعاون", t:"v"},
+                    {en:"cost", ar:"تكلفة / يكلف", t:"n/v"},
+                    {en:"danger", ar:"خطر", t:"n"},
+                    {en:"drown", ar:"يغرق", t:"v"},
+                    {en:"duty", ar:"واجب / مسؤولية", t:"n"},
+                    {en:"efforts", ar:"جهود", t:"n"},
+                    {en:"elections", ar:"الانتخابات", t:"n"},
+                    {en:"empathy", ar:"تعاطف", t:"n"},
+                    {en:"essential", ar:"أساسي / ضروری", t:"adj"},
+                    {en:"experience", ar:"يقوم بتجربة أو يجرب / خبرة", t:"v/n"},
+                    {en:"fear", ar:"يخاف من / خوف", t:"v/n"},
+                    {en:"financial", ar:"مادي / مالی", t:"adj"},
+                    {en:"firefighter", ar:"رجل المطافئ", t:"n"},
+                    {en:"floods", ar:"فيضانات", t:"n"},
+                    {en:"forever", ar:"للأبد", t:"adv"},
+                    {en:"gain", ar:"يكتسب", t:"v"},
+                    {en:"heat", ar:"حرارة", t:"n"},
+                    {en:"helmet", ar:"خوذة", t:"n"},
+                    {en:"injured", ar:"مصاب", t:"adj"},
+                    {en:"ladder", ar:"سلم", t:"n"},
+                    {en:"law", ar:"قانون", t:"n"},
+                    {en:"leadership", ar:"قيادة", t:"n"},
+                    {en:"lifeguard", ar:"المنقذ", t:"n"},
+                    {en:"measure", ar:"يقيس", t:"v"},
+                    {en:"moss", ar:"طحلب", t:"n"},
+                    {en:"motivation", ar:"دافع / تحفيز", t:"n"},
+                    {en:"national", ar:"قومي / محلي", t:"adj"},
+                    {en:"obey", ar:"يطيع / يتبع", t:"v"},
+                    {en:"overall", ar:"إجمالي", t:"adj"},
+                    {en:"paid employment", ar:"وظيفة مدفوعة", t:"n"},
+                    {en:"participate", ar:"يشارك", t:"v"},
+                    {en:"partner", ar:"شريك", t:"n"},
+                    {en:"patience", ar:"صبر", t:"n"},
+                    {en:"practical", ar:"عملي", t:"adj"},
+                    {en:"property", ar:"ممتلكات", t:"n"},
+                    {en:"public", ar:"عام", t:"adj"},
+                    {en:"retire", ar:"يتقاعد", t:"v"},
+                    {en:"retired professionals", ar:"محترفون متقاعدون", t:"n"},
+                    {en:"reward", ar:"يكافئ / مكافأة", t:"v/n"},
+                    {en:"rough", ar:"خشن / قاس", t:"adj"},
+                    {en:"satisfaction", ar:"رضا", t:"n"},
+                    {en:"scenarios", ar:"تصورات / سيناريوهات", t:"n"},
+                    {en:"serious", ar:"جاد / خطير", t:"adj"},
+                    {en:"serve", ar:"يخدم", t:"v"},
+                    {en:"shake", ar:"يهتز", t:"v"},
+                    {en:"situation", ar:"موقف", t:"n"},
+                    {en:"skills", ar:"مهارات", t:"n"},
+                    {en:"skin", ar:"بشرة / جلد البشرة", t:"n"},
+                    {en:"social", ar:"اجتماعي", t:"adj"},
+                    {en:"storm", ar:"عاصفة", t:"n"},
+                    {en:"strengthen", ar:"يقوى / يعزز", t:"v"},
+                    {en:"sudden", ar:"مفاجئ", t:"adj"},
+                    {en:"traffic rules", ar:"قواعد المرور", t:"n"},
+                    {en:"training", ar:"تدريب", t:"n"},
+                    {en:"trap", ar:"يحتجز", t:"v"},
+                    {en:"treat", ar:"يعالج / يعامل", t:"v"},
+                    {en:"truth", ar:"حقيقة / صدق", t:"n"},
+                    {en:"valuable", ar:"قيم", t:"adj"},
+                    {en:"visible", ar:"مرئي", t:"adj"},
+                    {en:"voluntary", ar:"تطوعي", t:"adj"},
+                    {en:"vote", ar:"يدلي بصوته / صوت", t:"v/n"},
+                    {en:"waste", ar:"يضيع / يُبذّر", t:"v"},
+                    {en:"wealth", ar:"ثروة", t:"n"},
+                    {en:"worth", ar:"مستحق / جدير", t:"adj"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"ask for help", ar:"يطلب المساعدة"},
+                    {en:"build connections", ar:"يكون علاقات"},
+                    {en:"do a job", ar:"يؤدى وظيفة"},
+                    {en:"face dangers", ar:"يواجه المخاطر"},
+                    {en:"give time to", ar:"يمنح الوقت لـ"},
+                    {en:"keep safe", ar:"يحافظ على الأمان"},
+                    {en:"no matter the cost", ar:"مهما كلف الأمر"},
+                    {en:"on fire", ar:"مشتعل"},
+                    {en:"stay calm", ar:"يبقى هادئاً"},
+                    {en:"believe in", ar:"يؤمن بـ", t:"prep"},
+                    {en:"covered in", ar:"مغطى بـ", t:"prep"},
+                    {en:"fear of", ar:"الخوف من", t:"prep"},
+                    {en:"feeling about", ar:"الشعور بـ", t:"prep"},
+                    {en:"learn about", ar:"يعرف على", t:"prep"},
+                    {en:"move ... out", ar:"ينقل / يحرك", t:"prep"},
+                    {en:"protect ... from", ar:"يحمي من", t:"prep"},
+                    {en:"put out", ar:"يطفئ", t:"prep"},
+                    {en:"save ... from", ar:"ينقذ من", t:"prep"},
+                    {en:"stand on", ar:"يقف على", t:"prep"},
+                    {en:"valuable for", ar:"قيم لـ", t:"prep"},
+                    {en:"work as", ar:"يعمل كـ", t:"prep"}
+                ],
+                "Derivatives": [
+                    {en:"breathe", ar:"يتنفس", t:"v"},
+                    {en:"breath", ar:"النفس", t:"n"},
+                    {en:"breathless", ar:"لاهث الأنفاس", t:"adj"},
+                    {en:"finance", ar:"يمول", t:"v"},
+                    {en:"finance", ar:"تمويل", t:"n"},
+                    {en:"financial", ar:"مالى", t:"adj"},
+                    {en:"protect", ar:"يحمى", t:"v"},
+                    {en:"protection", ar:"حماية", t:"n"},
+                    {en:"protective", ar:"حامٍ / واقٍ", t:"adj"},
+                    {en:"rescue", ar:"ينقذ", t:"v"},
+                    {en:"rescue", ar:"إنقاذ", t:"n"},
+                    {en:"rescuer", ar:"منقذ", t:"n"},
+                    {en:"rescued", ar:"مُنقَذ", t:"adj"},
+                    {en:"reward", ar:"يكافئ", t:"v"},
+                    {en:"reward", ar:"مكافأة", t:"n"},
+                    {en:"rewarding", ar:"مجزٍ", t:"adj"},
+                    {en:"risk", ar:"يخاطر", t:"v"},
+                    {en:"risk", ar:"خطر / مخاطرة", t:"n"},
+                    {en:"risky", ar:"محفوف بالمخاطر", t:"adj"},
+                    {en:"save", ar:"ينقذ", t:"v"},
+                    {en:"safety", ar:"أمان", t:"n"},
+                    {en:"safe", ar:"آمن", t:"adj"},
+                    {en:"serve", ar:"يخدم", t:"v"},
+                    {en:"service", ar:"خدمة", t:"n"},
+                    {en:"serviceable", ar:"صالح للاستخدام", t:"adj"},
+                    {en:"trust", ar:"يثق", t:"v"},
+                    {en:"trust", ar:"ثقة", t:"n"},
+                    {en:"trustworthy", ar:"جدير بالثقة", t:"adj"}
+                ]
+            }
+        },
+        u3: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"betray", ar:"يخون / يغدر", t:"v"},
+                    {en:"deceive", ar:"يخدع", t:"v"},
+                    {en:"exploit", ar:"يستغل", t:"v"},
+                    {en:"interaction", ar:"تفاعل / رد فعل", t:"n"},
+                    {en:"reputation", ar:"سمعة / شهرة", t:"n"},
+                    {en:"scam", ar:"احتيال", t:"n"},
+                    {en:"supportive", ar:"داعم", t:"adj"},
+                    {en:"tactics", ar:"تكتيكات / أساليب", t:"n"}
+                ],
+                "Reading & Listening": [
+                    {en:"act", ar:"يتصرف / فعل", t:"v/n"},
+                    {en:"advisor", ar:"مستشار", t:"n"},
+                    {en:"apology", ar:"اعتذار", t:"n"},
+                    {en:"appearance", ar:"مظهر", t:"n"},
+                    {en:"boundary", ar:"حد", t:"n"},
+                    {en:"bright", ar:"لامع / مشرق", t:"adj"},
+                    {en:"cautious", ar:"حريص / حذر", t:"adj"},
+                    {en:"charity", ar:"جمعية خيرية", t:"n"},
+                    {en:"confirm", ar:"يؤكد", t:"v"},
+                    {en:"contract", ar:"عقد", t:"n"},
+                    {en:"data", ar:"بيانات", t:"n"},
+                    {en:"deal", ar:"صفقة / اتفاق", t:"n"},
+                    {en:"deception", ar:"خداع", t:"n"},
+                    {en:"embarrassed", ar:"مُحرج", t:"adj"},
+                    {en:"emotionally", ar:"عاطفياً", t:"adv"},
+                    {en:"emotions", ar:"عواطف", t:"n"},
+                    {en:"fake", ar:"مزيف", t:"adj"},
+                    {en:"favor", ar:"معروف / خدمة", t:"n"},
+                    {en:"goodness", ar:"خير", t:"n"},
+                    {en:"grand", ar:"كبير", t:"adj"},
+                    {en:"guard", ar:"يحمي / يحرس", t:"v"},
+                    {en:"guilty", ar:"مذنِب", t:"adj"},
+                    {en:"hide", ar:"يخفي", t:"v"},
+                    {en:"honesty", ar:"صدق / أمانة", t:"n"},
+                    {en:"intention", ar:"نية", t:"n"},
+                    {en:"lie", ar:"كذبة / يكذب", t:"n/v"},
+                    {en:"limited", ar:"محدد", t:"adj"},
+                    {en:"paperwork", ar:"أوراق رسمية / معاملات", t:"n"},
+                    {en:"pause", ar:"توقف مؤقت / يتوقف", t:"n/v"},
+                    {en:"payment", ar:"دفع (مال)", t:"n"},
+                    {en:"platform", ar:"منصة", t:"n"},
+                    {en:"practical", ar:"عملي", t:"adj"},
+                    {en:"pressure", ar:"ضغط / يضغط", t:"n/v"},
+                    {en:"pretend", ar:"يتظاهر", t:"v"},
+                    {en:"profit", ar:"ربح", t:"n"},
+                    {en:"provide", ar:"يوفر", t:"v"},
+                    {en:"psychologist", ar:"عالم نفسي / أخصائي نفسي", t:"n"},
+                    {en:"real-life", ar:"واقعي (في الحياة الحقيقية)", t:"adj"},
+                    {en:"reliable", ar:"موثوق به", t:"adj"},
+                    {en:"rushed", ar:"مستعجل", t:"adj"},
+                    {en:"shine", ar:"يلمع / لمعان", t:"v/n"},
+                    {en:"sign", ar:"إشارة / علامة / يوقع", t:"n/v"},
+                    {en:"spread", ar:"ينشر / انتشار", t:"v/n"},
+                    {en:"suspicious", ar:"مريب / مرتاب", t:"adj"},
+                    {en:"talks", ar:"محادثات / مناقشات", t:"n"},
+                    {en:"teenagers", ar:"مراهقون", t:"n"},
+                    {en:"theft", ar:"سرقة", t:"n"},
+                    {en:"topic", ar:"موضوع", t:"n"},
+                    {en:"trick", ar:"يخدع / خدعة", t:"v/n"},
+                    {en:"trustworthy", ar:"جدير بالثقة", t:"adj"},
+                    {en:"truthful", ar:"صادق", t:"adj"},
+                    {en:"victim", ar:"ضحية", t:"n"},
+                    {en:"warning", ar:"تحذيري", t:"adj"},
+                    {en:"workplace", ar:"مكان عمل", t:"n"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"too good to be true", ar:"جيد جداً لدرجة يصعب تصديقها"},
+                    {en:"wolves in sheep's clothing", ar:"ذئاب في ثياب حملان"},
+                    {en:"caught in a trap", ar:"محاصرون في فخ"},
+                    {en:"trust, but verify", ar:"ثق، ولكن تأكد"},
+                    {en:"apply / put pressure on", ar:"يمارس / يضع ضغطاً على"},
+                    {en:"build / make strong friendships", ar:"يبني صداقات قوية"},
+                    {en:"face-to-face interactions", ar:"التفاعلات وجهاً لوجه – التفاعلات المباشرة"},
+                    {en:"give a truthful answer", ar:"يعطي إجابة صادقة"},
+                    {en:"in fact", ar:"في الواقع"},
+                    {en:"in return", ar:"في المقابل"},
+                    {en:"keep his promises", ar:"يفي بوعوده"},
+                    {en:"make a promise", ar:"يقدم وعداً"},
+                    {en:"make quick money", ar:"يربح مالاً سريعاً"},
+                    {en:"put on a friendly face", ar:"يتظاهر بالود"},
+                    {en:"take advantage of", ar:"يستغل (استغلال سلبي)"},
+                    {en:"take control of", ar:"يسيطر على"},
+                    {en:"try to use you", ar:"يحاول استغلالك"}
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    {en:"awareness", ar:"وعي / معرفة", t:"n"},
+                    {en:"defense", ar:"دفاع / حماية", t:"n"},
+                    {en:"invisible", ar:"خفي / غير مرئي", t:"adj"},
+                    {en:"misinformation", ar:"معلومات مضللة", t:"n"},
+                    {en:"ruin", ar:"يدمر / يخرب / دمار", t:"v/n"},
+                    {en:"rumors", ar:"شائعات", t:"n"},
+                    {en:"trust", ar:"ثقة / يثق", t:"n/v"}
+                ],
+                "Reading & Listening": [
+                    {en:"advertisement", ar:"إعلان", t:"n"},
+                    {en:"affect", ar:"يؤثر على", t:"v"},
+                    {en:"appreciate", ar:"يقدر", t:"v"},
+                    {en:"attack", ar:"هجوم / يهاجم", t:"n/v"},
+                    {en:"authentic", ar:"أصلي / حقيقي", t:"adj"},
+                    {en:"authenticity", ar:"أصالة / مصداقية", t:"n"},
+                    {en:"avoid", ar:"يتجنب", t:"v"},
+                    {en:"battle", ar:"معركة", t:"n"},
+                    {en:"blog post", ar:"منشور / مدونة", t:"n"},
+                    {en:"bomb", ar:"قنبلة / يقصف", t:"n/v"},
+                    {en:"bullet", ar:"طلقة / رصاصة", t:"n"},
+                    {en:"button", ar:"زر", t:"n"},
+                    {en:"combine", ar:"يدمج", t:"v"},
+                    {en:"confidence", ar:"ثقة بالنفس", t:"n"},
+                    {en:"conflict", ar:"صراع", t:"n"},
+                    {en:"confused", ar:"مرتبك", t:"adj"},
+                    {en:"creativity", ar:"إبداع", t:"n"},
+                    {en:"critical", ar:"حرج / انتقادي", t:"adj"},
+                    {en:"cruel", ar:"قاسٍ", t:"adj"},
+                    {en:"curious", ar:"فضولي", t:"adj"},
+                    {en:"cyber bullying", ar:"التنمر الإلكتروني", t:"n"},
+                    {en:"destroy", ar:"يدمر", t:"v"},
+                    {en:"edited", ar:"مُحرَّر", t:"adj"},
+                    {en:"fight", ar:"يقاتل / يحارب", t:"v"},
+                    {en:"followers", ar:"متابعون", t:"n"},
+                    {en:"genuine", ar:"أصيل / حقيقي", t:"adj"},
+                    {en:"half-truth", ar:"نصف الحقيقة", t:"n"},
+                    {en:"headline", ar:"عنوان رئيسي", t:"n"},
+                    {en:"icon", ar:"أيقونة / رمز", t:"n"},
+                    {en:"illusion", ar:"وهم", t:"n"},
+                    {en:"imitation", ar:"تقليد", t:"n"},
+                    {en:"impression", ar:"انطباع", t:"n"},
+                    {en:"individuals", ar:"أفراد", t:"n"},
+                    {en:"inspiring", ar:"ملهم", t:"adj"},
+                    {en:"luxury", ar:"رفاهية", t:"n"},
+                    {en:"misleading", ar:"مضلل", t:"adj"},
+                    {en:"motivate", ar:"يحفز / يشجع", t:"v"},
+                    {en:"news story", ar:"خبر صحفي", t:"n"},
+                    {en:"openness", ar:"انفتاح", t:"n"},
+                    {en:"panic", ar:"فزع / يفزع", t:"n/v"},
+                    {en:"perfect", ar:"مثالي / كامل", t:"adj"},
+                    {en:"perfection", ar:"كمال", t:"n"},
+                    {en:"popular", ar:"شائع / محبوب", t:"adj"},
+                    {en:"pour", ar:"يسكب", t:"v"},
+                    {en:"press", ar:"يضغط", t:"v"},
+                    {en:"process", ar:"عملية", t:"n"},
+                    {en:"product", ar:"منتج", t:"n"},
+                    {en:"questioning mind", ar:"عقل ناقد", t:"n"},
+                    {en:"require", ar:"يتطلب", t:"v"},
+                    {en:"resources", ar:"موارد", t:"n"},
+                    {en:"role model", ar:"قدوة حسنة", t:"n"},
+                    {en:"scientific", ar:"علمي", t:"adj"},
+                    {en:"sensational", ar:"مثير", t:"adj"},
+                    {en:"sincerity", ar:"إخلاص", t:"n"},
+                    {en:"staged lifestyles", ar:"أنماط حياة مسرحية", t:"n"},
+                    {en:"tank", ar:"دبابة", t:"n"},
+                    {en:"violence", ar:"عنف", t:"n"},
+                    {en:"weapons", ar:"أسلحة", t:"n"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"across the world", ar:"عبر العالم"},
+                    {en:"at least", ar:"على الأقل"},
+                    {en:"create lasting impressions", ar:"يترك انطباعات دائمة"},
+                    {en:"gain more followers", ar:"يكسب المزيد من المتابعين"},
+                    {en:"give us the chance", ar:"يمنحنا الفرصة"},
+                    {en:"make ... angry", ar:"يجعل ... غاضباً"},
+                    {en:"send a strong message", ar:"يرسل رسالة قوية"},
+                    {en:"take steps", ar:"يتخذ خطوات"},
+                    {en:"benefit from", ar:"يستفيد من", t:"prep"},
+                    {en:"combine ... with", ar:"يدمج ... مع", t:"prep"},
+                    {en:"fight back", ar:"يقاوم", t:"prep"},
+                    {en:"fight over", ar:"يتقاتل على", t:"prep"},
+                    {en:"reflect on", ar:"يفكر / يتأمل في", t:"prep"},
+                    {en:"spread through / across", ar:"ينتشر عبر / خلال", t:"prep"}
+                ]
+            }
+        },
+        u4: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"campaign", ar:"حملة / يقوم بحملة", t:"n/v"},
+                    {en:"concerns", ar:"اهتمامات / مخاوف", t:"n"},
+                    {en:"depletion", ar:"استهلاك / نفاد", t:"n"},
+                    {en:"eco-friendly", ar:"صديق للبيئة", t:"adj"},
+                    {en:"initiative", ar:"مبادرة", t:"n"},
+                    {en:"landfill", ar:"مكب النفايات", t:"n"},
+                    {en:"reduce", ar:"يقلل", t:"v"},
+                    {en:"renewable", ar:"متجدد", t:"adj"},
+                    {en:"reusable", ar:"قابل لإعادة الاستخدام", t:"adj"},
+                    {en:"slogan", ar:"شعار", t:"n"},
+                    {en:"sustainable", ar:"مستدام", t:"adj"},
+                    {en:"swap", ar:"يتبادل / يقايض", t:"v"},
+                    {en:"waste", ar:"مخلفات", t:"n"}
+                ],
+                "Reading & Listening": [
+                    {en:"achieve", ar:"يحقق", t:"v"},
+                    {en:"across", ar:"عبر", t:"adv"},
+                    {en:"adopt", ar:"يتبنى / يتخذ", t:"v"},
+                    {en:"alternative", ar:"بديل", t:"adj/n"},
+                    {en:"amount", ar:"كمية", t:"n"},
+                    {en:"approach", ar:"نهج / طريقة", t:"n"},
+                    {en:"automobile", ar:"سيارة", t:"n"},
+                    {en:"balance", ar:"يوازن / توازن", t:"v/n"},
+                    {en:"commitment", ar:"التزام / تعهد", t:"n"},
+                    {en:"concept", ar:"مفهوم / مصطلح", t:"n"},
+                    {en:"consultant", ar:"مستشار / خبير", t:"n"},
+                    {en:"consumer", ar:"مستهلك", t:"n"},
+                    {en:"convince", ar:"يقنع", t:"v"},
+                    {en:"costly", ar:"مكلف", t:"adj"},
+                    {en:"damage", ar:"يدمر / دمار", t:"v/n"},
+                    {en:"discussion", ar:"مناقشة", t:"n"},
+                    {en:"effect", ar:"تأثير", t:"n"},
+                    {en:"essential", ar:"ضروري", t:"adj"},
+                    {en:"exchange", ar:"يتبادل", t:"v"},
+                    {en:"expand", ar:"يوسع", t:"v"},
+                    {en:"fashionable", ar:"مساير للموضة / عصري", t:"adj"},
+                    {en:"fight", ar:"حرب / يحارب", t:"n/v"},
+                    {en:"forum", ar:"منتدى", t:"n"},
+                    {en:"generation", ar:"جيل", t:"n"},
+                    {en:"global warming", ar:"الاحتباس الحراري", t:"n"},
+                    {en:"goods", ar:"بضائع", t:"n"},
+                    {en:"harm", ar:"يؤذي", t:"v"},
+                    {en:"harmful", ar:"ضار", t:"adj"},
+                    {en:"honored", ar:"متشرف / لديه الشرف", t:"adj"},
+                    {en:"individual", ar:"فرد / شخص", t:"n"},
+                    {en:"Industrial Revolution", ar:"الثورة الصناعية", t:"n"},
+                    {en:"industry", ar:"صناعة", t:"n"},
+                    {en:"issue", ar:"قضية / موضوع", t:"n"},
+                    {en:"large-scale", ar:"على نطاق واسع / ضخم", t:"adj"},
+                    {en:"long-term", ar:"طويل الأجل", t:"adj"},
+                    {en:"machine", ar:"آلة / ماكينة", t:"n"},
+                    {en:"major", ar:"رئيسي", t:"adj"},
+                    {en:"manufacturer", ar:"صانع / مصنّع", t:"n"},
+                    {en:"manufacturing", ar:"تصنيع", t:"n"},
+                    {en:"material", ar:"مادة خام", t:"n"},
+                    {en:"mention", ar:"يذكر", t:"v"},
+                    {en:"misuse", ar:"إساءة استخدام", t:"n"},
+                    {en:"natural resources", ar:"موارد طبيعية", t:"n"},
+                    {en:"outcome", ar:"حصيلة / أثر", t:"n"},
+                    {en:"overuse", ar:"إفراط في الاستخدام", t:"n"},
+                    {en:"plant", ar:"مصنع", t:"n"},
+                    {en:"plastic bags", ar:"أكياس بلاستيك", t:"n"},
+                    {en:"preserve", ar:"يحافظ على / يحفظ", t:"v"},
+                    {en:"process", ar:"عملية", t:"n"},
+                    {en:"produce", ar:"ينتج", t:"v"},
+                    {en:"profit", ar:"مكسب", t:"n"},
+                    {en:"promote", ar:"يرقي / يطور", t:"v"},
+                    {en:"purpose", ar:"غرض", t:"n"},
+                    {en:"social media", ar:"وسائل التواصل الاجتماعي", t:"n"},
+                    {en:"unwanted", ar:"غير مرغوب فيه", t:"adj"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"at a time", ar:"في المرة الواحدة / في آن واحد"},
+                    {en:"climate change", ar:"تغير المناخ"},
+                    {en:"environmentally friendly", ar:"صديق للبيئة"},
+                    {en:"for this reason", ar:"لهذا السبب"},
+                    {en:"go green", ar:"يتبع نهجاً صديقاً للبيئة"},
+                    {en:"green practices", ar:"ممارسات خضراء (صديقة للبيئة)"},
+                    {en:"in two ways", ar:"بطريقتين"},
+                    {en:"make changes", ar:"يُجري تغييرات"},
+                    {en:"play a role in", ar:"يلعب دوراً في"},
+                    {en:"take the initiative", ar:"يأخذ زمام المبادرة / يبادر"},
+                    {en:"widely used", ar:"مستخدم على نطاق واسع"}
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    {en:"assembly", ar:"مؤتمر / اجتماع", t:"n"},
+                    {en:"drip", ar:"قطرة (مياه) / يقطر / ينقط", t:"n/v"},
+                    {en:"impact", ar:"تأثير / يؤثر على", t:"n/v"},
+                    {en:"leak", ar:"تسرب / يسرب", t:"n/v"},
+                    {en:"mission", ar:"مهمة / مأمورية / بعثة", t:"n"},
+                    {en:"observations", ar:"ملاحظات", t:"n"},
+                    {en:"record", ar:"يسجل", t:"v"},
+                    {en:"survey", ar:"استطلاع رأي / يستطلع", t:"n/v"}
+                ],
+                "Reading & Listening": [
+                    {en:"active", ar:"نشيط / نشط", t:"adj"},
+                    {en:"avoid", ar:"يتجنب", t:"v"},
+                    {en:"bright", ar:"مشرق / مضيء / لامع", t:"adj"},
+                    {en:"chart", ar:"رسم بياني / خريطة", t:"n"},
+                    {en:"check", ar:"يفحص / يتأكد", t:"v"},
+                    {en:"cleaner", ar:"المنظف / عامل نظافة", t:"n"},
+                    {en:"collect", ar:"يجمع", t:"v"},
+                    {en:"competition", ar:"مسابقة / منافسة", t:"n"},
+                    {en:"completely", ar:"بشكل كامل / بالكامل", t:"adv"},
+                    {en:"create", ar:"يخلق / يبتكر", t:"v"},
+                    {en:"cycle", ar:"يركب دراجة", t:"v"},
+                    {en:"Eiffel Tower", ar:"برج إيفل", t:"n"},
+                    {en:"finding", ar:"نتيجة / اكتشاف", t:"n"},
+                    {en:"fountain", ar:"نافورة", t:"n"},
+                    {en:"ignore", ar:"يهمل / يتجاهل", t:"v"},
+                    {en:"include", ar:"يتضمن", t:"v"},
+                    {en:"inspire", ar:"يلهم", t:"v"},
+                    {en:"junk food", ar:"طعام جاهز / سريع", t:"n"},
+                    {en:"notebook", ar:"مفكرة / مذكرة", t:"n"},
+                    {en:"notice", ar:"يلاحظ / ملاحظة", t:"v/n"},
+                    {en:"observation", ar:"ملاحظة / متابعة", t:"n"},
+                    {en:"observe", ar:"يلاحظ / يراقب", t:"v"},
+                    {en:"planet", ar:"كوكب", t:"n"},
+                    {en:"playground", ar:"ملعب", t:"n"},
+                    {en:"present", ar:"يقدم", t:"v"},
+                    {en:"prove", ar:"يثبت", t:"v"},
+                    {en:"public spaces", ar:"الأماكن العامة", t:"n"},
+                    {en:"rainwater", ar:"مياه الأمطار", t:"n"},
+                    {en:"research", ar:"بحث (علمي)", t:"n"},
+                    {en:"rest", ar:"بقية / استراحة", t:"n"},
+                    {en:"result", ar:"نتيجة", t:"n"},
+                    {en:"reuse", ar:"يعيد الاستخدام", t:"v"},
+                    {en:"science lab", ar:"معمل العلوم", t:"n"},
+                    {en:"sink", ar:"حوض", t:"n"},
+                    {en:"sources", ar:"مصادر", t:"n"},
+                    {en:"special", ar:"خاص / مميز", t:"adj"},
+                    {en:"suggest", ar:"يقترح", t:"v"},
+                    {en:"tap", ar:"حنفية / صنبور", t:"n"},
+                    {en:"tiny", ar:"ضئيل (صغير جداً)", t:"adj"},
+                    {en:"unique", ar:"فريد من نوعه / متفرد", t:"adj"},
+                    {en:"unplug", ar:"يسحب / يفصل القابس (الفيشة)", t:"v"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"a greener future", ar:"مستقبل أكثر خضرة / مستقبل أكثر حفاظاً على البيئة"},
+                    {en:"do / conduct a survey", ar:"يُجري استطلاعاً"},
+                    {en:"do research", ar:"يُجري بحثاً"},
+                    {en:"for the first time", ar:"لأول مرة"},
+                    {en:"free time", ar:"وقت الفراغ"},
+                    {en:"help save water", ar:"يساعد في توفير / الحفاظ على المياه"},
+                    {en:"make a difference", ar:"يحدث تغييراً"},
+                    {en:"play a part in", ar:"يساهم في / يلعب دوراً في"},
+                    {en:"taps were left running", ar:"تُرِكَت الحنفيات مفتوحة"},
+                    {en:"harm to", ar:"ضرر لـ", t:"prep"},
+                    {en:"in use", ar:"قيد الاستخدام", t:"prep"},
+                    {en:"instead of", ar:"بدلاً من", t:"prep"},
+                    {en:"responsibility for", ar:"مسئولية لـ", t:"prep"},
+                    {en:"turn off", ar:"يطفئ / يفصل", t:"prep"},
+                    {en:"turn on", ar:"يشغل / يضيء", t:"prep"}
+                ]
+            }
+        },
+        u5: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"collaborate", ar:"يتعاون", t:"v"},
+                    {en:"dedicate", ar:"يكرس", t:"v"},
+                    {en:"exchange program", ar:"برنامج تبادلي", t:"n"},
+                    {en:"expand", ar:"يتوسع / يتمدد", t:"v"},
+                    {en:"fluency", ar:"فصاحة / طلاقة اللغة", t:"n"},
+                    {en:"fluent", ar:"فصيح / طليق (في اللغة)", t:"adj"},
+                    {en:"hesitate", ar:"يتردد", t:"v"},
+                    {en:"perspective", ar:"وجهة نظر", t:"n"},
+                    {en:"process", ar:"عملية", t:"n"},
+                    {en:"tolerance", ar:"التسامح / تقبل الآخر", t:"n"}
+                ],
+                "Reading & Listening": [
+                    {en:"ability", ar:"القدرة", t:"n"},
+                    {en:"activities", ar:"أنشطة", t:"n"},
+                    {en:"avoid", ar:"يتجنب", t:"v"},
+                    {en:"benefit", ar:"فائدة", t:"n"},
+                    {en:"broad", ar:"واسع / عريض", t:"adj"},
+                    {en:"clearly", ar:"بوضوح", t:"adv"},
+                    {en:"connected", ar:"مترابط / متصل", t:"adj"},
+                    {en:"consistent", ar:"مستمر / متسق", t:"adj"},
+                    {en:"consistently", ar:"باستمرار", t:"adv"},
+                    {en:"critical thinking", ar:"تفكير نقدي", t:"n"},
+                    {en:"experience", ar:"تجربة حياتية / خبرة", t:"n"},
+                    {en:"express", ar:"يعبر عن", t:"v"},
+                    {en:"foreign", ar:"أجنبي", t:"adj"},
+                    {en:"global", ar:"عالمي", t:"adj"},
+                    {en:"horizon", ar:"أفق", t:"n"},
+                    {en:"idea", ar:"فكرة", t:"n"},
+                    {en:"imaginary", ar:"خيالي", t:"adj"},
+                    {en:"improvement", ar:"تحسين", t:"n"},
+                    {en:"international", ar:"دولي", t:"adj"},
+                    {en:"leisure time", ar:"وقت الفراغ", t:"n"},
+                    {en:"memorize", ar:"يحفظ", t:"v"},
+                    {en:"memory", ar:"ذاكرة", t:"n"},
+                    {en:"moreover", ar:"علاوة على ذلك", t:"conj"},
+                    {en:"motivated", ar:"مُحفَّز", t:"adj"},
+                    {en:"multicultural", ar:"متعدد الثقافات", t:"adj"},
+                    {en:"multiple", ar:"متعدد", t:"adj"},
+                    {en:"multilingual", ar:"متعدّد اللغات", t:"adj"},
+                    {en:"native language", ar:"اللغة الأم", t:"n"},
+                    {en:"opportunity", ar:"فرصة", t:"n"},
+                    {en:"peer", ar:"قرين / زميل", t:"n"},
+                    {en:"personal", ar:"شخصي", t:"adj"},
+                    {en:"positively", ar:"بإيجابية", t:"adv"},
+                    {en:"problem-solving", ar:"حل المشاكل", t:"n"},
+                    {en:"professional", ar:"محترف", t:"adj/n"},
+                    {en:"proficiency", ar:"كفاءة / إتقان", t:"n"},
+                    {en:"program", ar:"برنامج", t:"n"},
+                    {en:"promote", ar:"يدعم / يرقى / يروج لـ", t:"v"},
+                    {en:"provide", ar:"يزود / يوفر", t:"v"},
+                    {en:"regularly", ar:"بانتظام", t:"adv"},
+                    {en:"relatives", ar:"أقارب", t:"n"},
+                    {en:"remain", ar:"يظل", t:"v"},
+                    {en:"situation", ar:"موقف", t:"n"},
+                    {en:"subtitles", ar:"ترجمة الشاشة (ترجمة الأفلام)", t:"n"},
+                    {en:"time-consuming", ar:"مستهلك للوقت", t:"adj"},
+                    {en:"worldview", ar:"نظرة عالمية", t:"n"},
+                    {en:"worldwide", ar:"عالمياً / عالمي", t:"adv/adj"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"communicate with", ar:"يتواصل مع", t:"prep"},
+                    {en:"connect with", ar:"يتصل بـ", t:"prep"},
+                    {en:"contribute to", ar:"يساهم في", t:"prep"},
+                    {en:"encourage ... to", ar:"يشجع ... على", t:"prep"},
+                    {en:"gain a skill", ar:"يكتسب مهارة"},
+                    {en:"give advice about", ar:"يعطي نصيحة بشأن"},
+                    {en:"hesitate to", ar:"يتردد أن", t:"prep"},
+                    {en:"in addition", ar:"بالإضافة إلى ذلك"},
+                    {en:"in short", ar:"باختصار"},
+                    {en:"interested in", ar:"مهتم بـ", t:"prep"},
+                    {en:"join a competition", ar:"يشارك في مسابقة"},
+                    {en:"key to", ar:"مفتاح لـ (عنصر ضروری / مهم لـ)", t:"prep"},
+                    {en:"make friends", ar:"يُكَوِّن صداقات"},
+                    {en:"move to", ar:"ينتقيل إلى", t:"prep"},
+                    {en:"open the door to", ar:"يفتح مجالاً أمام"},
+                    {en:"participate in", ar:"يشارك في", t:"prep"},
+                    {en:"perspective on", ar:"وجهة نظر عن", t:"prep"},
+                    {en:"promote respect", ar:"يعزز الاحترام"},
+                    {en:"remain / stay motivated", ar:"يبقى مُحَفَّزاً"},
+                    {en:"return to", ar:"يعود إلى", t:"prep"},
+                    {en:"speak to", ar:"يتحدث إلى", t:"prep"}
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    {en:"anxious", ar:"قلق", t:"adj"},
+                    {en:"complicated", ar:"معقد", t:"adj"},
+                    {en:"confident", ar:"واثق", t:"adj"},
+                    {en:"enriching", ar:"مثمر / مفيد", t:"adj"}
+                ],
+                "Reading & Listening": [
+                    {en:"abroad", ar:"في الخارج", t:"adv"},
+                    {en:"accidentally", ar:"بشكل عارض", t:"adv"},
+                    {en:"adjust", ar:"يعدل / يتكيف", t:"v"},
+                    {en:"adventure", ar:"مغامرة", t:"n"},
+                    {en:"afraid", ar:"خائف", t:"adj"},
+                    {en:"appreciate", ar:"يقدر", t:"v"},
+                    {en:"apps", ar:"تطبيقات", t:"n"},
+                    {en:"artificial intelligence", ar:"الذكاء الاصطناعي", t:"n"},
+                    {en:"check", ar:"فحص / يفحص", t:"n/v"},
+                    {en:"contraction", ar:"اختصار", t:"n"},
+                    {en:"dictionary", ar:"قاموس", t:"n"},
+                    {en:"difficulty", ar:"صعوبة", t:"n"},
+                    {en:"download", ar:"يحمل / ينزل", t:"v"},
+                    {en:"effective", ar:"فعال", t:"adj"},
+                    {en:"embarrassed", ar:"مُحرج", t:"adj"},
+                    {en:"excited", ar:"متحمس", t:"adj"},
+                    {en:"explain", ar:"يشرح / يفسر", t:"v"},
+                    {en:"face", ar:"يواجه", t:"v"},
+                    {en:"greet", ar:"يحيي", t:"v"},
+                    {en:"happen", ar:"يحدث", t:"v"},
+                    {en:"impatient", ar:"غير صبور", t:"adj"},
+                    {en:"informal", ar:"غير رسمي", t:"adj"},
+                    {en:"joy", ar:"فرح / متعة", t:"n"},
+                    {en:"later", ar:"فيما بعد", t:"adv"},
+                    {en:"locals", ar:"السكان المحليون", t:"n"},
+                    {en:"lose", ar:"يفقد / يخسر", t:"v"},
+                    {en:"meaningful", ar:"ذو معنى", t:"adj"},
+                    {en:"nervous", ar:"متوتر", t:"adj"},
+                    {en:"officer", ar:"ضابط", t:"n"},
+                    {en:"pass", ar:"يمر", t:"v"},
+                    {en:"phrase", ar:"عبارة", t:"n"},
+                    {en:"playback options", ar:"خيارات التشغيل", t:"n"},
+                    {en:"podcast", ar:"بودكاست", t:"n"},
+                    {en:"practice", ar:"يمارس / ممارسة", t:"v/n"},
+                    {en:"pronunciation", ar:"نطق", t:"n"},
+                    {en:"quick", ar:"سريع", t:"adj"},
+                    {en:"realize", ar:"يدرك", t:"v"},
+                    {en:"receive", ar:"يستلم", t:"v"},
+                    {en:"show", ar:"يظهر / يبين / يعرض", t:"v"},
+                    {en:"software", ar:"برنامج (برمجيات)", t:"n"},
+                    {en:"solve", ar:"يحل", t:"v"},
+                    {en:"soon", ar:"قريباً", t:"adv"},
+                    {en:"struggle", ar:"يكافح / كفاح", t:"v/n"},
+                    {en:"subject", ar:"موضوع", t:"n"},
+                    {en:"target", ar:"هدف / يستهدف", t:"n/v"},
+                    {en:"trip", ar:"رحلة", t:"n"},
+                    {en:"understand", ar:"يفهم", t:"v"},
+                    {en:"useful", ar:"مفيد", t:"adj"},
+                    {en:"worried", ar:"قلق", t:"adj"}
+                ],
+                "Phrases & Prepositions": [
+                    {en:"adjust to", ar:"يتأقلم / يتكيف مع", t:"prep"},
+                    {en:"afraid of", ar:"خائف بشأن", t:"prep"},
+                    {en:"as days passed", ar:"بمرور الأيام"},
+                    {en:"ask for directions", ar:"يسأل عن الاتجاهات"},
+                    {en:"by the end of", ar:"قبيل نهاية"},
+                    {en:"connect with", ar:"يتصل / يرتبط بـ", t:"prep"},
+                    {en:"deal with", ar:"يتعامل مع", t:"prep"},
+                    {en:"dream of", ar:"يحلم بـ", t:"prep"},
+                    {en:"feel sure of", ar:"يتأكد من", t:"prep"},
+                    {en:"fly to", ar:"يطير إلى", t:"prep"},
+                    {en:"hope for the best", ar:"يأمل للأفضل"},
+                    {en:"join a class", ar:"يلحق بصف دراسي"},
+                    {en:"kind to", ar:"لطيف مع", t:"prep"},
+                    {en:"mastering new languages", ar:"إتقان لغات جديدة"},
+                    {en:"miss a flight", ar:"تفوته رحلة طيران"},
+                    {en:"to his surprise", ar:"لدهشته"},
+                    {en:"travel to", ar:"يسافر إلى", t:"prep"},
+                    {en:"turn into", ar:"يتحول إلى", t:"prep"},
+                    {en:"write down", ar:"يدون / يكتب", t:"prep"}
+                ]
+            }
+        },
+        u6: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "approach", ar: "طريقة / نهج", t: "n" },
+                    { en: "association", ar: "منظمة / جمعية", t: "n" },
+                    { en: "attitude", ar: "اتجاه / شعور / موقف", t: "n" },
+                    { en: "check-ins", ar: "اجتماعات متابعة", t: "n" },
+                    { en: "clear-headed", ar: "صافي الذهن", t: "adj" },
+                    { en: "common ground", ar: "أرضية مشتركة", t: "n" },
+                    { en: "department", ar: "قسم", t: "n" },
+                    { en: "footprint", ar: "بصمة", t: "n" },
+                    { en: "generic", ar: "عام", t: "adj" },
+                    { en: "implement", ar: "ينفذ / يطبق", t: "v" },
+                    { en: "impressive", ar: "مؤثر / مجهر", t: "adj" },
+                    { en: "independently", ar: "بشكل مستقل", t: "adv" },
+                    { en: "innovative", ar: "مبدع / مبتكر", t: "adj" },
+                    { en: "mentor", ar: "مرشد", t: "n" },
+                    { en: "polished", ar: "لامع / جذاب", t: "adj" },
+                    { en: "resume", ar: "سيرة ذاتية", t: "n" },
+                    { en: "silos", ar: "صوامع (فرق عمل معزولة)", t: "n" },
+                    { en: "stakeholders", ar: "مساهمون", t: "n" },
+                    { en: "trends", ar: "اتجاهات / ترندات", t: "n" }
+                ],
+                "Reading & Listening": [
+                    { en: "application", ar: "طلب توظيف", t: "n" },
+                    { en: "assessment", ar: "تقييم", t: "n" },
+                    { en: "behavioral", ar: "سلوكي", t: "adj" },
+                    { en: "candidate", ar: "مرشح", t: "n" },
+                    { en: "challenging", ar: "صعب / متحرٍّ", t: "adj" },
+                    { en: "client", ar: "عميل / زبون", t: "n" },
+                    { en: "colleague", ar: "زميل", t: "n" },
+                    { en: "conferences", ar: "مؤتمرات", t: "n" },
+                    { en: "crisis", ar: "أزمة", t: "n" },
+                    { en: "currently", ar: "حالياً", t: "adv" },
+                    { en: "customize", ar: "يخصص", t: "v" },
+                    { en: "deadline", ar: "الموعد النهائي", t: "n" },
+                    { en: "decade", ar: "عقد (عشر سنوات)", t: "n" },
+                    { en: "employment", ar: "توظيف", t: "n" },
+                    { en: "event", ar: "حدث", t: "n" },
+                    { en: "format", ar: "شكل / تنسيق", t: "n" },
+                    { en: "former", ar: "سابق", t: "adj" },
+                    { en: "highlight", ar: "يظهر / يبرز", t: "v" },
+                    { en: "hire", ar: "يوظف", t: "v" },
+                    { en: "hunt", ar: "بحث / يبحث / يصطاد", t: "n/v" },
+                    { en: "interview", ar: "مقابلة شخصية / حوار", t: "n" },
+                    { en: "involve", ar: "يُشرك", t: "v" },
+                    { en: "keyword", ar: "كلمة مفتاحية", t: "n" },
+                    { en: "launch", ar: "يطلق / إطلاق", t: "v/n" },
+                    { en: "long-term", ar: "طويل المدى", t: "adj" },
+                    { en: "maintain", ar: "يحافظ على / يواصل", t: "v" },
+                    { en: "modify", ar: "يعدل", t: "v" },
+                    { en: "multiple", ar: "متعدد", t: "adj" },
+                    { en: "networking", ar: "تواصل", t: "n" },
+                    { en: "position", ar: "وظيفة / منصب", t: "n" },
+                    { en: "presence", ar: "حضور", t: "n" },
+                    { en: "professional", ar: "مهني / احترافي", t: "adj" },
+                    { en: "profile", ar: "الملف الشخصي", t: "n" },
+                    { en: "recommendation", ar: "توصية", t: "n" },
+                    { en: "regular", ar: "منتظم", t: "adj" },
+                    { en: "relationship", ar: "علاقة", t: "n" },
+                    { en: "relevant", ar: "ذات صلة", t: "adj" },
+                    { en: "response", ar: "استجابة", t: "n" },
+                    { en: "round", ar: "جولة", t: "n" },
+                    { en: "sample", ar: "عينة / نموذج", t: "n" },
+                    { en: "screen", ar: "يتصفح / يتحرى", t: "v" },
+                    { en: "seek", ar: "يبحث عن", t: "v" },
+                    { en: "session", ar: "جلسة", t: "n" },
+                    { en: "specific", ar: "محدد", t: "adj" },
+                    { en: "strategy", ar: "استراتيجية", t: "n" },
+                    { en: "strength", ar: "قوة / نقاط قوة", t: "n" },
+                    { en: "submit", ar: "يرسل / يقدم", t: "v" },
+                    { en: "transform", ar: "يحول / يتحول", t: "v" },
+                    { en: "updated", ar: "مُحدَّث", t: "adj" },
+                    { en: "weakness", ar: "ضعف / نقاط ضعف", t: "n" }
+                ],
+                "Phrases & Prepositions": [
+                    { en: "achieve goals", ar: "يحقق الأهداف" },
+                    { en: "bring people together", ar: "يجمع الناس معاً" },
+                    { en: "get the right job", ar: "يحصل على الوظيفة المناسبة" },
+                    { en: "in the long run", ar: "على المدى البعيد" },
+                    { en: "keep a positive attitude", ar: "يحافظ على موقف إيجابي" },
+                    { en: "land the right opportunity", ar: "اغتنام / الحصول على الفرصة المناسبة" },
+                    { en: "make contact", ar: "يقوم بالتواصل" },
+                    { en: "make or break your chances", ar: "ينجح أو يفشل فرصك" },
+                    { en: "meet a tight deadline", ar: "يلتزم بموعد نهائي صعب" },
+                    { en: "over the past decade", ar: "خلال العقد الماضي" },
+                    { en: "spend too much time on", ar: "يقضي وقتاً طويلاً في" },
+                    { en: "stay calm", ar: "يحافظ على الهدوء" },
+                    { en: "work under pressure", ar: "يعمل تحت ضغط" },
+                    { en: "working in silos", ar: "العمل في عزلة / بدون تعاون" },
+                    { en: "apply to", ar: "يتقدم لـ", t: "prep" },
+                    { en: "focus on", ar: "يركز على", t: "prep" },
+                    { en: "give way to", ar: "يفسح المجال لـ", t: "prep" },
+                    { en: "learn from", ar: "يتعلم من", t: "prep" },
+                    { en: "specialize in", ar: "يتخصص في", t: "prep" },
+                    { en: "spend time on", ar: "يقضي وقتاً في", t: "prep" },
+                    { en: "walk into", ar: "يدخل إلى", t: "prep" }
+                ]
+            },
+            "34": {
+                "Key Vocabulary": [
+                    { en: "analysis", ar: "تحليل", t: "n" },
+                    { en: "coordinator", ar: "منسق (شخص)", t: "n" },
+                    { en: "promotional", ar: "ترويجي", t: "adj" }
+                ],
+                "Reading & Listening": [
+                    { en: "achievement", ar: "إنجاز", t: "n" },
+                    { en: "analytics", ar: "تحليلات", t: "n" },
+                    { en: "assistant", ar: "مساعد", t: "n" },
+                    { en: "channel", ar: "قناة (تليفزيونية / مائية / اتصال)", t: "n" },
+                    { en: "collaborate", ar: "يتعاون", t: "v" },
+                    { en: "competitor", ar: "منافس", t: "n" },
+                    { en: "content", ar: "محتوى", t: "n" },
+                    { en: "customer", ar: "زبون", t: "n" },
+                    { en: "description", ar: "وصف", t: "n" },
+                    { en: "determine", ar: "يحدد", t: "v" },
+                    { en: "engagement", ar: "ارتباط / اشتراك", t: "n" },
+                    { en: "examination", ar: "اختبار", t: "n" },
+                    { en: "feature", ar: "خاصية / ميزة", t: "n" },
+                    { en: "fulfill", ar: "يحقق / يلبي", t: "v" },
+                    { en: "follower", ar: "تابع", t: "n" },
+                    { en: "guidance", ar: "إرشاد", t: "n" },
+                    { en: "illustrator", ar: "رسام", t: "n" },
+                    { en: "internship", ar: "فترة التدريب", t: "n" },
+                    { en: "income", ar: "دخل", t: "n" },
+                    { en: "management", ar: "إدارة", t: "n" },
+                    { en: "marketing", ar: "التسويق", t: "n" },
+                    { en: "monitor", ar: "يراقب", t: "v" },
+                    { en: "path", ar: "مسار / طريق", t: "n" },
+                    { en: "performance", ar: "أداء", t: "n" },
+                    { en: "platform", ar: "منصة", t: "n" },
+                    { en: "position", ar: "وظيفة / موقع", t: "n" },
+                    { en: "passion", ar: "عاطفة", t: "n" },
+                    { en: "requirements", ar: "متطلبات", t: "n" },
+                    { en: "salary", ar: "راتب شهري", t: "n" },
+                    { en: "sales", ar: "مبيعات", t: "n" },
+                    { en: "schedule", ar: "جدول مواعيد", t: "n" },
+                    { en: "section", ar: "قسم", t: "n" },
+                    { en: "self-reflection", ar: "التأمل الذاتي", t: "n" },
+                    { en: "separate", ar: "منفصل", t: "adj" },
+                    { en: "skilled", ar: "ماهر", t: "adj" },
+                    { en: "specialist", ar: "متخصص", t: "n" },
+                    { en: "specific", ar: "محدد", t: "adj" },
+                    { en: "up-to-date", ar: "حديث", t: "adj" },
+                    { en: "visual", ar: "بصري", t: "adj" }
+                ],
+                "Phrases & Prepositions": [
+                    { en: "avoid wrong decisions", ar: "يتجنب القرارات الخاطئة" },
+                    { en: "Bachelor of Science", ar: "بكالوريوس علوم" },
+                    { en: "contact information", ar: "معلومات الاتصال" },
+                    { en: "give advice", ar: "يعطي نصيحة" },
+                    { en: "giving a real experience", ar: "تقديم تجربة حقيقية" },
+                    { en: "make better choices", ar: "يختار بشكل أفضل" },
+                    { en: "sense of purpose", ar: "الشعور بالهدف" },
+                    { en: "when passion meets opportunities", ar: "عندما يلتقي الشغف بالفرص" },
+                    { en: "work smoothly", ar: "يعمل بسلاسة" },
+                    { en: "assist with", ar: "يساعد في", t: "prep" },
+                    { en: "combine ... with", ar: "يخلط ... بـ", t: "prep" },
+                    { en: "important for", ar: "مهم لـ", t: "prep" },
+                    { en: "increase by ...%", ar: "يزداد بنسبة ...%", t: "prep" },
+                    { en: "learn about", ar: "يتعلم عن", t: "prep" },
+                    { en: "related to", ar: "مرتبط بـ", t: "prep" },
+                    { en: "responsible for", ar: "مسئول عن", t: "prep" }
+                ]
+            }
+        }
+    };
+
+    function renderUnits() {
+        const nav = document.getElementById('unitNav'); nav.innerHTML = '';
+        Object.keys(data).forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `unit-btn ${currU === u ? 'active' : ''}`;
+            btn.innerText = "Unit " + u.replace('u','');
+            btn.onclick = () => { stopPlayAll(); currU = u; renderUnits(); resetL(); render(); };
+            nav.appendChild(btn);
+        });
+    }
+
+    function resetL() {
+        currL = '12';
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('tab12').classList.add('active');
+    }
+
+    function setL(l, el) { 
+        stopPlayAll(); 
+        currL = l; 
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); 
+        el.classList.add('active'); 
+        render(); 
+    }
+
+    function render() {
+        const q = document.getElementById('search').value.toLowerCase();
+        const container = document.getElementById('dictionaryContent');
+        container.innerHTML = "";
+        
+        let target = {};
+        if (!data[currU]) return;
+
+        if(currL === 'all') {
+            const uData = data[currU];
+            target = { "All Unit Vocabulary": [] };
+            ["12", "34"].forEach(lKey => {
+                if(uData[lKey]) {
+                    Object.keys(uData[lKey]).forEach(secKey => {
+                        target["All Unit Vocabulary"].push(...uData[lKey][secKey]);
+                    });
+                }
+            });
+        } else {
+            target = data[currU][currL] || {};
+        }
+
+        Object.keys(target).forEach(section => {
+            const filtered = target[section].filter(i => i.en.toLowerCase().includes(q) || i.ar.includes(q));
+            if (filtered.length > 0) {
+                let html = `<div class="section-header"><span class="section-title">${section}</span><span class="word-count">${filtered.length}</span></div>`;
+                html += `<div class="content-card"><table>`;
+                filtered.forEach(i => { 
+                    const typeLabel = i.t ? `<span class="word-type">(${i.t})</span>` : '';
+                    html += `<tr><td><span class="word-en" onclick="speak('${i.en.replace(/'/g, "\\'")}', this)">${i.en} ${typeLabel}</span></td><td><span class="word-ar">${i.ar}</span></td></tr>`; 
+                });
+                html += `</table></div>`;
+                container.innerHTML += html;
+            }
+        });
+    }
+    window.onload = () => { renderUnits(); render(); };
+</script>
+</body>
+</html>
