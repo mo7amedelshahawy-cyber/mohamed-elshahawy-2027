@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MOHAMED ELSHAHAWY - Prep 1 Master Dictionary</title>
+    <style>
+        :root {
+            --primary: #1e3a8a; 
+            --secondary: #ffffff; 
+            --accent: #dc2626; 
+            --bg: #f8fafc; 
+            --card: #ffffff; 
+            --text: #0f172a; 
+            --nav-bg: #e2e8f0;
+            --border: #cbd5e1;
+        }
+        [data-theme="midnight"] { 
+            --primary: #38bdf8; 
+            --secondary: #0f172a; 
+            --accent: #f59e0b; 
+            --bg: #0f172a; 
+            --card: #1e293b; 
+            --text: #f8fafc; 
+            --nav-bg: #334155;
+            --border: #475569;
+        }
+        [data-theme="forest"] { 
+            --primary: #15803d; 
+            --secondary: #ffffff; 
+            --accent: #d97706; 
+            --bg: #f0fdf4; 
+            --card: #ffffff; 
+            --text: #14532d; 
+            --nav-bg: #dcfce7;
+            --border: #bbf7d0;
+        }
+        [data-theme="purple"] { 
+            --primary: #c084fc; 
+            --secondary: #2e1065; 
+            --accent: #22d3ee; 
+            --bg: #2e1065; 
+            --card: #3b0764; 
+            --text: #faf5ff; 
+            --nav-bg: #581c87;
+            --border: #6b21a8;
+        }
+        [data-theme="golden"] { 
+            --primary: #fbbf24; 
+            --secondary: #18181b; 
+            --accent: #f97316; 
+            --bg: #18181b; 
+            --card: #27272a; 
+            --text: #f4f4f5; 
+            --nav-bg: #3f3f46;
+            --border: #52525b;
+        }
+        [data-theme="contrast"] { 
+            --primary: #000000; 
+            --secondary: #ffffff; 
+            --accent: #cc0000; 
+            --bg: #ffffff; 
+            --card: #ffffff; 
+            --text: #000000; 
+            --nav-bg: #e5e5e5;
+            --border: #000000;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; color: var(--text); }
+        .brand { text-align: center; padding: 12px; font-size: 0.85rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+        .header { background: var(--primary); color: var(--secondary); padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: background 0.3s, color 0.3s; }
+        
+        .speed-control { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.85rem; flex-wrap: wrap; }
+        .speed-control input { width: 100px; accent-color: var(--accent); cursor: pointer; }
+
+        .play-all-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-top: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .play-all-btn.playing { background: #555; }
+
+        .controls { display: flex; justify-content: center; margin-top: -22px; padding: 0 10px; }
+        .theme-toggle { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: var(--card); color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; }
+        
+        .search-wrapper { max-width: 500px; margin: 25px auto; padding: 0 15px; }
+        .search-box { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--primary); outline: none; background: var(--card); color: var(--text); box-sizing: border-box; font-size: 1rem; }
+        
+        /* تعديل شريط الوحدات ليكون 3 تبويبات وتحدتها 3 تبويبات */
+        .unit-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 500px; margin: 0 auto; padding: 10px 15px; box-sizing: border-box; }
+        .unit-btn { padding: 10px 10px; border-radius: 12px; border: 1.5px solid var(--primary); background: transparent; color: var(--text); font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s; text-align: center; }
+        .unit-btn.active { background: var(--primary); color: var(--secondary); }
+        
+        .lesson-nav { display: flex; background: var(--nav-bg); max-width: 500px; margin: 15px auto; border-radius: 12px; padding: 5px; gap: 5px; }
+        .tab { flex: 1; text-align: center; padding: 12px 5px; cursor: pointer; border-radius: 10px; font-weight: bold; font-size: 0.85rem; color: var(--text); transition: 0.2s; }
+        .tab.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px; max-width: 800px; margin: 0 auto; }
+        .section-title { font-weight: 800; color: var(--accent); font-size: 0.95rem; text-transform: uppercase; border-right: 4px solid var(--accent); padding-right: 8px; }
+        .word-count { font-size: 0.75rem; background: var(--primary); color: var(--secondary); padding: 2px 10px; border-radius: 20px; font-weight: bold; }
+        
+        .content-card { background: var(--card); max-width: 800px; margin: 10px auto 25px; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: right; }
+        tr:last-child td { border-bottom: none; }
+        .word-en { color: var(--text); font-weight: 700; font-size: 1.05rem; cursor: pointer; display: inline-block; transition: color 0.2s; }
+        .word-ar { color: var(--text); font-size: 1rem; }
+        .word-en.active-speak { color: var(--accent) !important; text-decoration: underline; background: rgba(220, 38, 38, 0.1); border-radius: 5px; padding: 0 4px; }
+        .word-type { font-size: 0.75rem; color: var(--accent); font-weight: normal; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="brand">POWERED BY " MR MOHAMED ELSHAHAWY "</div>
+
+<div class="header">
+    <h2 style="margin:0; font-size: 1.3rem;">Prep 1 Master Dictionary</h2>
+    
+    <div style="margin-top:10px; font-size:0.8rem; display: flex; justify-content: center; gap: 15px;">
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-US" checked onclick="vL='en-US'"> American 🇺🇸</label>
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-GB" onclick="vL='en-GB'"> British 🇬🇧</label>
+    </div>
+
+    <div class="speed-control">
+        <span>🐢 Slow</span>
+        <input type="range" id="speedRate" min="0.3" max="1.5" step="0.1" value="0.7" oninput="document.getElementById('speedVal').innerText = this.value + 'x'">
+        <span>Fast ⚡</span>
+        <span id="speedVal" style="font-weight:bold; width: 35px;">0.7x</span>
+        
+        <button id="playAllBtn" class="play-all-btn" onclick="togglePlayAll()">🔊 Play All</button>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="theme-toggle" onclick="cycleThemes()">🎨 Mode: <span id="themeName">Classic Blue</span></button>
+</div>
+
+<div class="search-wrapper">
+    <input type="text" id="search" class="search-box" placeholder="Search... ابحث هنا" onkeyup="render()">
+</div>
+
+<!-- التبويبات مقسمة 3 فوق و 3 تحت -->
+<div class="unit-nav" id="unitNav"></div>
+
+<div class="lesson-nav">
+    <div id="tab12" class="tab active" onclick="setL('12', this)">Lessons 1&2</div>
+    <div id="tab3" class="tab" onclick="setL('3', this)">Lesson 3</div>
+    <div id="tab56" class="tab" onclick="setL('56', this)">Lessons 5&6</div>
+    <div id="tabAll" class="tab" onclick="setL('all', this)">All Words</div>
+</div>
+
+<div id="dictionaryContent"></div>
+
+<div class="brand" style="margin-bottom:40px; opacity:0.6;">MR MOHAMED ELSHAHAWY © 2026</div>
+
+<script>
+    let vL = 'en-US'; let currU = 'u1'; let currL = '12';
+    let themeIdx = 0; let isPlayingAll = false; let playAllIndex = 0;
+    const themes = [
+        {id:'default',n:'Classic Blue'},
+        {id:'midnight',n:'Midnight'},
+        {id:'forest',n:'Forest'},
+        {id:'purple',n:'Purple'},
+        {id:'golden',n:'Golden'},
+        {id:'contrast',n:'Contrast'}
+    ];
+
+    function cycleThemes(){
+        themeIdx=(themeIdx+1)%themes.length;
+        document.body.setAttribute('data-theme', themes[themeIdx].id);
+        document.getElementById('themeName').innerText = themes[themeIdx].n;
+    }
+
+    function speak(text, el, callback) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = vL;
+        ut.rate = parseFloat(document.getElementById('speedRate').value);
+        document.querySelectorAll('.word-en').forEach(w => w.classList.remove('active-speak'));
+        if(el) el.classList.add('active-speak');
+        ut.onend = () => {
+            if(el) el.classList.remove('active-speak');
+            if(callback) callback();
+        };
+        window.speechSynthesis.speak(ut);
+    }
+
+    function togglePlayAll() {
+        const btn = document.getElementById('playAllBtn');
+        if (isPlayingAll) { stopPlayAll(); } 
+        else {
+            isPlayingAll = true;
+            btn.innerText = "🛑 Stop";
+            btn.classList.add('playing');
+            playAllIndex = 0;
+            playNextWord();
+        }
+    }
+
+    function stopPlayAll() {
+        isPlayingAll = false;
+        window.speechSynthesis.cancel();
+        const btn = document.getElementById('playAllBtn');
+        btn.innerText = "🔊 Play All";
+        btn.classList.remove('playing');
+        document.querySelectorAll('.word-en').forEach(w => w.classList.remove('active-speak'));
+    }
+
+    function playNextWord() {
+        if (!isPlayingAll) return;
+        const words = document.querySelectorAll('.word-en');
+        if (playAllIndex < words.length) {
+            const wordEl = words[playAllIndex];
+            wordEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            speak(wordEl.innerText, wordEl, () => {
+                playAllIndex++;
+                setTimeout(playNextWord, 600);
+            });
+        } else { stopPlayAll(); }
+    }
+
+    // بيانات المنهج الكاملة (Units 1, 2, 3, 4, 5, 6)
+    const data = {
+        u1: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "digital", ar: "رقمي", t: "adj" },
+                    { en: "tablet", ar: "كمبيوتر لوحي (تابلت)", t: "n" },
+                    { en: "ebooks", ar: "كتب إلكترونية", t: "n" },
+                    { en: "social media", ar: "وسائل التواصل الاجتماعي", t: "n" },
+                    { en: "screen time", ar: "وقت استخدام الشاشة", t: "n" },
+                    { en: "search", ar: "يبحث - بحث", t: "v/n" },
+                    { en: "website", ar: "موقع إلكتروني", t: "n" },
+                    { en: "smartboard", ar: "السبورة الذكية", t: "n" },
+                    { en: "laptop", ar: "حاسوب محمول (لابتوب)", t: "n" },
+                    { en: "night mode", ar: "وضع الرؤية الليلية (للشاشة)", t: "n" },
+                    { en: "app", ar: "تطبيق (على جهاز إلكتروني)", t: "n" },
+                    { en: "screen", ar: "شاشة", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "chat", ar: "الدردشة / يتحدث بطريقة ودية", t: "v/n" },
+                    { en: "check", ar: "يفحص / يتحقق", t: "v" },
+                    { en: "technology", ar: "تكنولوجيا", t: "n" },
+                    { en: "devices", ar: "أجهزة", t: "n" },
+                    { en: "adventure", ar: "مغامرة", t: "n" },
+                    { en: "interactive", ar: "تفاعلي", t: "adj" },
+                    { en: "remind", ar: "يُذكّر", t: "v" },
+                    { en: "blog", ar: "مُدوّنة إلكترونية", t: "n" },
+                    { en: "bedtime", ar: "وقت النوم", t: "n" },
+                    { en: "type", ar: "يكتب (على لوحة مفاتيح)", t: "v" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "balance", ar: "يوازن / توازن", t: "v/n" },
+                    { en: "hybrid bus", ar: "حافلة هجينة (تعمل بالكهرباء والبنزين معاً)", t: "n" },
+                    { en: "reduce", ar: "يقلل", t: "v" },
+                    { en: "launch", ar: "ينطلق / يطلق", t: "v" },
+                    { en: "support", ar: "يدعم - يؤيد", t: "v/n" },
+                    { en: "affect", ar: "يؤثر على", t: "v" },
+                    { en: "vision", ar: "رؤية", t: "n" },
+                    { en: "greener", ar: "أكثر حفاظاً على البيئة", t: "adj" },
+                    { en: "company", ar: "شركة", t: "n" },
+                    { en: "engines", ar: "محركات", t: "n" },
+                    { en: "transportation", ar: "النقل", t: "n" },
+                    { en: "smartphone", ar: "هاتف ذكي", t: "n" },
+                    { en: "locally", ar: "محلياً", t: "adv" },
+                    { en: "diesel", ar: "وقود الديزل", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "screen", ar: "سطح مستوٍ تُعرض عليه الصور أو الكلمات / الجزء من الجهاز الذي يعرض الصور أو النصوص", t: "def" },
+                    { en: "ebook", ar: "كتاب إلكتروني يمكنك قراءته على الشاشة بدلاً من الورق", t: "def" },
+                    { en: "laptop", ar: "حاسوب متنقل / محمول", t: "def" },
+                    { en: "night mode", ar: "إعداد شاشة داكنة لحماية عينيك في الضوء المنخفض", t: "def" },
+                    { en: "smartboard", ar: "سبورة تفاعلية تُستخدم في الفصول الدراسية لتدريس الدروس", t: "def" },
+                    { en: "website", ar: "صفحة على الإنترنت تقدم معلومات أو تتيح لك القيام بمهام عبر الإنترنت", t: "def" },
+                    { en: "digital", ar: "استخدام تكنولوجيا الكمبيوتر أو الأجهزة الإلكترونية", t: "def" },
+                    { en: "screen time", ar: "الوقت الذي تقضيه في استخدام أجهزة مثل الهواتف أو أجهزة الكمبيوتر", t: "def" },
+                    { en: "social media", ar: "منصات عبر الإنترنت حيث يتواصل الناس ويشاركون المحتوى", t: "def" },
+                    { en: "apps", ar: "برامج تُستخدم على الهواتف أو الكمبيوتر اللوحي أو أجهزة الكمبيوتر", t: "def" },
+                    { en: "search", ar: "البحث عن معلومات على الإنترنت", t: "def" },
+                    { en: "tablet", ar: "كمبيوتر لوحي صغير محمول بشاشة لمس", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "take breaks", ar: "يأخذ فترات راحة", t: "coll" },
+                    { en: "spend time", ar: "يقضي وقت", t: "coll" },
+                    { en: "create jobs", ar: "يوفر فرص عمل", t: "coll" },
+                    { en: "reduce screen time", ar: "يقلل وقت استخدام الشاشة", t: "coll" },
+                    { en: "reduce pollution", ar: "يقلل التلوث", t: "coll" },
+                    { en: "share content", ar: "يشارك محتوى", t: "coll" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "tasks", ar: "مهام", t: "n" },
+                    { en: "webcam", ar: "كاميرا الويب / كاميرا رقمية", t: "n" },
+                    { en: "microphone", ar: "ميكروفون (مكبر صوت)", t: "n" },
+                    { en: "mouse", ar: "فأرة", t: "n" },
+                    { en: "printer", ar: "طابعة", t: "n" },
+                    { en: "keyboard", ar: "لوحة مفاتيح", t: "n" },
+                    { en: "speakers", ar: "سماعات مكبرة", t: "n" },
+                    { en: "headphones", ar: "سماعات الأذن", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "typing", ar: "الكتابة (على لوحة مفاتيح)", t: "n" },
+                    { en: "super", ar: "فائق / رائع", t: "adj" },
+                    { en: "record", ar: "يسجل", t: "v" },
+                    { en: "print", ar: "يطبع", t: "v" },
+                    { en: "search engine", ar: "محرك البحث", t: "n" },
+                    { en: "board games", ar: "ألعاب لوحية", t: "n" },
+                    { en: "click", ar: "ينقر بالفأرة", t: "v" },
+                    { en: "presentation", ar: "عرض تقديمي", t: "n" },
+                    { en: "helpful", ar: "متعاون / مفيد", t: "adj" },
+                    { en: "schoolwork", ar: "عمل / واجب مدرسي", t: "n" },
+                    { en: "knowledge", ar: "المعرفة", t: "n" },
+                    { en: "assignments", ar: "واجبات / مهام دراسية", t: "n" },
+                    { en: "achieve", ar: "يحقق - ينجز", t: "v" },
+                    { en: "noticeboard", ar: "لوحة إعلانات", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "speakers", ar: "أجهزة تقوم بتشغيل الصوت بصوت عالٍ", t: "def" },
+                    { en: "webcam", ar: "كاميرا صغيرة تُستخدم لمكالمات الفيديو", t: "def" },
+                    { en: "achieve", ar: "إنجاز أو الوصول إلى شيء بنجاح من خلال الجهد", t: "def" },
+                    { en: "email", ar: "نظام لإرسال الرسائل بطريقة إلكترونية", t: "def" },
+                    { en: "headphones", ar: "جهاز يُرتدى على الأذنين للاستماع إلى الصوت", t: "def" },
+                    { en: "keyboard", ar: "جهاز يُستخدم للكتابة على جهاز الكمبيوتر", t: "def" },
+                    { en: "microphone", ar: "أدوات / معدات تُستخدم لتسجيل الصوت أو جعله أعلى", t: "def" },
+                    { en: "printer", ar: "جهاز يطبع النصوص أو الصور على الورق", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "achieve tasks", ar: "ينجز المهام", t: "coll" },
+                    { en: "record a presentation", ar: "يسجل عرضاً تقديمياً", t: "coll" },
+                    { en: "make a video call", ar: "يُجري مكالمة فيديو", t: "coll" },
+                    { en: "write assignments", ar: "يؤدي واجبات / مهام مدرسية", t: "coll" }
+                ],
+                "Expressions & Prepositions": [
+                    { en: "move around the screen", ar: "يتحرك بالفأرة على الشاشة", t: "exp" },
+                    { en: "show pictures / videos / notes", ar: "يعرض صور / فيديوهات / ملاحظات", t: "exp" },
+                    { en: "interested in", ar: "مهتم بـ", t: "exp" },
+                    { en: "tell (someone) about", ar: "يخطر (شخص) عن", t: "exp" },
+                    { en: "click on ...", ar: "ينقر باستخدام الفأرة على ...", t: "exp" },
+                    { en: "at the end of ...", ar: "في نهاية ...", t: "exp" },
+                    { en: "write soon", ar: "اكتب لي قريباً", t: "exp" },
+                    { en: "talk online", ar: "يتحدث عبر الإنترنت", t: "exp" },
+                    { en: "It's super helpful!", ar: "إنه مفيد للغاية!", t: "exp" },
+                    { en: "listen to", ar: "يستمع إلى", t: "exp" },
+                    { en: "ready for ...", ar: "جاهز لـ ...", t: "exp" },
+                    { en: "belong to", ar: "ينتمي إلى / يخص", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "trust", ar: "يثق / ثقة", t: "v/n" },
+                    { en: "safety", ar: "السلامة", t: "n" },
+                    { en: "performance", ar: "أداء / عرض", t: "n" },
+                    { en: "news", ar: "الأخبار", t: "n" },
+                    { en: "ICT", ar: "تكنولوجيا المعلومات والاتصالات", t: "abbr" },
+                    { en: "the latest", ar: "الأحدث", t: "adj" },
+                    { en: "routine", ar: "روتين (نظام يومي متكرر)", t: "n" },
+                    { en: "slogan", ar: "شعار", t: "n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "reply", ar: "يرد / رد", t: "v/n" },
+                    { en: "boring", ar: "ممل", t: "adj" },
+                    { en: "simple", ar: "بسيط", t: "adj" },
+                    { en: "friendly", ar: "ودود / لطيف", t: "adj" },
+                    { en: "nationalities", ar: "جنسيات", t: "n" },
+                    { en: "tool", ar: "أداة", t: "n" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "command", ar: "أمر", t: "n" },
+                    { en: "roundtable", ar: "طاولة مستديرة / نقاش جماعي", t: "n" },
+                    { en: "chance", ar: "فرصة", t: "n" },
+                    { en: "add", ar: "يُضيف", t: "v" },
+                    { en: "colorful", ar: "ملون", t: "adj" },
+                    { en: "classmates", ar: "زملاء الفصل", t: "n" },
+                    { en: "respectful", ar: "يتسم بالاحترام", t: "adj" },
+                    { en: "tips", ar: "نصائح / إرشادات", t: "n" },
+                    { en: "paper", ar: "ورق", t: "n" },
+                    { en: "rules", ar: "قواعد", t: "n" },
+                    { en: "produce", ar: "يُصدر / يُنتج", t: "v" },
+                    { en: "team project", ar: "مشروع فريق", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "have breakfast", ar: "يتناول الإفطار", t: "coll" },
+                    { en: "stay safe online", ar: "يبقى آمناً على الإنترنت", t: "coll" },
+                    { en: "do our best", ar: "نبذل قصارى جهدنا", t: "coll" },
+                    { en: "go online", ar: "يتصل بالإنترنت", t: "coll" },
+                    { en: "design a poster", ar: "يصمم ملصقاً", t: "coll" },
+                    { en: "get a chance", ar: "ينال فرصة", t: "coll" }
+                ]
+            }
+        },
+        u2: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "auditory", ar: "سمعي", t: "adj" },
+                    { en: "kinesthetic", ar: "حركي", t: "adj" },
+                    { en: "visual", ar: "بصري", t: "adj" },
+                    { en: "hands-on activities", ar: "أنشطة تطبيقية", t: "n" },
+                    { en: "organize", ar: "ينظم", t: "v" },
+                    { en: "review", ar: "يراجع / مراجعة", t: "v/n" },
+                    { en: "mind maps", ar: "خرائط ذهنية", t: "n" },
+                    { en: "explanation", ar: "تفسير / توضيح", t: "n" },
+                    { en: "techniques", ar: "تقنيات / أساليب", t: "n" },
+                    { en: "regularly", ar: "بانتظام", t: "adv" },
+                    { en: "improve", ar: "يُحسن", t: "v" },
+                    { en: "charts", ar: "مخططات / رسوم بيانية", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "expression", ar: "تعبير", t: "n" },
+                    { en: "avoid", ar: "يتجنب", t: "v" },
+                    { en: "sight", ar: "حاسة البصر", t: "n" },
+                    { en: "neat", ar: "منظم / مهندم", t: "adj" },
+                    { en: "memorize", ar: "يحفظ / يتذكر (عن ظهر قلب)", t: "v" },
+                    { en: "distractions", ar: "مشتتات", t: "n" },
+                    { en: "experiments", ar: "تجارب (علمية)", t: "n" },
+                    { en: "methods = styles", ar: "طرق / وسائل", t: "n" },
+                    { en: "challenge", ar: "تحدى", t: "n" },
+                    { en: "passion", ar: "شغف / اهتمام", t: "n" },
+                    { en: "organized", ar: "منظم / مرتب", t: "adj" },
+                    { en: "physical", ar: "بدني", t: "adj" },
+                    { en: "suit", ar: "يناسب / يلائم", t: "v" },
+                    { en: "focus", ar: "يركز", t: "v" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "individually", ar: "بشكل فردي", t: "adv" },
+                    { en: "competition", ar: "مسابقة", t: "n" },
+                    { en: "research", ar: "يبحث / بحث", t: "v/n" },
+                    { en: "unforgettable", ar: "لا يُنسى", t: "adj" },
+                    { en: "revise", ar: "يراجع", t: "v" },
+                    { en: "enjoyable", ar: "ممتع", t: "adj" },
+                    { en: "experience", ar: "تجربة حياتية / خبرة سابقة", t: "n" },
+                    { en: "schedule", ar: "جدول أو برنامج محدد للمواعيد", t: "n" },
+                    { en: "folder", ar: "ملف / مجلد", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "visual: related to sight and seeing.", ar: "مرئي: متعلق بحاسة البصر والرؤية.", t: "def" },
+                    { en: "auditory: related to hearing things.", ar: "سمعي: متعلق بسماع الأشياء.", t: "def" },
+                    { en: "kinesthetic: related to hands-on activities and physical actions.", ar: "حركي / حسي: متعلق بالأنشطة التطبيقية والأفعال البدنية.", t: "def" },
+                    { en: "organize: to arrange or put things in a particular order or a neat way.", ar: "يُنظم: أن ترتب أو تضع الأشياء في ترتيب معين أو طريقة منظمة.", t: "def" },
+                    { en: "mind maps: a visual tool used to organize information.", ar: "خرائط ذهنية: أداة بصرية تُستخدم لتنظيم المعلومات.", t: "def" },
+                    { en: "techniques: special methods or ways of doing something.", ar: "أساليب / طرق: طرق أو أساليب خاصة لفعل شيء ما.", t: "def" },
+                    { en: "improve: to make something better.", ar: "يُحسن: جعل الشيء أفضل.", t: "def" },
+                    { en: "successful: achieving what you wanted to do / achieving your goals.", ar: "ناجح: تحقيق ما أردت فعله / تحقيق أهدافك.", t: "def" },
+                    { en: "review: looking at something again to remember it.", ar: "يراجع / مراجعة: النظر إلى شيء ما مرة أخرى لتذكره.", t: "def" },
+                    { en: "regularly: doing something often at the same time.", ar: "بانتظام: القيام بشيء ما غالباً في نفس الوقت.", t: "def" },
+                    { en: "challenges: difficult tasks or problems that need effort to solve.", ar: "تحديات: مهام أو مشكلات صعبة تتطلب جهداً لحلها.", t: "def" },
+                    { en: "charts: diagrams that show information using bars, lines, or pictures.", ar: "مخططات بيانية: رسوم بيانية توضح المعلومات باستخدام أعمدة، خطوط، أو صور.", t: "def" },
+                    { en: "experiments: scientific tests to discover new information.", ar: "تجارب علمية: اختبارات علمية لاكتشاف معلومات جديدة.", t: "def" },
+                    { en: "explanations: statements that make something clear.", ar: "تفسيرات: عبارات تجعل الشيء واضحاً.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "do experiments", ar: "يجري تجارب علمية", t: "coll" },
+                    { en: "do hands-on activities", ar: "يقوم بعمل أنشطة تطبيقية", t: "coll" },
+                    { en: "have a goal", ar: "لديه هدف", t: "coll" },
+                    { en: "take notes", ar: "يدون ملاحظات", t: "coll" },
+                    { en: "take breaks", ar: "يأخذ فترات راحة", t: "coll" },
+                    { en: "build models", ar: "يصنع / يبتكر نماذج", t: "coll" },
+                    { en: "make maps", ar: "يصنع خرائط", t: "coll" },
+                    { en: "make charts", ar: "يصنع رسوم بيانية", t: "coll" },
+                    { en: "organize study space", ar: "ينظم مكان الدراسة", t: "coll" },
+                    { en: "avoid distractions", ar: "يتجنب المشتتات", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "solve the problems", ar: "يحل المشكلات", t: "exp" },
+                    { en: "away from", ar: "بعيداً عن", t: "exp" },
+                    { en: "turn off", ar: "يفصل / يغلق جهاز", t: "exp" },
+                    { en: "related to", ar: "مرتبط / متعلق بـ", t: "exp" },
+                    { en: "revise for ...", ar: "يراجع لـ ....", t: "exp" },
+                    { en: "at the same time", ar: "في نفس الوقت", t: "exp" },
+                    { en: "get enough sleep", ar: "يحصل على قدر كافٍ من النوم", t: "exp" },
+                    { en: "change over time", ar: "يتغير مع مرور الوقت", t: "exp" },
+                    { en: "get better", ar: "يتعافى / يتحسن", t: "exp" },
+                    { en: "out loud", ar: "بصوت عالٍ", t: "exp" },
+                    { en: "stay focused", ar: "يحافظ على التركيز", t: "exp" },
+                    { en: "during the learning experience", ar: "أثناء تجربة التعلم", t: "exp" },
+                    { en: "step by step", ar: "خطوة بخطوة", t: "exp" },
+                    { en: "get ready for", ar: "يستعد لـ", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "benefits", ar: "فوائد", t: "n" },
+                    { en: "develop", ar: "يطور", t: "v" },
+                    { en: "solutions", ar: "حلول", t: "n" },
+                    { en: "leadership", ar: "القيادة", t: "n" },
+                    { en: "confident", ar: "واثق", t: "adj" },
+                    { en: "communicate", ar: "يتواصل", t: "v" },
+                    { en: "cooperation", ar: "التعاون", t: "n" },
+                    { en: "apps", ar: "تطبيقات (على جهاز إلكتروني)", t: "n" },
+                    { en: "digital devices", ar: "أجهزة رقمية", t: "n" },
+                    { en: "creative", ar: "مبدع", t: "adj" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "together", ar: "معا / سويا", t: "adv" },
+                    { en: "express", ar: "يُعبر", t: "v" },
+                    { en: "freely", ar: "بحرية", t: "adv" },
+                    { en: "thinkers", ar: "مفكرون", t: "n" },
+                    { en: "teamwork", ar: "عمل جماعي", t: "n" },
+                    { en: "modern", ar: "حديث", t: "adj" },
+                    { en: "explain", ar: "يشرح / يفسر", t: "v" },
+                    { en: "spidergram", ar: "شكل توضيحي عنكبوتي", t: "n" },
+                    { en: "computer programs", ar: "برامج الحاسوب", t: "n" },
+                    { en: "diagram", ar: "رسم توضيحي", t: "n" },
+                    { en: "supporting details", ar: "تفاصيل داعمة", t: "n" },
+                    { en: "media", ar: "الإعلام / وسائل الإعلام", t: "n" },
+                    { en: "create", ar: "يبتكر", t: "v" },
+                    { en: "likely", ar: "من المحتمل", t: "adv" },
+                    { en: "opinions", ar: "آراء", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "apps: programs used on phones, tablets, or computers.", ar: "تطبيقات: برامج تُستخدم على الهواتف، الكمبيوتر اللوحي، أو أجهزة الكمبيوتر.", t: "def" },
+                    { en: "benefit: to be useful to someone.", ar: "يفيد: أن تكون مفيداً لشخص ما.", t: "def" },
+                    { en: "benefits: advantages or positive effects.", ar: "فوائد: مميزات أو تأثيرات إيجابية.", t: "def" },
+                    { en: "communicate: to exchange information or ideas.", ar: "يتواصل: تبادل المعلومات أو الأفكار.", t: "def" },
+                    { en: "confident: feeling sure about yourself and your abilities.", ar: "واثق بنفسه: الشعور بالثقة في نفسك وفي قدراتك.", t: "def" },
+                    { en: "develop: to grow or become more advanced.", ar: "يطور: أن تنمو أو تصبح أكثر تقدمًا.", t: "def" },
+                    { en: "powerful: having great strength or influence.", ar: "قوي / ذو نفوذ: امتلاك قوة كبيرة أو تأثير كبير.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "share opinions", ar: "يشارك الآراء", t: "coll" },
+                    { en: "develop skills", ar: "يطور المهارات", t: "coll" },
+                    { en: "give a reason", ar: "يعطي سبب / مبرر", t: "coll" },
+                    { en: "do projects", ar: "يقوم بعمل مشروعات", t: "coll" },
+                    { en: "spend time", ar: "يقضي وقت", t: "coll" },
+                    { en: "find solutions", ar: "يجد حلولاً", t: "coll" },
+                    { en: "find information", ar: "يجد معلومات", t: "coll" },
+                    { en: "make friends", ar: "يكون صداقات", t: "coll" },
+                    { en: "discuss problems", ar: "يناقش المشكلات", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "learn in groups", ar: "يتعلم في مجموعات", t: "exp" },
+                    { en: "feel more confident", ar: "يشعر بثقة أكبر", t: "exp" },
+                    { en: "care for", ar: "يهتم بـ", t: "exp" },
+                    { en: "communicate with", ar: "يتواصل مع", t: "exp" },
+                    { en: "look like", ar: "يشبه", t: "exp" },
+                    { en: "benefits of", ar: "فوائد لـ", t: "exp" },
+                    { en: "believe in", ar: "يؤمن بـ", t: "exp" },
+                    { en: "spend much time with", ar: "يقضي وقتاً كثيراً مع", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "plan", ar: "خطة", t: "n" },
+                    { en: "practice", ar: "يتتدرب / تدريب", t: "v/n" },
+                    { en: "communication", ar: "تواصل", t: "n" },
+                    { en: "record", ar: "يسجل", t: "v" },
+                    { en: "mistake", ar: "خطأ", t: "n" },
+                    { en: "reflect", ar: "يتأمل / يفكر ملياً", t: "v" },
+                    { en: "journal", ar: "يوميات / سجل يومي", t: "n" },
+                    { en: "remind", ar: "يُذكّر بـ", t: "v" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "include", ar: "يشمل / يتضمن", t: "v" },
+                    { en: "discover", ar: "يكتشِف", t: "v" },
+                    { en: "indicate", ar: "يدل على / يشير إلى", t: "v" },
+                    { en: "pronunciation", ar: "نطق (صوتي)", t: "n" },
+                    { en: "voice", ar: "صوت (بشري)", t: "n" },
+                    { en: "habits", ar: "عادات", t: "n" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "plan", ar: "يخطط", t: "v" },
+                    { en: "starter", ar: "بداية", t: "n" },
+                    { en: "list", ar: "يسجل في قائمة", t: "v" },
+                    { en: "until", ar: "حتى / لغاية", t: "prep" },
+                    { en: "reach", ar: "يصل", t: "v" },
+                    { en: "advice", ar: "نصيحة", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "plan: a detailed way of doing something.", ar: "خطة: طريقة مفصلة لفعل شيء ما.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "make videos", ar: "يعد / يصور فيديوهات", t: "coll" },
+                    { en: "reach a goal", ar: "يحقق هدفاً / يصل إلى هدف", t: "coll" },
+                    { en: "take steps", ar: "يتخذ خطوات", t: "coll" },
+                    { en: "give advice", ar: "يقدم نصيحة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "at the same time", ar: "في نفس الوقت", t: "exp" },
+                    { en: "in English", ar: "باللغة الإنجليزية", t: "exp" },
+                    { en: "start with", ar: "يبدأ بـ", t: "exp" },
+                    { en: "indicate a question", ar: "يشير إلى وجود سؤال", t: "exp" },
+                    { en: "want to", ar: "يريد أن", t: "exp" },
+                    { en: "at the front", ar: "في الأمام / في المقدمة", t: "exp" }
+                ]
+            }
+        },
+        u3: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "hero", ar: "بطل", t: "n" },
+                    { en: "inspire", ar: "يُلهم", t: "v" },
+                    { en: "role model", ar: "قدوة يُحتذى بها", t: "n" },
+                    { en: "Egyptian army", ar: "الجيش المصري", t: "n" },
+                    { en: "respect", ar: "يحترم / احترام", t: "v/n" },
+                    { en: "determined", ar: "مصمم / عاقد العزم", t: "adj" },
+                    { en: "achievement", ar: "إنجاز", t: "n" },
+                    { en: "soldiers", ar: "جنود", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "physics", ar: "الفيزياء", t: "n" },
+                    { en: "symbol", ar: "رمز", t: "n" },
+                    { en: "aspirin", ar: "قرص الأسبرين", t: "n" },
+                    { en: "inventions", ar: "اختراعات", t: "n" },
+                    { en: "knowledge", ar: "معرفة", t: "n" },
+                    { en: "age", ar: "عمر / سن", t: "n" },
+                    { en: "discoveries", ar: "اكتشافات", t: "n" },
+                    { en: "atomic radiation", ar: "الإشعاع الذري", t: "n" },
+                    { en: "qualities", ar: "سمات - مميزات", t: "n" },
+                    { en: "continue", ar: "يستمر", t: "v" },
+                    { en: "admire", ar: "يُعجب بـ", t: "v" },
+                    { en: "community", ar: "المجتمع", t: "n" },
+                    { en: "hope", ar: "يأمل / أمل", t: "v/n" },
+                    { en: "caring", ar: "مهتم بالآخرين", t: "adj" },
+                    { en: "sadly", ar: "بحزن", t: "adv" },
+                    { en: "moving spirit", ar: "قوة دافعة", t: "n" },
+                    { en: "wish", ar: "يتمنى / أمنية", t: "v/n" },
+                    { en: "accident", ar: "حادثة", t: "n" },
+                    { en: "cancer treatment", ar: "علاج السرطان", t: "n" },
+                    { en: "scientist", ar: "عالم", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "terrorists", ar: "الإرهابيون", t: "n" },
+                    { en: "vacation", ar: "إجازة", t: "n" },
+                    { en: "officer", ar: "ضابط", t: "n" },
+                    { en: "attack", ar: "يهاجم - هجوم", t: "v/n" },
+                    { en: "defend", ar: "يدافع", t: "v" },
+                    { en: "admiration", ar: "إعجاب", t: "n" },
+                    { en: "motivate", ar: "يحفز", t: "v" },
+                    { en: "encourage", ar: "يشجع", t: "v" },
+                    { en: "courage", ar: "شجاعة", t: "n" },
+                    { en: "absent", ar: "غائب", t: "adj" },
+                    { en: "bravely", ar: "بشجاعة", t: "adv" }
+                ],
+                "Definitions": [
+                    { en: "hero: a person who does great things for others.", ar: "بطل: شخص يقوم بأشياء عظيمة للآخرين.", t: "def" },
+                    { en: "inspire: to motivate or encourage.", ar: "يُلهم: يحفز أو يشجع.", t: "def" },
+                    { en: "kind: friendly and caring.", ar: "طيب - عطوف: ودود ومهتم بالآخرين.", t: "def" },
+                    { en: "determined: not giving up easily.", ar: "مصمم - عازم: لا يستسلم بسهولة.", t: "def" },
+                    { en: "achievement: success in reaching a goal.", ar: "إنجاز: النجاح في الوصول إلى هدف.", t: "def" },
+                    { en: "respect: to feel admiration for someone.", ar: "يحترم: الشعور بالإعجاب بشخص ما.", t: "def" },
+                    { en: "role model: someone you admire and try to be like.", ar: "شخص مثالي / قدوة يُحتذى بها: شخص تعجب به وتحاول أن تكون مثله.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "get a new job", ar: "يحصل على وظيفة جديدة", t: "coll" },
+                    { en: "get a PhD", ar: "يحصل على درجة الدكتوراه", t: "coll" },
+                    { en: "reach a goal", ar: "يصل إلى هدف", t: "coll" },
+                    { en: "share ideas", ar: "يشارك الأفكار", t: "coll" },
+                    { en: "share knowledge", ar: "يشارك المعرفة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "keep going", ar: "يواصل / يستمر", t: "exp" },
+                    { en: "keep safe", ar: "يبقى آمناً", t: "exp" },
+                    { en: "(be) known for", ar: "معروف بـ / مشهور بـ", t: "exp" },
+                    { en: "take care of", ar: "يعتني بـ", t: "exp" },
+                    { en: "give up", ar: "يستسلم", t: "exp" },
+                    { en: "go on a trip", ar: "يخرج في رحلة", t: "exp" },
+                    { en: "go on vacation", ar: "يذهب لقضاء عطله", t: "exp" },
+                    { en: "a symbol of", ar: "رمز لـ", t: "exp" },
+                    { en: "grow up", ar: "يكبر / ينمو", t: "exp" },
+                    { en: "move to", ar: "ينقل إلى", t: "exp" },
+                    { en: "around the world", ar: "حول العالم", t: "exp" },
+                    { en: "late for", ar: "متأخرًا عن", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "university", ar: "جامعة", t: "n" },
+                    { en: "athlete", ar: "لاعب رياضي", t: "n" },
+                    { en: "geographer", ar: "جغرافي (عالم في الجغرافيا)", t: "n" },
+                    { en: "politics", ar: "علم السياسة", t: "n" },
+                    { en: "awards", ar: "جوائز", t: "n" },
+                    { en: "agreement", ar: "اتفاق", t: "n" },
+                    { en: "powerful", ar: "قوي", t: "adj" },
+                    { en: "personality", ar: "شخصية", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "writer", ar: "كاتب", t: "n" },
+                    { en: "geography", ar: "جغرافيا", t: "n" },
+                    { en: "history", ar: "التاريخ", t: "n" },
+                    { en: "deep thinker", ar: "مفكر عميق / محلل", t: "n" },
+                    { en: "Suez Canal", ar: "قناة السويس", t: "n" },
+                    { en: "tourist", ar: "سائح", t: "n" },
+                    { en: "combine", ar: "يجمع / يضم", t: "v" },
+                    { en: "explain", ar: "يشرح / يفسر", t: "v" },
+                    { en: "special", ar: "مميز / خاص", t: "adj" },
+                    { en: "role", ar: "دور", t: "n" },
+                    { en: "medal", ar: "ميدالية", t: "n" },
+                    { en: "arts", ar: "الفنون", t: "n" },
+                    { en: "acting", ar: "فن التمثيل", t: "n" },
+                    { en: "actor", ar: "ممثل", t: "n" },
+                    { en: "location", ar: "موقع", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "win awards", ar: "يفوز بجوائز", t: "coll" },
+                    { en: "win a medal", ar: "يفوز بميدالية", t: "coll" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "patients", ar: "مرضى", t: "n" },
+                    { en: "biography", ar: "سيرة ذاتية", t: "n" },
+                    { en: "dedication", ar: "إخلاص - تفانِ", t: "n" },
+                    { en: "overcome", ar: "يتغلب على", t: "v" },
+                    { en: "Olympics", ar: "الألعاب الأولمبية", t: "n" },
+                    { en: "disease", ar: "مرض", t: "n" },
+                    { en: "kidney", ar: "الكُلى", t: "n" },
+                    { en: "kidney transplant", ar: "زرع كُلى", t: "n" },
+                    { en: "methods", ar: "طرق / وسائل", t: "n" },
+                    { en: "impact", ar: "يؤثر / تأثير", t: "v/n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "face", ar: "يواجه - وجه", t: "v/n" },
+                    { en: "difference", ar: "اختلاف", t: "n" },
+                    { en: "stronger", ar: "أقوى", t: "adj" },
+                    { en: "situations", ar: "مواقف", t: "n" },
+                    { en: "leader", ar: "قائد", t: "n" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "team", ar: "فريق", t: "n" },
+                    { en: "protect", ar: "يحمي", t: "v" },
+                    { en: "facts", ar: "حقائق", t: "n" },
+                    { en: "poster", ar: "ملصق إعلاني", t: "n" },
+                    { en: "present", ar: "يقدم", t: "v" },
+                    { en: "swimmer", ar: "سباح", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "face problems", ar: "يواجه مشكلات", t: "coll" },
+                    { en: "do kidney transplants", ar: "يجري عمليات زراعة كُلى", t: "coll" },
+                    { en: "make a difference", ar: "يحدث فارقاً", t: "coll" },
+                    { en: "create a poster", ar: "يصمم / يصنع ملصقاً إعلانياً", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "make communities stronger", ar: "يجعل المجتمعات أقوى", t: "exp" },
+                    { en: "work hard", ar: "يعمل بجد", t: "exp" },
+                    { en: "care about ...", ar: "يعتني بـ", t: "exp" },
+                    { en: "kind to ....", ar: "عطوف / طيب مع", t: "exp" },
+                    { en: "share .... with", ar: "يشارك .... مع", t: "exp" },
+                    { en: "take time to + inf.", ar: "يستغرق وقت في", t: "exp" },
+                    { en: "follow their dreams", ar: "يتبعوا أحلامهم", t: "exp" },
+                    { en: "look back at", ar: "يتذكر / يسترجع", t: "exp" },
+                    { en: "impact on", ar: "تأثير على / يؤثر على", t: "exp" },
+                    { en: "at the top of", ar: "على قمة", t: "exp" },
+                    { en: "methods for", ar: "أساليب لـ", t: "exp" }
+                ]
+            }
+        },
+        u4: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "decision", ar: "قرار", t: "n" },
+                    { en: "left out", ar: "مستبعد", t: "adj" },
+                    { en: "negative", ar: "سلبي", t: "adj" },
+                    { en: "consequences", ar: "عواقب / نتائج", t: "n" },
+                    { en: "evaluate", ar: "يقيم", t: "v" },
+                    { en: "goal", ar: "هدف", t: "n" },
+                    { en: "careless", ar: "مهمل", t: "adj" },
+                    { en: "positive", ar: "إيجابي", t: "adj" },
+                    { en: "benefit", ar: "يفيد / فائدة", t: "v/n" },
+                    { en: "responsible", ar: "مسؤول", t: "adj" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "invite", ar: "يدعو", t: "v" },
+                    { en: "options", ar: "خيارات", t: "n" },
+                    { en: "smart choice", ar: "اختيار ذكي", t: "n" },
+                    { en: "sides", ar: "جوانب", t: "n" },
+                    { en: "close friend", ar: "صديق مقرب", t: "n" },
+                    { en: "behave", ar: "يتصرف - يسلك", t: "v" },
+                    { en: "promise", ar: "يوعد / وعد", t: "v/n" },
+                    { en: "choice", ar: "اختيار", t: "n" },
+                    { en: "injury", ar: "إصابة", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "avoid", ar: "يتجنب", t: "v" },
+                    { en: "effect", ar: "تأثير", t: "n" },
+                    { en: "skip", ar: "يتخطى", t: "v" },
+                    { en: "carefully", ar: "بعناية", t: "adv" },
+                    { en: "polite", ar: "مؤدب", t: "adj" },
+                    { en: "harmful", ar: "ضار", t: "adj" },
+                    { en: "school trip", ar: "رحلة مدرسية", t: "n" },
+                    { en: "coach", ar: "مدرب", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "decision: a choice you can make.", ar: "قرار: اختيار يمكنك اتخاذه.", t: "def" },
+                    { en: "evaluate: to think carefully before deciding.", ar: "يُقيم: التفكير بعناية قبل اتخاذ القرار.", t: "def" },
+                    { en: "positive: good or hopeful.", ar: "إيجابي: جيد أو مفعم بالأمل.", t: "def" },
+                    { en: "negative: bad or harmful.", ar: "سلبي: سيئ أو ضار.", t: "def" },
+                    { en: "responsible: to act with care and think of others.", ar: "مسؤول: التصرف بحذر والتفكير في الآخرين.", t: "def" },
+                    { en: "consequence: the result or effect of an action.", ar: "نتيجة / عاقبة: النتيجة أو التأثير الناجم عن فعل ما.", t: "def" },
+                    { en: "benefit: to be useful to someone.", ar: "يُفيد / يستفيد: أن تكون مفيداً لشخص ما.", t: "def" },
+                    { en: "careless: not caring about your actions.", ar: "مهمل: عدم الاهتمام بتصرفاتك.", t: "def" },
+                    { en: "goal: something you want to achieve.", ar: "هدف: شيء تريد تحقيقه.", t: "def" },
+                    { en: "injury: damage to someone's body.", ar: "إصابة: تلف أو ضرر يلحق بجسد شخص ما.", t: "def" },
+                    { en: "choice: an act of selecting between two or more possibilities.", ar: "اختيار: فعل الانتقاء بين احتمالين أو أكثر.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "take / make a decision", ar: "يتخذ قرار", t: "coll" },
+                    { en: "make mistakes", ar: "يرتكب أخطاء", t: "coll" },
+                    { en: "make choices", ar: "يختار", t: "coll" },
+                    { en: "feel left out", ar: "يشعر بأنه مستبعد", t: "coll" },
+                    { en: "pass the test", ar: "يجتاز الامتحان", t: "coll" },
+                    { en: "waste time", ar: "يهدر / يضيع الوقت", t: "coll" },
+                    { en: "reach goals", ar: "يحقق الأهداف", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "positive and negative sides", ar: "جوانب إيجابية وسلبية", t: "exp" },
+                    { en: "feel proud", ar: "يشعر بالفخر", t: "exp" },
+                    { en: "ask for advice", ar: "يطلب النصيحة", t: "exp" },
+                    { en: "close to", ar: "قريب من", t: "exp" },
+                    { en: "excited about", ar: "متحمس بشأن", t: "exp" },
+                    { en: "focus on", ar: "يركز على", t: "exp" },
+                    { en: "with a high score", ar: "بدرجة عالية", t: "exp" },
+                    { en: "study for a test", ar: "يذاكر للامتحان", t: "exp" },
+                    { en: "stay home", ar: "يبقى في البيت", t: "exp" },
+                    { en: "The party was a success", ar: "حققت الحفلة نجاحاً كبيراً", t: "exp" },
+                    { en: "invite to", ar: "يدعو إلى", t: "exp" },
+                    { en: "lead to", ar: "يؤدي إلى", t: "exp" },
+                    { en: "proud of", ar: "فخور بـ", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "athlete", ar: "لاعب رياضي", t: "n" },
+                    { en: "tough", ar: "صعب / قاسٍ", t: "adj" },
+                    { en: "problem-solving", ar: "حل المشكلات", t: "n" },
+                    { en: "influence", ar: "تأثير", t: "n" },
+                    { en: "injury", ar: "إصابة", t: "n" },
+                    { en: "recover", ar: "يُشفى / يتعافى", t: "v" },
+                    { en: "risk", ar: "مخاطرة", t: "n" },
+                    { en: "impact", ar: "تأثير", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "possible", ar: "ممكن / محتمل", t: "adj" },
+                    { en: "injured", ar: "مصاب", t: "adj" },
+                    { en: "cause", ar: "يسبب / سبب", t: "v/n" },
+                    { en: "race", ar: "سباق", t: "n" },
+                    { en: "training", ar: "تدريب", t: "n" },
+                    { en: "wise", ar: "حكيم / عاقل", t: "adj" },
+                    { en: "mind", ar: "يمانع - عقل", t: "v/n" },
+                    { en: "personal", ar: "شخصي", t: "adj" },
+                    { en: "article", ar: "مقال", t: "n" },
+                    { en: "source", ar: "مصدر", t: "n" },
+                    { en: "newspaper", ar: "جريدة - صحيفة", t: "n" },
+                    { en: "fully", ar: "بشكل كامل", t: "adv" },
+                    { en: "foolish", ar: "أحمق", t: "adj" }
+                ],
+                "Definitions": [
+                    { en: "problem-solving: the process of finding solutions to problems.", ar: "حل المشكلات: عملية إيجاد حلول للمشكلات.", t: "def" },
+                    { en: "risk: the chance that something bad may happen.", ar: "مخاطرة: فرصة احتمالية حدوث شيء سيئ.", t: "def" },
+                    { en: "training: teaching someone a skill.", ar: "تدريب: تعليم شخص ما مهارة.", t: "def" },
+                    { en: "influence: the power to change people or things.", ar: "تأثير: القوة لتغيير الأشخاص أو الأشياء.", t: "def" },
+                    { en: "wise: showing good judgment.", ar: "حكيم: إظهار الحكمة وحسن التقدير.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "take a risk", ar: "يتعرض للمخاطرة / يغامر", t: "coll" },
+                    { en: "take part in", ar: "يشارك في", t: "coll" },
+                    { en: "win a medal", ar: "يفوز بجائزة", t: "coll" },
+                    { en: "make a decision", ar: "يتخذ قرار", t: "coll" },
+                    { en: "face a problem", ar: "يواجه مشكلة", t: "coll" },
+                    { en: "get a rest", ar: "يستريح", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "That's tough", ar: "هذا أمر صعب", t: "exp" },
+                    { en: "on my way", ar: "في طريقي", t: "exp" },
+                    { en: "recover fully", ar: "يتعافى بشكل كامل", t: "exp" },
+                    { en: "have a big influence", ar: "له تأثير كبير", t: "exp" },
+                    { en: "make up your mind", ar: "اتخذ قرارك", t: "exp" },
+                    { en: "responsible for", ar: "مسؤول عن", t: "exp" },
+                    { en: "impact on", ar: "أثر على", t: "exp" },
+                    { en: "ask for advice", ar: "يطلب النصيحة", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "nervous", ar: "متوتر / عصبي", t: "adj" },
+                    { en: "effectively", ar: "بفاعلية", t: "adv" },
+                    { en: "emotion", ar: "عاطفة", t: "n" },
+                    { en: "stressed", ar: "متوتر / مضغوط", t: "adj" },
+                    { en: "explore", ar: "يستكشف", t: "v" }
+                ]
+            }
+        },
+        u5: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "advertisement", ar: "إعلان", t: "n" },
+                    { en: "effort", ar: "جهد / مجهود", t: "n" },
+                    { en: "ambition", ar: "طموح", t: "n" },
+                    { en: "opportunities", ar: "فرص", t: "n" },
+                    { en: "talent", ar: "موهبة", t: "n" },
+                    { en: "profession", ar: "مهنة", t: "n" },
+                    { en: "confidence", ar: "ثقة", t: "n" },
+                    { en: "develop", ar: "يطور", t: "v" },
+                    { en: "passion", ar: "شغف / عاطفة تجاه شيء", t: "n" },
+                    { en: "path", ar: "مسار / ممر", t: "n" },
+                    { en: "designer", ar: "مصمم", t: "n" },
+                    { en: "geology", ar: "علم الجيولوجيا", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "gift", ar: "هدية", t: "n" },
+                    { en: "career", ar: "حياة مهنية / مسار مهني", t: "n" },
+                    { en: "mention", ar: "يذكر", t: "v" },
+                    { en: "skillful", ar: "ماهر", t: "adj" },
+                    { en: "unsure", ar: "غير متأكد", t: "adj" },
+                    { en: "dream", ar: "يحلم / حلم", t: "v/n" },
+                    { en: "rocks", ar: "صخور", t: "n" },
+                    { en: "workshop", ar: "ورشة عمل", t: "n" },
+                    { en: "contact", ar: "يتواصل / اتصال", t: "v/n" },
+                    { en: "readers", ar: "قراء", t: "n" },
+                    { en: "wait", ar: "ينتظر", t: "v" },
+                    { en: "job history", ar: "التاريخ الوظيفي", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "select", ar: "يختار", t: "v" },
+                    { en: "real", ar: "حقيقي", t: "adj" },
+                    { en: "astronauts", ar: "رواد فضاء", t: "n" },
+                    { en: "reality", ar: "حقيقة / واقع", t: "n" },
+                    { en: "program", ar: "برنامج", t: "n" },
+                    { en: "chemistry", ar: "كيمياء", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "talent: natural skill or ability.", ar: "موهبة: مهارة طبيعية أو قدرة.", t: "def" },
+                    { en: "effort: trying hard to do something.", ar: "جهد / مجهود: محاولة القيام بشيء ما بجدية.", t: "def" },
+                    { en: "goal: something you want to achieve.", ar: "هدف: شيء تريد تحقيقه.", t: "def" },
+                    { en: "profession: a job that needs special training.", ar: "مهنة: وظيفة تتطلب تدريباً خاصاً.", t: "def" },
+                    { en: "passion: a strong interest or feeling.", ar: "شغف: اهتمام قوي أو شعور قوي.", t: "def" },
+                    { en: "path: a way toward a goal or future.", ar: "مسار: طريق نحو هدف أو مستقبل.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "develop skills", ar: "يطور مهارات", t: "coll" },
+                    { en: "find a job", ar: "يجد وظيفة", t: "coll" },
+                    { en: "take an opportunity", ar: "يغتنم فرصة", t: "coll" },
+                    { en: "join a program / team", ar: "ينضم إلى برنامج / فريق", t: "coll" },
+                    { en: "achieve goals", ar: "يحقق أهدافاً", t: "coll" },
+                    { en: "have a party", ar: "يقيم حفلة", t: "coll" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "success", ar: "النجاح", t: "n" },
+                    { en: "skills", ar: "مهارات", t: "n" },
+                    { en: "university", ar: "جامعة", t: "n" },
+                    { en: "wish", ar: "يتمنى / أمنية", t: "v/n" },
+                    { en: "talent", ar: "موهبة", t: "n" },
+                    { en: "education", ar: "تعليم", t: "n" },
+                    { en: "training", ar: "تدريب", t: "n" },
+                    { en: "achieve", ar: "يحقق / ينجز", t: "v" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "career plan", ar: "خطة مهنية", t: "n" },
+                    { en: "ability", ar: "قدرة", t: "n" },
+                    { en: "save", ar: "يوفر / يدخر", t: "v" },
+                    { en: "smile", ar: "يبتسم", t: "v" },
+                    { en: "match", ar: "يلائم / يناسب", t: "v" },
+                    { en: "medicine", ar: "الطب", t: "n" },
+                    { en: "machine", ar: "آلة", t: "n" },
+                    { en: "engineering", ar: "هندسة", t: "n" },
+                    { en: "patients", ar: "المرضى", t: "n" },
+                    { en: "language", ar: "لغة", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "education: the process of learning and receiving instructions / learning at school or university.", ar: "التعليم: عملية التعلم وتلقي التعليمات / التعلم في المدرسة أو الجامعة.", t: "def" },
+                    { en: "success: to reach something you worked for.", ar: "النجاح: الوصول إلى شيء عملت من أجله.", t: "def" },
+                    { en: "wish: a strong hope for something.", ar: "أمنية: أمل قوي في الحصول على شيء ما.", t: "def" },
+                    { en: "university: a place for higher study.", ar: "جامعة: مكان للدراسة العليا.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "come true", ar: "يتحقق", t: "coll" },
+                    { en: "match talent", ar: "يلائم موهبة", t: "coll" },
+                    { en: "build a machine", ar: "يبني / يصنع آلة", t: "coll" },
+                    { en: "reach goals / dreams", ar: "يصل لأهدافه / يحقق الأحلام", t: "coll" },
+                    { en: "score goals", ar: "يسجل أهدافاً", t: "coll" },
+                    { en: "have a job / skills", ar: "يمتلك وظيفة / يمتلك مهارات", t: "coll" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "owner", ar: "مالك", t: "n" },
+                    { en: "prediction", ar: "تنبؤ", t: "n" },
+                    { en: "focused", ar: "منتبه / منقظ", t: "adj" },
+                    { en: "review", ar: "مقال نقدي", t: "n" },
+                    { en: "treat", ar: "يُعامل / يُعالج", t: "v" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "good side", ar: "جانب جيد", t: "phrase" },
+                    { en: "course", ar: "دورة تدريبية", t: "n" },
+                    { en: "caring", ar: "رعاية / مهتم بـ", t: "n/adj" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "improve", ar: "يُحسن", t: "v" },
+                    { en: "add", ar: "يُضيف", t: "v" },
+                    { en: "inspire", ar: "يُلهم", t: "v" },
+                    { en: "follow", ar: "يتبع", t: "v" },
+                    { en: "mind map", ar: "خريطة ذهنية", t: "n" },
+                    { en: "wants", ar: "احتياجات", t: "n" },
+                    { en: "branches", ar: "فروع", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "make a difference", ar: "يحدث فارقاً / يترك أثراً", t: "coll" },
+                    { en: "follow a dream", ar: "يتبع حلماً / يسعى وراء حلم", t: "coll" },
+                    { en: "design buildings", ar: "يصمم مباني", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "my dream job", ar: "وظيفة أحلامي", t: "exp" },
+                    { en: "whole class", ar: "الفصل بأكمله", t: "exp" },
+                    { en: "work with", ar: "يعمل مع", t: "exp" },
+                    { en: "part of", ar: "جزء من", t: "exp" },
+                    { en: "good for me", ar: "جيد لي / مناسب لي", t: "exp" },
+                    { en: "the hard sides", ar: "الجوانب الصعبة / السلبيات", t: "exp" },
+                    { en: "care for", ar: "يعتني بـ / يرعى", t: "exp" },
+                    { en: "for many years", ar: "لسنوات عديدة", t: "exp" },
+                    { en: "look back", ar: "يسترجع / يستعيد", t: "exp" },
+                    { en: "important to", ar: "مهم لـ", t: "exp" },
+                    { en: "in my opinion", ar: "في رأيي", t: "exp" }
+                ]
+            }
+        },
+        u6: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "recipe", ar: "وصفة طهي", t: "n" },
+                    { en: "ingredients", ar: "مكونات / مقادير", t: "n" },
+                    { en: "traditional", ar: "تقليدي", t: "adj" },
+                    { en: "crisps", ar: "رقائق البطاطس المقرمشة", t: "n" },
+                    { en: "raisins", ar: "زبيب", t: "n" },
+                    { en: "cinnamon", ar: "قرفة", t: "n" },
+                    { en: "coconut", ar: "جوز الهند", t: "n" },
+                    { en: "saucepan", ar: "قدر / حلة طهي", t: "n" },
+                    { en: "stir", ar: "يقلب / يحرك", t: "v" },
+                    { en: "delicious", ar: "لديد / شهي", t: "adj" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "rice pudding", ar: "أرز باللبن", t: "n" },
+                    { en: "nuts", ar: "مكسرات", t: "n" },
+                    { en: "bowl", ar: "سلطانية / وعاء دائرى", t: "n" },
+                    { en: "boil", ar: "يغلي", t: "v" },
+                    { en: "add", ar: "يضيف", t: "v" },
+                    { en: "cool", ar: "يبرد", t: "v" },
+                    { en: "fridge", ar: "ثلاجة", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "healthy snack", ar: "وجبة خفيفة صحية", t: "n" },
+                    { en: "hummus", ar: "حمص", t: "n" },
+                    { en: "falafel", ar: "طعمية / فلافل", t: "n" },
+                    { en: "figs", ar: "تين", t: "n" },
+                    { en: "olive oil", ar: "زيت زيتون", t: "n" },
+                    { en: "olives", ar: "زيتون", t: "n" },
+                    { en: "spicy", ar: "حار / متبل", t: "adj" },
+                    { en: "juicy", ar: "مليء بالعصارة / مليء بالسوائل", t: "adj" }
+                ],
+                "Definitions": [
+                    { en: "recipe: instructions for making a food dish.", ar: "وصفة طهي: تعليمات لإعداد طبق طعام.", t: "def" },
+                    { en: "ingredients: the items of food you need to make a dish.", ar: "مكونات / مقادير: عناصر الطعام التي تحتاجها لإعداد طبق معين.", t: "def" },
+                    { en: "stir: to move a liquid or substance around with a spoon.", ar: "يُقلب: تحريك السائل أو المادة ملعقة.", t: "def" },
+                    { en: "traditional: following ways of doing things that have existed for a long time.", ar: "تقليدي: اتباع الطرق القديمة الموجودة منذ فترة طويلة.", t: "def" },
+                    { en: "delicious: having a very pleasant taste.", ar: "لذيذ: له طعم رائع وممتع جداً.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "make a recipe", ar: "يعد وصفة طعام", t: "coll" },
+                    { en: "add ingredients", ar: "يضيف مكونات", t: "coll" },
+                    { en: "boil water", ar: "يغلي ماءً", t: "coll" },
+                    { en: "have a snack", ar: "يتناول وجبة خفيفة", t: "coll" },
+                    { en: "make rice pudding", ar: "يصنع أرز باللبن", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "easy to make", ar: "سهل التحضير", t: "exp" },
+                    { en: "put in the fridge", ar: "يضع في الثلاجة", t: "exp" },
+                    { en: "good for health", ar: "مفيد للصحة", t: "exp" },
+                    { en: "taste delicious", ar: "مذاقه لذيذ", t: "exp" },
+                    { en: "top with raisins", ar: "يضع الزبيب على القمة / الوجه", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "menu", ar: "قائمة طعام", t: "n" },
+                    { en: "waiter", ar: "جرسون / نادل", t: "n" },
+                    { en: "customer", ar: "زبون / عميل", t: "n" },
+                    { en: "order", ar: "يطلب / طلب", t: "v/n" },
+                    { en: "bill", ar: "فاتورة", t: "n" },
+                    { en: "main course", ar: "الطبق الرئيسي", t: "n" },
+                    { en: "dessert", ar: "حلوى (بعد الأكل)", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "cheesecake", ar: "كيكة الجبن / تشيز كيك", t: "n" },
+                    { en: "roast chicken", ar: "دجاج محمر", t: "n" },
+                    { en: "fried fish", ar: "سمك مقلي", t: "n" },
+                    { en: "fruit salad", ar: "سلطة فواكه", t: "n" },
+                    { en: "lime juice", ar: "عصير ليمون حامض", t: "n" },
+                    { en: "soup", ar: "شوربة / حساء", t: "n" },
+                    { en: "chef", ar: "طباخ / رئيس الطهاة", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "menu: a list of the food you can eat in a restaurant.", ar: "قائمة طعام: قائمة بالأطعمة التي يمكنك تناولها في المطعم.", t: "def" },
+                    { en: "waiter: a person whose job is to serve customers in a restaurant.", ar: "جرسون: شخص وظفته تقديم الخدمة للزبائن في المطعم.", t: "def" },
+                    { en: "dessert: sweet food eaten at the end of a meal.", ar: "حلوى: طعام حلو يتم تناوله في نهاية الوجبة.", t: "def" },
+                    { en: "bill: a piece of paper showing how much you must pay for food or service.", ar: "فاتورة: ورقة توضح المبلغ الذي يجب أن تدفعه مقابل الطعام أو الخدمة.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "order food", ar: "يطلب طعاماً", t: "coll" },
+                    { en: "pay the bill", ar: "يدفع الفاتورة", t: "coll" },
+                    { en: "serve food", ar: "يقدم الطعام", t: "coll" },
+                    { en: "take an order", ar: "يأخذ طلباً", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "Ready to order?", ar: "هل أنت جاهز للطلب؟", t: "exp" },
+                    { en: "What would you like?", ar: "ماذا تود أن تتناول؟", t: "exp" },
+                    { en: "Anything else?", ar: "هل تريد أي شيء آخر؟", t: "exp" },
+                    { en: "Here you are", ar: "تفضل", t: "exp" },
+                    { en: "enjoy your meal", ar: "أتمنى لك وجبة ممتعة", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "reusable", ar: "قابل لإعادة الاستخدام", t: "adj" },
+                    { en: "closely", ar: "عن قرب / بعناية", t: "adv" },
+                    { en: "global citizen", ar: "مواطن عالمي", t: "n" },
+                    { en: "throw away", ar: "يلقي / يتخلص من", t: "v" },
+                    { en: "review", ar: "مقال نقدي / تقييم", t: "n" }
+                ],
+                "Lessons 5 & 6 Vocabulary": [
+                    { en: "environment", ar: "البيئة", t: "n" },
+                    { en: "plastic bags", ar: "أكياس بلاستيك", t: "n" },
+                    { en: "container", ar: "وعاء / حاوية", t: "n" },
+                    { en: "protect", ar: "يحمي", t: "v" },
+                    { en: "waste", ar: "يدر / نفايات", t: "v/n" },
+                    { en: "recommend", ar: "يوصي بـ / يرشح", t: "v" }
+                ],
+                "Collocations": [
+                    { en: "protect the environment", ar: "يحمي البيئة", t: "coll" },
+                    { en: "throw away garbage", ar: "يلقي القمامة", t: "coll" },
+                    { en: "use reusable bags", ar: "يستخدم أكياساً قابلة لإعادة الاستخدام", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "good for the planet", ar: "جيد للكوكب", t: "exp" },
+                    { en: "throw away in the bin", ar: "يرمي في سلة المهملات", t: "exp" },
+                    { en: "in my view", ar: "من وجهة نظري", t: "exp" },
+                    { en: "look closely at", ar: "ينظر بعناية إلى", t: "exp" }
+                ]
+            }
+        }
+    };
+
+    function initNav() {
+        const nav = document.getElementById('unitNav');
+        nav.innerHTML = '';
+        for (let i = 1; i <= 6; i++) {
+            const btn = document.createElement('button');
+            btn.className = `unit-btn ${currU === 'u' + i ? 'active' : ''}`;
+            btn.innerText = `Unit ${i}`;
+            btn.onclick = () => setU('u' + i, btn);
+            nav.appendChild(btn);
+        }
+    }
+
+    function setU(u, btn) {
+        currU = u;
+        document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        stopPlayAll();
+        render();
+    }
+
+    function setL(l, tab) {
+        currL = l;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        stopPlayAll();
+        render();
+    }
+
+    function render() {
+        const container = document.getElementById('dictionaryContent');
+        const q = document.getElementById('search').value.toLowerCase().trim();
+        container.innerHTML = '';
+
+        let targetData = {};
+
+        if (currL === 'all') {
+            const uObj = data[currU] || {};
+            for (let lKey in uObj) {
+                for (let sec in uObj[lKey]) {
+                    if (!targetData[sec]) targetData[sec] = [];
+                    targetData[sec] = targetData[sec].concat(uObj[lKey][sec]);
+                }
+            }
+        } else {
+            targetData = (data[currU] && data[currU][currL]) ? data[currU][currL] : {};
+        }
+
+        let totalRendered = 0;
+
+        for (let sec in targetData) {
+            let words = targetData[sec] || [];
+            if (q) {
+                words = words.filter(w => w.en.toLowerCase().includes(q) || w.ar.includes(q));
+            }
+
+            if (words.length > 0) {
+                totalRendered += words.length;
+
+                const secHeader = document.createElement('div');
+                secHeader.className = 'section-header';
+                secHeader.innerHTML = `
+                    <span class="section-title">${sec}</span>
+                    <span class="word-count">${words.length} words</span>
+                `;
+                container.appendChild(secHeader);
+
+                const card = document.createElement('div');
+                card.className = 'content-card';
+                let tableHtml = '<table>';
+
+                words.forEach(w => {
+                    const typeHtml = w.t ? `<span class="word-type">(${w.t})</span>` : '';
+                    tableHtml += `
+                        <tr>
+                            <td>
+                                <span class="word-en" onclick="speak('${w.en.replace(/'/g, "\\'")}', this)">${w.en}</span>
+                                ${typeHtml}
+                            </td>
+                            <td class="word-ar">${w.ar}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</table>';
+                card.innerHTML = tableHtml;
+                container.appendChild(card);
+            }
+        }
+
+        if (totalRendered === 0) {
+            container.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text); opacity:0.6;">لا توجد كلمات للعرض حالياً</div>`;
+        }
+    }
+
+    window.onload = () => {
+        initNav();
+        render();
+    };
+</script>
+</body>
+</html>
