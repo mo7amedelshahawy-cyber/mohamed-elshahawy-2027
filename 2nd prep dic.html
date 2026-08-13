@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MOHAMED ELSHAHAWY - Prep 2 Master Dictionary</title>
+    <style>
+        :root {
+            --primary: #1e3a8a; 
+            --secondary: #ffffff; 
+            --accent: #dc2626; 
+            --bg: #f8fafc; 
+            --card: #ffffff; 
+            --text: #0f172a; 
+            --nav-bg: #e2e8f0;
+            --border: #cbd5e1;
+        }
+        [data-theme="midnight"] { 
+            --primary: #38bdf8; 
+            --secondary: #0f172a; 
+            --accent: #f59e0b; 
+            --bg: #0f172a; 
+            --card: #1e293b; 
+            --text: #f8fafc; 
+            --nav-bg: #334155;
+            --border: #475569;
+        }
+        [data-theme="forest"] { 
+            --primary: #15803d; 
+            --secondary: #ffffff; 
+            --accent: #d97706; 
+            --bg: #f0fdf4; 
+            --card: #ffffff; 
+            --text: #14532d; 
+            --nav-bg: #dcfce7;
+            --border: #bbf7d0;
+        }
+        [data-theme="purple"] { 
+            --primary: #c084fc; 
+            --secondary: #2e1065; 
+            --accent: #22d3ee; 
+            --bg: #2e1065; 
+            --card: #3b0764; 
+            --text: #faf5ff; 
+            --nav-bg: #581c87;
+            --border: #6b21a8;
+        }
+        [data-theme="golden"] { 
+            --primary: #fbbf24; 
+            --secondary: #18181b; 
+            --accent: #f97316; 
+            --bg: #18181b; 
+            --card: #27272a; 
+            --text: #f4f4f5; 
+            --nav-bg: #3f3f46;
+            --border: #52525b;
+        }
+        [data-theme="contrast"] { 
+            --primary: #000000; 
+            --secondary: #ffffff; 
+            --accent: #cc0000; 
+            --bg: #ffffff; 
+            --card: #ffffff; 
+            --text: #000000; 
+            --nav-bg: #e5e5e5;
+            --border: #000000;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; color: var(--text); }
+        .brand { text-align: center; padding: 12px; font-size: 0.85rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+        .header { background: var(--primary); color: var(--secondary); padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: background 0.3s, color 0.3s; }
+        
+        .speed-control { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.85rem; flex-wrap: wrap; }
+        .speed-control input { width: 100px; accent-color: var(--accent); cursor: pointer; }
+
+        .play-all-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-top: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .play-all-btn.playing { background: #555; }
+
+        .controls { display: flex; justify-content: center; margin-top: -22px; padding: 0 10px; }
+        .theme-toggle { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: var(--card); color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; }
+        
+        .search-wrapper { max-width: 500px; margin: 25px auto; padding: 0 15px; }
+        .search-box { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--primary); outline: none; background: var(--card); color: var(--text); box-sizing: border-box; font-size: 1rem; }
+        
+        .unit-nav { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            max-width: 500px; 
+            margin: 0 auto; 
+            padding: 10px 15px; 
+        }
+        .unit-btn { padding: 10px 10px; border-radius: 12px; border: 1.5px solid var(--primary); background: transparent; color: var(--text); font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.2s; text-align: center; }
+        .unit-btn.active { background: var(--primary); color: var(--secondary); }
+        
+        .lesson-nav { display: flex; background: var(--nav-bg); margin: 15px auto; max-width: 500px; border-radius: 12px; padding: 5px; gap: 5px; }
+        .tab { flex: 1; text-align: center; padding: 12px 5px; cursor: pointer; border-radius: 10px; font-weight: bold; font-size: 0.85rem; color: var(--text); transition: 0.2s; }
+        .tab.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px; max-width: 800px; margin: 0 auto; }
+        .section-title { font-weight: 800; color: var(--accent); font-size: 0.95rem; text-transform: uppercase; border-right: 4px solid var(--accent); padding-right: 8px; }
+        .word-count { font-size: 0.75rem; background: var(--primary); color: var(--secondary); padding: 2px 10px; border-radius: 20px; font-weight: bold; }
+        
+        .content-card { background: var(--card); margin: 10px auto 25px; max-width: 800px; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: right; }
+        tr:last-child td { border-bottom: none; }
+        .word-en { color: var(--text); font-weight: 700; font-size: 1.05rem; cursor: pointer; display: inline-block; transition: color 0.2s; }
+        .word-ar { color: var(--text); font-size: 1rem; }
+        .word-en.active-speak { color: var(--accent) !important; text-decoration: underline; background: rgba(220, 38, 38, 0.1); border-radius: 5px; padding: 0 4px; }
+        .word-type { font-size: 0.75rem; color: var(--accent); font-weight: normal; margin-right: 5px; }
+        
+        .def-box { display: block; margin-top: 6px; font-size: 0.9rem; color: var(--primary); font-weight: 600; cursor: pointer; background: var(--nav-bg); padding: 8px 12px; border-radius: 8px; border-right: 3px solid var(--primary); transition: background 0.2s; }
+        .def-box:hover { opacity: 0.9; }
+        .def-label { font-size: 0.75rem; color: var(--accent); font-weight: bold; display: block; margin-bottom: 2px; }
+    </style>
+</head>
+<body>
+
+<div class="brand">POWERED BY " MR MOHAMED ELSHAHAWY "</div>
+
+<div class="header">
+    <h2 style="margin:0; font-size: 1.3rem;">Prep 2 Master Dictionary</h2>
+    
+    <div style="margin-top:10px; font-size:0.8rem; display: flex; justify-content: center; gap: 15px;">
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-US" checked onclick="vL='en-US'"> American 🇺🇸</label>
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-GB" onclick="vL='en-GB'"> British 🇬🇧</label>
+    </div>
+
+    <div class="speed-control">
+        <span>🐢 Slow</span>
+        <input type="range" id="speedRate" min="0.3" max="1.5" step="0.1" value="0.7" oninput="document.getElementById('speedVal').innerText = this.value + 'x'">
+        <span>Fast ⚡</span>
+        <span id="speedVal" style="font-weight:bold; width: 35px;">0.7x</span>
+        
+        <button id="playAllBtn" class="play-all-btn" onclick="togglePlayAll()">🔊 Play All</button>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="theme-toggle" onclick="cycleThemes()">🎨 Mode: <span id="themeName">Classic Blue</span></button>
+</div>
+
+<div class="search-wrapper">
+    <input type="text" id="search" class="search-box" placeholder="Search... ابحث هنا" onkeyup="render()">
+</div>
+
+<div class="unit-nav" id="unitNav"></div>
+
+<div class="lesson-nav">
+    <div id="tab12" class="tab active" onclick="setL('12', this)">Lessons 1&2</div>
+    <div id="tab3" class="tab" onclick="setL('3', this)">Lesson 3</div>
+    <div id="tab56" class="tab" onclick="setL('56', this)">Lessons 5&6</div>
+    <div id="tabAll" class="tab" onclick="setL('all', this)">All Words</div>
+</div>
+
+<div id="dictionaryContent"></div>
+
+<div class="brand" style="margin-bottom:40px; opacity:0.6;">MR MOHAMED ELSHAHAWY © 2026</div>
+
+<script>
+    let vL = 'en-US'; let currU = 'u1'; let currL = '12';
+    let themeIdx = 0; let isPlayingAll = false; let playAllIndex = 0;
+    const themes = [
+        {id:'default',n:'Classic Blue'},
+        {id:'midnight',n:'Midnight'},
+        {id:'forest',n:'Forest'},
+        {id:'purple',n:'Purple'},
+        {id:'golden',n:'Golden'},
+        {id:'contrast',n:'Contrast'}
+    ];
+
+    function cycleThemes(){
+        themeIdx=(themeIdx+1)%themes.length;
+        document.body.setAttribute('data-theme', themes[themeIdx].id);
+        document.getElementById('themeName').innerText = themes[themeIdx].n;
+    }
+
+    function speak(text, el, callback) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = vL;
+        ut.rate = parseFloat(document.getElementById('speedRate').value);
+        document.querySelectorAll('.word-en, .def-box').forEach(w => w.classList.remove('active-speak'));
+        if(el) el.classList.add('active-speak');
+        ut.onend = () => {
+            if(el) el.classList.remove('active-speak');
+            if(callback) callback();
+        };
+        window.speechSynthesis.speak(ut);
+    }
+
+    function togglePlayAll() {
+        const btn = document.getElementById('playAllBtn');
+        if (isPlayingAll) { stopPlayAll(); } 
+        else {
+            isPlayingAll = true;
+            btn.innerText = "🛑 Stop";
+            btn.classList.add('playing');
+            playAllIndex = 0;
+            playNextWord();
+        }
+    }
+
+    function stopPlayAll() {
+        isPlayingAll = false;
+        window.speechSynthesis.cancel();
+        const btn = document.getElementById('playAllBtn');
+        btn.innerText = "🔊 Play All";
+        btn.classList.remove('playing');
+        document.querySelectorAll('.word-en, .def-box').forEach(w => w.classList.remove('active-speak'));
+    }
+
+    function playNextWord() {
+        if (!isPlayingAll) return;
+        const words = document.querySelectorAll('.word-en');
+        if (playAllIndex < words.length) {
+            const wordEl = words[playAllIndex];
+            wordEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            speak(wordEl.innerText, wordEl, () => {
+                playAllIndex++;
+                setTimeout(playNextWord, 600);
+            });
+        } else { stopPlayAll(); }
+    }
+
+    const data = {
+        u1: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "Gen = generation", ar: "جيل", t: "n" },
+                    { en: "Gen Alpha", ar: "جيل \"ألفا\" (الجيل الأكثر استخداماً للتكنولوجيا)", t: "" },
+                    { en: "trend", ar: "اتجاه عام / موضة", t: "n" },
+                    { en: "limit (ed)", ar: "يحد / حد", t: "v/n" },
+                    { en: "screen time", ar: "وقت استخدام الشاشة", t: "n" },
+                    { en: "digital native", ar: "مواطن رقمي (يستخدم التكنولوجيا منذ صغره)", t: "n" },
+                    { en: "emoji", ar: "رمز تعبيري", t: "n" },
+                    { en: "identity", ar: "الهوية", t: "n" },
+                    { en: "balance (d)", ar: "يوازن / توازن", t: "v/n" },
+                    { en: "memes", ar: "صور / مقتطفات هزلية تنشر على الإنترنت", t: "n" },
+                    { en: "platform", ar: "منصة", t: "n" },
+                    { en: "emotion", ar: "عاطفة / شعور", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "discover (ed)", ar: "يكتشف", t: "v" },
+                    { en: "apps = applications", ar: "تطبيقات (على الهواتف / الأجهزة الإلكترونية)", t: "n" },
+                    { en: "encourage (d)", ar: "يشجع", t: "v" },
+                    { en: "real-life", ar: "واقعي / من واقع الحياة", t: "adj" },
+                    { en: "rarely", ar: "نادراً", t: "adv" },
+                    { en: "tools", ar: "أدوات", t: "n" },
+                    { en: "represent (ed)", ar: "يمثل / يرمز إلى", t: "v" },
+                    { en: "constantly", ar: "باستمرار", t: "adv" },
+                    { en: "powerful", ar: "قوي / ذو نفوذ", t: "adj" },
+                    { en: "creative", ar: "مبدع / إبداعي", t: "adj" },
+                    { en: "wonder (ed)", ar: "يتعجب / يتساءل", t: "v" },
+                    { en: "connection", ar: "اتصال / ارتباط", t: "n" },
+                    { en: "devices", ar: "أجهزة", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "global", ar: "عالمي", t: "adj" },
+                    { en: "onwards", ar: "فصاعداً", t: "adv" },
+                    { en: "Artificial Intelligence (AI)", ar: "الذكاء الاصطناعي", t: "" },
+                    { en: "challenge", ar: "تحدي", t: "n" },
+                    { en: "social media", ar: "وسائل التواصل الاجتماعي", t: "n" },
+                    { en: "adaptive", ar: "سريع التكيف", t: "adj" },
+                    { en: "wisely", ar: "بحكمة / بعقل", t: "adv" },
+                    { en: "worldwide", ar: "على مستوى العالم", t: "adv/adj" },
+                    { en: "relationship", ar: "علاقة", t: "n" },
+                    { en: "coding", ar: "البرمجة", t: "n" },
+                    { en: "online learning", ar: "التعلم عبر الإنترنت", t: "" },
+                    { en: "affect (ed)", ar: "يؤثر على", t: "v" }
+                ],
+                "Definitions": [
+                    { en: "trends", def: "popular new developments, often seen in digital content or social behavior.", ar: "صيحات / موضة: تطورات جديدة شائعة، تُرى غالباً في المحتوى الرقمي أو السلوك الاجتماعي.", t: "def" },
+                    { en: "screen time", def: "the amount of time spent looking at a screen.", ar: "وقت استخدام الشاشة: مقدار الوقت الذي يقضيه الشخص في النظر إلى الشاشة.", t: "def" },
+                    { en: "emojis", def: "small digital images or icons used to express ideas or emotions in electronic communication.", ar: "رموز تعبيرية: صور أو أيقونات رقمية صغيرة تُستخدم للتعبير عن الأفكار أو المشاعر في الاتصالات الإلكترونية.", t: "def" },
+                    { en: "generation", def: "a group of people born around the same time.", ar: "جيل: مجموعة من الناس وُلدوا في نفس الوقت تقريباً.", t: "def" },
+                    { en: "balance", def: "a situation in which different things are of equal or proper weight or amount.", ar: "توازن: موقف تكون فيه الأشياء المختلفة ذات وزن أو مقدار متساوٍ أو مناسب.", t: "def" },
+                    { en: "digital natives", def: "individuals who have grown up with technology, such as computers, the internet, and mobile devices.", ar: "مواطنون رقميون: أفراد نشأوا مع التكنولوجيا، مثل أجهزة الكمبيوتر، والإنترنت، والأجهزة المحمولة.", t: "def" },
+                    { en: "memes", def: "humorous images or videos that are spread quickly by internet users.", ar: "صور / فيديوهات هزلية: صور أو فيديوهات مضحكة ينتشر استخدامها بسرعة بين مستخدمي الإنترنت.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "limit screen time", ar: "يحد من وقت استخدام الشاشة", t: "coll" },
+                    { en: "express feelings", ar: "يعبر عن المشاعر", t: "coll" },
+                    { en: "spend time online", ar: "يقضي وقتاً عبر الإنترنت", t: "coll" },
+                    { en: "share memes", ar: "يشارك مقاطع مصورة مضحكة", t: "coll" },
+                    { en: "create identity", ar: "يكون هوية", t: "coll" },
+                    { en: "face challenge", ar: "يواجه تحدي", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "create a video", ar: "يصنع فيديو", t: "exp" },
+                    { en: "from around 2010 to the mid-2020s", ar: "من حوالي عام 2010 حتى منتصف عشرينات القرن الحالي", t: "exp" },
+                    { en: "spread across", ar: "ينتشر عبر", t: "exp" },
+                    { en: "instead of", ar: "بدلاً من", t: "exp" },
+                    { en: "different from", ar: "مختلف عن", t: "exp" },
+                    { en: "shape the future", ar: "يشكل المستقبل", t: "exp" },
+                    { en: "in a creative, fun way", ar: "بطريقة إبداعية فكاهية", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "include (d)", ar: "يشمل / يتضمن", t: "v" },
+                    { en: "smartphone", ar: "هاتف ذكي", t: "n" },
+                    { en: "far apart", ar: "بعيداً", t: "" },
+                    { en: "connect (ed)", ar: "يتصل / يتواصل", t: "v" },
+                    { en: "in common", ar: "مشترك", t: "" },
+                    { en: "case", ar: "قضية / مشكلة", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "even though", ar: "على الرغم من", t: "" },
+                    { en: "ages", ar: "أعمار", t: "n" },
+                    { en: "digital bridge", ar: "جسر رقمي", t: "" },
+                    { en: "treat (ed)", ar: "يعامل", t: "v" },
+                    { en: "fairness", ar: "عدل / إنصاف", t: "n" },
+                    { en: "unite (d)", ar: "يطرد / يوحد", t: "v" },
+                    { en: "thoughts", ar: "أفكار", t: "n" },
+                    { en: "interests", ar: "اهتمامات", t: "n" },
+                    { en: "support (ed)", ar: "يساند / يدعم / دعم", t: "v/n" },
+                    { en: "language", ar: "لغة", t: "n" },
+                    { en: "mostly", ar: "في المعظم / في الغالب", t: "adv" },
+                    { en: "distant", ar: "بعيد / ناءٍ", t: "adj" },
+                    { en: "online creator", ar: "صانع محتوى على الإنترنت", t: "" }
+                ],
+                "Definitions": [
+                    { en: "connect", def: "to join or link with someone or something.", ar: "يتواصل / يرتبط: أن تنضم أو ترتبط بشخص ما أو شيء ما.", t: "def" },
+                    { en: "in common", def: "having similar ideas and interests.", ar: "مشترك: امتلاك أفكار واهتمامات متشابهة.", t: "def" },
+                    { en: "include", def: "to be part of something.", ar: "يشمل / يتضمن: أن يكون جزءاً من شيء ما.", t: "def" },
+                    { en: "far apart", def: "being in distant places.", ar: "بعيداً: التواجد في أماكن بعيدة.", t: "def" },
+                    { en: "case", def: "a situation requiring investigation or action.", ar: "قضية / حالة: موقف يتطلب التحقيق أو اتخاذ إجراء.", t: "def" },
+                    { en: "smartphone", def: "a cell phone that includes additional software functions.", ar: "هاتف ذكي: هاتف محمول يتضمن وظائف برمجية إضافية.", t: "def" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "till now", ar: "حتى الآن", t: "exp" },
+                    { en: "popular with", ar: "محبوب من", t: "exp" },
+                    { en: "care about", ar: "يهتم بـ", t: "exp" },
+                    { en: "in a digital world", ar: "في عالم رقمي", t: "exp" },
+                    { en: "work together", ar: "يعملون معاً", t: "exp" },
+                    { en: "connect with others", ar: "يتواصل مع الآخرين", t: "exp" },
+                    { en: "treat ... with fairness", ar: "يعامل ... بعدالة", t: "exp" },
+                    { en: "travel to", ar: "يسافر إلى", t: "exp" },
+                    { en: "on YouTube", ar: "على منصة اليوتيوب", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "interview", ar: "مقابلة شخصية", t: "n" },
+                    { en: "handle (d)", ar: "يتعامل مع / يدير", t: "v" },
+                    { en: "offline", ar: "غير متصل بالإنترنت", t: "adj" },
+                    { en: "blog", ar: "مدونة", t: "n" },
+                    { en: "left out", ar: "مستبعد", t: "adj" },
+                    { en: "advice = tip", ar: "نصيحة", t: "n" },
+                    { en: "blogger", ar: "مدوّن", t: "n" },
+                    { en: "teen", ar: "مراهق", t: "n" },
+                    { en: "journal", ar: "دفتر يوميات", t: "n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "post (ed)", ar: "ينشر / منشور", t: "v/n" },
+                    { en: "chat (ted)", ar: "يدردش", t: "v" },
+                    { en: "tip = advice", ar: "نصيحة", t: "n" },
+                    { en: "check (ed)", ar: "يفحص / يراجع", t: "v" },
+                    { en: "research (ed)", ar: "يبحث", t: "v" },
+                    { en: "control (led)", ar: "يتحكم", t: "v" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "wonderful", ar: "رائع", t: "adj" },
+                    { en: "latest", ar: "الأحدث", t: "adj" },
+                    { en: "real-world", ar: "واقعی - حقيقي", t: "adj" },
+                    { en: "follow (ed)", ar: "يتبع", t: "v" },
+                    { en: "care", ar: "عناية", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "build habits", ar: "يكتسب عادات", t: "coll" },
+                    { en: "follow trends", ar: "يتبع الصيحات", t: "coll" },
+                    { en: "stay balanced", ar: "يظل متوازناً", t: "coll" },
+                    { en: "feel left out", ar: "يشعر أنه مستبعد", t: "coll" },
+                    { en: "do sports", ar: "يمارس ألعاب رياضة", t: "coll" },
+                    { en: "do homework", ar: "يؤدي الواجب المنزلي", t: "coll" },
+                    { en: "find a balance", ar: "يحقق توازن", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "let it control you", ar: "تسمح له بالتحكم فيك", t: "exp" },
+                    { en: "find a balance between ... and ...", ar: "يجد توازناً بين ... و ...", t: "exp" },
+                    { en: "Thanks for having me!", ar: "شكراً لاستضافتكم لي!", t: "exp" },
+                    { en: "in my opinion", ar: "في رأيي", t: "exp" },
+                    { en: "refer to", ar: "يشير إلى", t: "exp" },
+                    { en: "spend time on", ar: "يقضي وقت على", t: "exp" },
+                    { en: "be careful", ar: "يكون حريصاً / حذراً", t: "exp" },
+                    { en: "put the phone away", ar: "يضع تليفون بعيداً", t: "exp" }
+                ]
+            }
+        },
+        u2: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "digital footprint", ar: "بصمة رقمية", t: "n" },
+                    { en: "secure", ar: "آمن / محكم", t: "adj" },
+                    { en: "trace (d)", ar: "يتتبع / أثر", t: "v/n" },
+                    { en: "data", ar: "بيانات", t: "n" },
+                    { en: "adult", ar: "شخص بالغ", t: "n" },
+                    { en: "superhero", ar: "بطل خارق", t: "n" },
+                    { en: "privacy", ar: "خصوصية", t: "n" },
+                    { en: "password", ar: "كلمة سر", t: "n" },
+                    { en: "settings", ar: "إعدادات / ضبط", t: "n" },
+                    { en: "post (ed)", ar: "ينشر / منشور", t: "v/n" },
+                    { en: "private", ar: "خاص", t: "adj" },
+                    { en: "trusted", ar: "موثوق به", t: "adj" },
+                    { en: "update (d)", ar: "يُحدث / تحديث", t: "v/n" },
+                    { en: "access (ed)", ar: "يصل إلى", t: "v" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "experience (d)", ar: "يمر بتجربة / خبرة / تجربة", t: "v/n" },
+                    { en: "protect (ed)", ar: "يحمي", t: "v" },
+                    { en: "remove (d)", ar: "يزيل", t: "v" },
+                    { en: "symbol", ar: "رمز", t: "n" },
+                    { en: "danger", ar: "خطر", t: "n" },
+                    { en: "impression", ar: "انطباع", t: "n" },
+                    { en: "effect", ar: "تأثير", t: "n" },
+                    { en: "address", ar: "عنوان", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "trail", ar: "أثر / طريق", t: "n" },
+                    { en: "upload (ed)", ar: "يحمل على الإنترنت", t: "v" },
+                    { en: "secret", ar: "سر", t: "n" },
+                    { en: "respectful", ar: "محترم للآخرين", t: "adj" },
+                    { en: "breadcrumbs", ar: "فتات الخبز", t: "n" },
+                    { en: "account", ar: "حساب", t: "n" },
+                    { en: "profile", ar: "ملف شخصي", t: "n" },
+                    { en: "ignore (d)", ar: "يتجاهل", t: "v" },
+                    { en: "allow (ed)", ar: "يسمح", t: "v" },
+                    { en: "guess (ed)", ar: "يخمن", t: "v" },
+                    { en: "guardian", ar: "حامي / حارس / ولي أمر", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "digital footprint", def: "the path or history of your activities online.", ar: "البصمة الرقمية: المسار أو السجل الخاص بأنشطتك على الإنترنت.", t: "def" },
+                    { en: "privacy", def: "the state of being free from public attention.", ar: "خصوصية: حالة الخلو من الاهتمام العام.", t: "def" },
+                    { en: "secure", def: "free from danger or risk.", ar: "آمن: خالي من الخطر.", t: "def" },
+                    { en: "password", def: "a secret word or phrase used to access personal information.", ar: "كلمة سر: كلمة أو عبارة سرية تُستخدم للوصول إلى المعلومات الشخصية.", t: "def" },
+                    { en: "data", def: "information processed or stored by a computer.", ar: "بيانات: معلومات معالجة أو مخزنة بواسطة الكمبيوتر.", t: "def" },
+                    { en: "trace", def: "a mark or impression left by something.", ar: "أثر: علامة أو انطباع يتركه شيء ما.", t: "def" },
+                    { en: "setting", def: "the environment in which something is set.", ar: "إعداد / ضبط: البيئة التي يتم وضع شيء ما فيها.", t: "def" },
+                    { en: "private", def: "something that is personal and not meant to be shared with everyone.", ar: "خاص: شيء شخصي وليس مخصصاً للمشاركة مع الجميع.", t: "def" },
+                    { en: "experience", def: "the knowledge or skill that you get from doing, seeing or feeling things.", ar: "خبرة / تجربة: المعرفة أو المهارة التي تكتسبها من فعل الأشياء أو رؤيتها أو الشعور بها.", t: "def" },
+                    { en: "adult", def: "a person who is fully grown up.", ar: "شخص بالغ: شخص مكتمل النمو.", t: "def" },
+                    { en: "trusted", def: "believed to be honest.", ar: "موثوق به: يُعتقد أنه أمين.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "share personal data", ar: "يشارك بيانات شخصية", t: "coll" },
+                    { en: "keep secure/safe", ar: "يحافظ على أمان المعلومات", t: "coll" },
+                    { en: "stay safe online", ar: "يبقى / يظل آمناً عبر الإنترنت", t: "coll" },
+                    { en: "leave a trace", ar: "يترك أثراً / بصمة", t: "coll" },
+                    { en: "make sure", ar: "يتأكد", t: "coll" },
+                    { en: "check privacy settings", ar: "يتحقق من إعدادات الخصوصية", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "hard to remove", ar: "صعب إزالتها", t: "exp" },
+                    { en: "focus on the big picture", ar: "يركز على الهدف العام", t: "exp" },
+                    { en: "every now and then", ar: "من وقت لآخر", t: "exp" },
+                    { en: "create a digital trail", ar: "ينشئ بصمة رقمية", t: "exp" },
+                    { en: "careful about", ar: "حذراً بشأن", t: "exp" },
+                    { en: "free from", ar: "خالي من", t: "exp" },
+                    { en: "get stuck on", ar: "يتورط في", t: "exp" },
+                    { en: "in the digital age", ar: "في عصر التكنولوجيا الرقمية", t: "exp" },
+                    { en: "without permission", ar: "بدون إذن / تصريح", t: "exp" },
+                    { en: "welcome to", ar: "مرحباً بكم في", t: "exp" },
+                    { en: "thank (someone) for", ar: "يشكر (شخص ما) على", t: "exp" },
+                    { en: "have real effects", ar: "لها آثار ملموسة", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "clue", ar: "دليل / مفتاح للحل", t: "n" },
+                    { en: "collect (ed)", ar: "يجمع", t: "v" },
+                    { en: "forever", ar: "إلى الأبد / دائماً", t: "adv" },
+                    { en: "online identity", ar: "الهوية عبر الإنترنت", t: "n" },
+                    { en: "active", ar: "نشط / إيجابي", t: "adj" },
+                    { en: "passive", ar: "سلبي / غير مباشر", t: "adj" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "comment", ar: "تعليق", t: "n" },
+                    { en: "present (ed)", ar: "يقدم", t: "v" },
+                    { en: "identify (ied)", ar: "يتعرف على / يحدد", t: "v" },
+                    { en: "details", ar: "تفاصيل", t: "n" },
+                    { en: "disappear (ed)", ar: "يختفي", t: "v" },
+                    { en: "gather (ed)", ar: "يجمع", t: "v" },
+                    { en: "items", ar: "أشياء", t: "n" },
+                    { en: "coins", ar: "عملات معدنية", t: "n" },
+                    { en: "managing", ar: "إدارة", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "clue", def: "a small piece of information that helps you solve a problem.", ar: "دليل/مفتاح للحل: قطعة صغيرة من المعلومات تساعدك في حل مشكلة.", t: "def" },
+                    { en: "collect", def: "to gather items, usually over time.", ar: "يجمع: تجميع الأشياء، عادةً بمرور الوقت.", t: "def" },
+                    { en: "forever", def: "for all time; always.", ar: "إلى الأبد: في كل وقت؛ دائماً.", t: "def" },
+                    { en: "online identity", def: "the way a person presents themselves on the internet.", ar: "الهوية عبر الإنترنت: الطريقة التي يقدم بها الشخص نفسه على الإنترنت.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "build identity", ar: "تشكيل الهوية", t: "coll" },
+                    { en: "use social media", ar: "يستخدم وسائل التواصل الاجتماعي", t: "coll" },
+                    { en: "post pictures", ar: "ينشر صوراً", t: "coll" },
+                    { en: "stay active", ar: "يبقى نشطاً", t: "coll" },
+                    { en: "go for a walk", ar: "يذهب للمشي", t: "coll" },
+                    { en: "collect information / clues", ar: "يجمع معلومات / أدلة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "leave behind clues", ar: "يترك أدلة خلفه", t: "exp" },
+                    { en: "make up", ar: "يكون / يشكل", t: "exp" },
+                    { en: "without your knowing", ar: "بدون علمك", t: "exp" },
+                    { en: "added to", ar: "مضاف إلى", t: "exp" },
+                    { en: "think before you share", ar: "فكر قبل أن تشارك", t: "exp" },
+                    { en: "It's super important to", ar: "من الضروري جداً أن ...", t: "exp" },
+                    { en: "build your online identity", ar: "تبني هويتك على الإنترنت", t: "exp" },
+                    { en: "It's safe to + inf.", ar: "من الآمن أن", t: "exp" },
+                    { en: "on the internet", ar: "عبر الإنترنت", t: "exp" },
+                    { en: "over time", ar: "بمرور الوقت", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "hack (ed)", ar: "يخترق / يقرصن", t: "v" },
+                    { en: "scary", ar: "مخيف", t: "adj" },
+                    { en: "detective", ar: "محقق / مفتش", t: "n" },
+                    { en: "mark", ar: "علامة / أثر", t: "n" },
+                    { en: "software", ar: "برمجيات / برامج", t: "n" },
+                    { en: "click (ed)", ar: "ينقر باستخدام الفأرة", t: "v" },
+                    { en: "steal", ar: "يسرق", t: "v" },
+                    { en: "risk", ar: "خطر / مجازفة", t: "n" },
+                    { en: "device", ar: "جهاز", t: "n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "guess (ed)", ar: "يخمن", t: "v" },
+                    { en: "properly", ar: "بشكل صحيح", t: "adv" },
+                    { en: "complex", ar: "معقد", t: "adj" },
+                    { en: "check (ed)", ar: "يفحص / يتأكد", t: "v" },
+                    { en: "shape (d)", ar: "يُشكّل", t: "v" },
+                    { en: "permanent", ar: "دائم", t: "adj" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "plan (ned)", ar: "يخطط / خطة", t: "v/n" },
+                    { en: "spelling", ar: "هجاء / إملاء", t: "n" },
+                    { en: "purpose", ar: "غرض / هدف", t: "n" },
+                    { en: "teenager", ar: "مراهق", t: "n" },
+                    { en: "full name", ar: "الاسم بالكامل", t: "n" }
+                ],
+                "Collocations": [
+                    { en: "leave a mark", ar: "يترك أثراً", t: "coll" },
+                    { en: "hack an account", ar: "يخترق حساباً", t: "coll" },
+                    { en: "stay secure", ar: "يظل آمناً", t: "coll" },
+                    { en: "give advice", ar: "يعطي نصيحة", t: "coll" },
+                    { en: "trace data", ar: "يتتبع البيانات", t: "coll" },
+                    { en: "have fun", ar: "يستمتع", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "think twice", ar: "يفكر ملياً (يفكر مرتين)", t: "exp" },
+                    { en: "be at risk", ar: "معرض للخطر", t: "exp" },
+                    { en: "That's true!", ar: "هذا صحيح!", t: "exp" },
+                    { en: "set properly", ar: "يُعد بدقة", t: "exp" },
+                    { en: "the latest updates", ar: "آخر التحديثات", t: "exp" },
+                    { en: "me too", ar: "وأنا أيضاً", t: "exp" },
+                    { en: "hack into", ar: "يخترق / يدخل على", t: "exp" },
+                    { en: "agree with", ar: "يتفق مع", t: "exp" }
+                ]
+            }
+        },
+        u3: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "challenge (d)", ar: "يتحدى / تحدي", t: "v/n" },
+                    { en: "courage", ar: "شجاعة", t: "n" },
+                    { en: "overcoming", ar: "التغلب على الصعوبات", t: "n" },
+                    { en: "determination", ar: "عزيمة / إصرار", t: "n" },
+                    { en: "obstacle", ar: "عقبة", t: "n" },
+                    { en: "face (d)", ar: "يواجه / وجه", t: "v/n" },
+                    { en: "discouraged", ar: "محبط", t: "adj" },
+                    { en: "keep going", ar: "يستمر / يواصل", t: "" },
+                    { en: "struggle (d)", ar: "يكافح / يصارع", t: "v" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "proud", ar: "فخور", t: "adj" },
+                    { en: "especially", ar: "على وجه الخصوص", t: "adv" },
+                    { en: "poster", ar: "ملصق", t: "n" },
+                    { en: "solutions", ar: "حلول", t: "n" },
+                    { en: "fail (ed)", ar: "يفشل / يرسب", t: "v" },
+                    { en: "perfect", ar: "مثالي / كامل", t: "adj" },
+                    { en: "determined", ar: "عازم / مصمم", t: "adj" },
+                    { en: "trouble", ar: "مشكلة / ورطة", t: "n" },
+                    { en: "recommendations", ar: "توصيات", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "cheer (ed)", ar: "يهتف", t: "v" },
+                    { en: "trip (ped)", ar: "يتعثر / يقع", t: "v" },
+                    { en: "crowd", ar: "حشد / جمهور", t: "n" },
+                    { en: "race", ar: "سباق", t: "n" },
+                    { en: "speed", ar: "سرعة", t: "n" },
+                    { en: "fear", ar: "خوف", t: "n" },
+                    { en: "upset", ar: "متضايق", t: "adj" },
+                    { en: "against", ar: "ضد / مقابل", t: "prep" },
+                    { en: "attitude", ar: "موقف / سلوك", t: "n" },
+                    { en: "training", ar: "تدريب", t: "n" },
+                    { en: "breathing", ar: "تنفس", t: "n" },
+                    { en: "halfway", ar: "في منتصف الطريق", t: "adv" },
+                    { en: "bump", ar: "مطب", t: "n" },
+                    { en: "prepare (d)", ar: "يحضر / يجهز", t: "v" }
+                ],
+                "Definitions": [
+                    { en: "courage", def: "being brave when facing difficulties.", ar: "شجاعة: أن تكون شجاعاً عند مواجهة الصعوبات.", t: "def" },
+                    { en: "challenge", def: "a difficult situation or task.", ar: "تحدي / صعوبة: موقف أو مهمة صعبة.", t: "def" },
+                    { en: "determination", def: "not giving up easily, even when there are difficulties.", ar: "عزيمة / إصرار: عدم الاستسلام بسهولة، حتى عند وجود صعوبات.", t: "def" },
+                    { en: "obstacle", def: "something that blocks your path.", ar: "عقبة: شيء يعترض طريقك.", t: "def" },
+                    { en: "face challenges", def: "to deal with difficulties or problems.", ar: "يواجه تحديات: التعامل مع الصعوبات أو المشاكل.", t: "def" },
+                    { en: "keep going", def: "to continue moving forward.", ar: "يستمر / يواصل: الاستمرار في التقدم للأمام.", t: "def" },
+                    { en: "perfect", def: "having all required elements or qualities, without flaws.", ar: "مثالي: امتلاك كافة العناصر أو الصفات المطلوبة بدون عيوب.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "show determination", ar: "يظهر عزيمة", t: "coll" },
+                    { en: "win a race / a medal", ar: "يفوز بسباق / بجائزة", t: "coll" },
+                    { en: "overcome challenges", ar: "يتغلب على التحديات", t: "coll" },
+                    { en: "feel proud / excited", ar: "يشعر بالفخر / بالحماس", t: "coll" },
+                    { en: "take courage", ar: "يتطلب شجاعة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "step by step", ar: "خطوة بخطوة", t: "exp" },
+                    { en: "win against her fear", ar: "تتغلب على خوفها", t: "exp" },
+                    { en: "practice breathing", ar: "يمارس تمارين التنفس", t: "exp" },
+                    { en: "take time", ar: "يستغرق وقتاً", t: "exp" },
+                    { en: "the big day", ar: "اليوم المنتظر", t: "exp" },
+                    { en: "in the end", ar: "في النهاية", t: "exp" },
+                    { en: "struggle with", ar: "يعاني من", t: "exp" },
+                    { en: "proud of", ar: "فخور بـ", t: "exp" },
+                    { en: "give up", ar: "يستسلم", t: "exp" },
+                    { en: "fall down", ar: "يسقط", t: "exp" },
+                    { en: "practice with", ar: "يتدرب مع", t: "exp" },
+                    { en: "feel like an obstacle", ar: "تبدو كعائق", t: "exp" },
+                    { en: "go for a run", ar: "يذهب للجري", t: "exp" },
+                    { en: "at the beginning / at the start of", ar: "في بداية", t: "exp" },
+                    { en: "prepare for", ar: "يجهز لـ", t: "exp" },
+                    { en: "afraid to", ar: "خائف أن", t: "exp" },
+                    { en: "at a good speed", ar: "بسرعة مناسبة", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "traffic jam", ar: "ازدحام مروري", t: "n" },
+                    { en: "stressed", ar: "متوتر / مضغوط", t: "adj" },
+                    { en: "flyover", ar: "كوبري علوي", t: "n" },
+                    { en: "tunnel", ar: "نفق", t: "n" },
+                    { en: "highway", ar: "طريق سريع", t: "n" },
+                    { en: "monorail", ar: "المونوريل (قطار أحادي الخط)", t: "n" },
+                    { en: "public transportation", ar: "مواصلات عامة", t: "n" },
+                    { en: "move around", ar: "يتجول / ينتقل", t: "" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "pollution", ar: "تلوث", t: "n" },
+                    { en: "cause (d)", ar: "يسبب", t: "v" },
+                    { en: "airport", ar: "مطار", t: "n" },
+                    { en: "Tahya Misr Bridge", ar: "كوبري تحيا مصر", t: "" },
+                    { en: "cross (ed)", ar: "يعبر", t: "v" },
+                    { en: "country", ar: "دولة", t: "n" },
+                    { en: "electric", ar: "كهربائي", t: "adj" },
+                    { en: "blocked", ar: "مغلق", t: "adj" },
+                    { en: "metro lines", ar: "خطوط المترو", t: "n" },
+                    { en: "rail", ar: "خط سكة حديد", t: "n" },
+                    { en: "freedom", ar: "حرية", t: "n" },
+                    { en: "reduce (d)", ar: "يقلل / يخفض", t: "v" }
+                ],
+                "Definitions": [
+                    { en: "traffic jam", def: "long lines of cars that cannot move or are moving very slowly.", ar: "ازدحام مروري: صفوف طويلة من السيارات لا تستطيع التحرك أو تتحرك ببطء شديد.", t: "def" },
+                    { en: "flyover", def: "a road that passes over another road on a bridge.", ar: "كوبري علوي: طريق يمر فوق طريق آخر على جسر.", t: "def" },
+                    { en: "tunnel", def: "a passage built under the ground or through a mountain.", ar: "نفق: ممر مبني تحت الأرض أو عبر جبل.", t: "def" },
+                    { en: "monorail", def: "a train that runs on a single rail, usually above the ground.", ar: "المونوريل: قطار يسير على سكة حديدية واحدة، عادة فوق سطح الأرض.", t: "def" },
+                    { en: "stressed", def: "feeling worried, nervous, or under pressure.", ar: "متوتر / مضغوط: الشعور بالقلق أو العصبية أو الوقوع تحت الضغط.", t: "def" },
+                    { en: "move around", def: "to travel or go from place to place.", ar: "يتجول: السفر أو التنقل من مكان لآخر.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "feel stressed / tired", ar: "يشعر بالتوتر / بالتعب", t: "coll" },
+                    { en: "solve a problem", ar: "يحل مشكلة", t: "coll" },
+                    { en: "reduce traffic", ar: "يقلل الازدحام المروري", t: "coll" },
+                    { en: "make a plan", ar: "يخطط", t: "coll" },
+                    { en: "cause pollution", ar: "يسبب التلوث", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "get blocked", ar: "يتعطل / يُمنع من الوصول", t: "exp" },
+                    { en: "on streets / highways", ar: "في الشوارع / الطرق السريعة", t: "exp" },
+                    { en: "work on a project", ar: "يعمل في مشروع", t: "exp" },
+                    { en: "get stuck in", ar: "يتعثر في / يعلق في", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "inspired", ar: "ملهم", t: "adj" },
+                    { en: "mistake", ar: "خطأ", t: "n" },
+                    { en: "expect (ed)", ar: "يتوقع", t: "v" },
+                    { en: "speech", ar: "خطاب / حديث", t: "n" },
+                    { en: "research (ed)", ar: "بحث / يبحث", t: "v/n" },
+                    { en: "honest", ar: "أمين / صادق", t: "adj" },
+                    { en: "honesty", ar: "صدق / أمانة", t: "n" },
+                    { en: "creativity", ar: "الإبداع", t: "n" },
+                    { en: "handle (d)", ar: "يتعامل مع / يدير", t: "v" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "honestly", ar: "بأمانة", t: "adv" },
+                    { en: "relax (ed)", ar: "يستريح", t: "v" },
+                    { en: "classmate", ar: "زميل الدراسة", t: "n" },
+                    { en: "glad", ar: "سعيد", t: "adj" },
+                    { en: "science project", ar: "مشروع علمي", t: "" },
+                    { en: "remind (ed)", ar: "يُذكّر", t: "v" },
+                    { en: "daughter", ar: "ابنة", t: "n" },
+                    { en: "deep breath", ar: "نفس عميق", t: "" },
+                    { en: "surprise (d)", ar: "مفاجأة / يفاجئ", t: "v/n" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "useful", ar: "مفيد", t: "adj" },
+                    { en: "reason", ar: "سبب", t: "n" },
+                    { en: "prepared", ar: "مجهز / مستعد", t: "adj" },
+                    { en: "braver", ar: "أكثر شجاعة", t: "adj" },
+                    { en: "confident", ar: "واثق", t: "adj" },
+                    { en: "skills", ar: "مهارات", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "do research", def: "to look for information and learn more about something.", ar: "يقوم بعمل بحث: البحث عن معلومات ومعرفة المزيد عن شيء ما.", t: "def" },
+                    { en: "give up", def: "to stop trying to do something, especially because it is difficult.", ar: "يستسلم: التوقف عن محاولة فعل شيء ما، خاصة لأنه صعب.", t: "def" },
+                    { en: "honesty", def: "being trustful; not lying or deceiving.", ar: "صدق / أمانة: أن تكون جديراً بالثقة؛ وعدم الكذب أو الخداع.", t: "def" },
+                    { en: "inspire", def: "to be a role model for others in doing good things.", ar: "يلهم: أن تكون قدوة للآخرين في فعل الأشياء الجيدة.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "face problems / challenges", ar: "يواجه مشكلات / تحديات", t: "coll" },
+                    { en: "stay calm", ar: "يبقى هادئاً", t: "coll" },
+                    { en: "give a speech", ar: "يُلقي خطاباً", t: "coll" },
+                    { en: "do research", ar: "يقوم ببحث", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "go as planned", ar: "يسير كما هو مخطط له", t: "exp" },
+                    { en: "keep trying", ar: "يستمر في المحاولة", t: "exp" },
+                    { en: "get hard", ar: "يصبح صعباً", t: "exp" },
+                    { en: "deal with", ar: "يتعامل مع", t: "exp" },
+                    { en: "get through it", ar: "يتجاوز الأمر", t: "exp" }
+                ]
+            }
+        },
+        u4: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "artwork", ar: "عمل فني", t: "n" },
+                    { en: "sculpture", ar: "تمثال / فن النحت", t: "n" },
+                    { en: "gallery", ar: "صالة عرض / معرض فني", t: "n" },
+                    { en: "imagination", ar: "خيال", t: "n" },
+                    { en: "original", ar: "أصلي", t: "adj" },
+                    { en: "hidden", ar: "مخفي / خفي", t: "adj" },
+                    { en: "materials", ar: "مواد خام", t: "n" },
+                    { en: "engage with", ar: "يشارك / يتفاعل مع", t: "v" },
+                    { en: "incredible", ar: "لا يصدق / مذهل", t: "adj" },
+                    { en: "interactive", ar: "تفاعلي", t: "adj" },
+                    { en: "innovative", ar: "مبتكر", t: "adj" },
+                    { en: "valuable", ar: "قيم / ثمين", t: "adj" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "vision", ar: "رؤية", t: "n" },
+                    { en: "experiment (ed)", ar: "يختبر - يجرب", t: "v" },
+                    { en: "attractive", ar: "جذاب", t: "adj" },
+                    { en: "growth", ar: "نمو", t: "n" },
+                    { en: "lively", ar: "نشيط / حيوي", t: "adj" },
+                    { en: "artist", ar: "فنان", t: "n" },
+                    { en: "performance", ar: "أداء / عرض", t: "n" },
+                    { en: "artistic", ar: "فني", t: "adj" },
+                    { en: "traditions", ar: "عادات / تقاليد", t: "n" },
+                    { en: "paintings", ar: "رسومات / لوحات", t: "n" },
+                    { en: "smooth", ar: "أملس / ناعم", t: "adj" },
+                    { en: "shiny", ar: "لامع / له بريق", t: "adj" },
+                    { en: "source", ar: "منبع / مصدر", t: "n" },
+                    { en: "previous", ar: "سابق", t: "adj" },
+                    { en: "emotional", ar: "عاطفي", t: "adj" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "studio", ar: "مرسم / ورشة فنية", t: "n" },
+                    { en: "spark (ed)", ar: "يحفز", t: "v" },
+                    { en: "definitely", ar: "بالتأكيد", t: "adv" },
+                    { en: "alive", ar: "حياً / ما زال مستمراً", t: "adj" },
+                    { en: "defined", ar: "محدد", t: "adj" },
+                    { en: "varied / various", ar: "متنوع", t: "adj" },
+                    { en: "exhibit", ar: "معرض - عرض", t: "n" },
+                    { en: "powerful", ar: "قوي / فعال", t: "adj" },
+                    { en: "feature (d)", ar: "يعرض / يقدم", t: "v" }
+                ],
+                "Definitions": [
+                    { en: "artwork", def: "a piece of creative work.", ar: "عمل فني: قطعة من العمل الإبداعي.", t: "def" },
+                    { en: "sculpture", def: "objects made by shaping materials like stone, wood, ... etc.", ar: "تمثال: مجسمات مصنوعة بتشكيل مواد مثل الحجر أو الخشب.", t: "def" },
+                    { en: "clay", def: "a material used for making pottery and sculptures.", ar: "صلصال / طين: مادة تُستخدم لصنع الفخار والتماثيل.", t: "def" },
+                    { en: "interactive", def: "allowing people to take part or respond directly.", ar: "تفاعلي: يتيح للناس المشاركة أو الاستجابة المباشرة.", t: "def" },
+                    { en: "incredible", def: "very hard to believe; amazing.", ar: "مدهش / لا يصدق: صعب جداً تصديقه؛ مذهل.", t: "def" },
+                    { en: "special", def: "more important than usual.", ar: "مميز: أكثر أهمية من المعتاد.", t: "def" },
+                    { en: "valuable", def: "worth a lot of money.", ar: "قيّم / ثمين: يستحق الكثير من المال.", t: "def" },
+                    { en: "original", def: "the first copy of its kind.", ar: "أصلي: النسخة الأولى من نوعها.", t: "def" },
+                    { en: "colorful", def: "made up of many bright or different colors.", ar: "ملون: مكون من العديد من الألوان الزاهية أو المختلفة.", t: "def" },
+                    { en: "engage with", def: "to take part in something or become involved.", ar: "يتفاعل مع: المشاركة في شيء ما أو الاندماج فيه.", t: "def" },
+                    { en: "message", def: "information that you send to or receive from someone.", ar: "رسالة: معلومات ترسلها إلى أو تتلقاها من شخص ما.", t: "def" },
+                    { en: "gallery", def: "a room or building for the display or sales of artworks.", ar: "معرض فني: غرفة أو مبنى لعرض أو بيع الأعمال الفنية.", t: "def" },
+                    { en: "hidden", def: "kept out of sight or containing a concealed meaning.", ar: "مخفي: محجوب عن النظر أو يحتوي على معنى مخفي.", t: "def" },
+                    { en: "imagination", def: "the ability to form new images and ideas in the mind.", ar: "خيال: القدرة على تكوين صور وأفكار جديدة في الذهن.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "express ideas", ar: "يعبر عن الأفكار", t: "coll" },
+                    { en: "use imagination / creativity", ar: "يوظف الخيال / الإبداع", t: "coll" },
+                    { en: "look closely", ar: "ينظر عن قرب", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "bring people together", ar: "يجمع / يوحد الناس", t: "exp" },
+                    { en: "give a presentation", ar: "يقدم عرضاً تقديمياً", t: "exp" },
+                    { en: "filled with", ar: "مملوء بـ", t: "exp" },
+                    { en: "listen up", ar: "انتبه جيداً", t: "exp" },
+                    { en: "think highly of", ar: "يُقدّر شيئاً بشكل كبير", t: "exp" },
+                    { en: "take part in", ar: "يشارك في", t: "exp" },
+                    { en: "worth a lot", ar: "يستحق الكثير", t: "exp" },
+                    { en: "bring out", ar: "يبرز / يُظهر", t: "exp" },
+                    { en: "on stage", ar: "على خشبة المسرح", t: "exp" },
+                    { en: "used for", ar: "مستخدم لـ ...", t: "exp" },
+                    { en: "made up of", ar: "مكون من", t: "exp" },
+                    { en: "a piece of art", ar: "قطعة فنية", t: "exp" },
+                    { en: "hard to believe", ar: "صعب تصديقه", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "sculptor", ar: "نحات", t: "n" },
+                    { en: "national", ar: "قومی", t: "adj" },
+                    { en: "sculpt (ed)", ar: "ينحت", t: "v" },
+                    { en: "symbol", ar: "رمز", t: "n" },
+                    { en: "promote (d)", ar: "يروج / يدعم", t: "v" },
+                    { en: "recognition", ar: "تقدير / اعتراف", t: "n" },
+                    { en: "participate (d)", ar: "يشارك", t: "v" },
+                    { en: "agriculture", ar: "الزراعة", t: "n" },
+                    { en: "peasant", ar: "فلاح", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "public square", ar: "ميدان عام", t: "n" },
+                    { en: "international", ar: "دولي / عالمي", t: "adj" },
+                    { en: "European", ar: "أوروبي", t: "adj" },
+                    { en: "Nahdat Misr Statue", ar: "تمثال نهضة مصر", t: "" },
+                    { en: "Sphinx", ar: "أبو الهول", t: "" },
+                    { en: "symbolize (d)", ar: "يرمز إلى", t: "v" },
+                    { en: "style", ar: "أسلوب", t: "n" },
+                    { en: "article", ar: "مقال", t: "n" },
+                    { en: "appreciation", ar: "تقدير", t: "n" },
+                    { en: "gain (ed)", ar: "يكتسب", t: "v" },
+                    { en: "Asian", ar: "آسيوي", t: "adj" },
+                    { en: "art movement", ar: "حركة الفن", t: "n" },
+                    { en: "Roman", ar: "روماني (الجنسية)", t: "adj" },
+                    { en: "battle (d)", ar: "يكافح / يناضل / معركة", t: "v/n" },
+                    { en: "Greek", ar: "يوناني", t: "adj" },
+                    { en: "fair", ar: "معرض", t: "n" },
+                    { en: "ordinary", ar: "عادي", t: "adj" }
+                ],
+                "Definitions": [
+                    { en: "sculpt", def: "to make a shape or statue by cutting or forming a material like stone, wood, or clay.", ar: "ينحت: صنع شكل أو تمثال عن طريق قطع أو تشكيل مادة مثل الحجر أو الخشب أو الصلصال.", t: "def" },
+                    { en: "sculptor", def: "an artist who creates sculptures.", ar: "نحات: فنان يصنع التماثيل.", t: "def" },
+                    { en: "sculpture", def: "objects made by shaping materials like stone, wood, or metal.", ar: "تمثال: مجسمات مصنوعة بتشكيل مواد مثل الحجر أو الخشب أو المعدن.", t: "def" },
+                    { en: "symbol", def: "a thing that represents or stands for something else.", ar: "رمز: شيء يمثل أو يرمز لشيء آخر.", t: "def" },
+                    { en: "participate", def: "to take part in an action, fair, or competition.", ar: "يشارك: المشاركة في حدث أو معرض أو مسابقة.", t: "def" },
+                    { en: "promote", def: "to support or encourage the progress of something, like identity or creativity.", ar: "يدعم / يشجع: دعم أو تشجيع تقدم شيء ما، مثل الهوية أو الإبداع.", t: "def" },
+                    { en: "recognition", def: "public praise or reward for an achievement or artwork.", ar: "تقدير / اعتراف: الثناء العام أو المكافأة على إنجاز أو عمل فني.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "create a statue", ar: "يصنع تمثالاً", t: "coll" },
+                    { en: "mix art", ar: "يمزج الفن", t: "coll" },
+                    { en: "receive / gain recognition", ar: "يكتسب تقديرًا", t: "coll" },
+                    { en: "play a part in ...", ar: "يلعب دوراً في ...", t: "coll" },
+                    { en: "promote identity / creativity", ar: "يعزز الهوية / يشجع الإبداع", t: "coll" },
+                    { en: "hold a competition", ar: "يعقد / يقيم مسابقة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "born in (a year/place)", ar: "ولد في (عام/مكان)", t: "exp" },
+                    { en: "known as", ar: "معروف بـ", t: "exp" },
+                    { en: "from across the country", ar: "من جميع أرجاء البلد", t: "exp" },
+                    { en: "organize an exhibition", ar: "ينظم معرضاً فنياً", t: "exp" },
+                    { en: "participate in", ar: "يشارك في", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "talent", ar: "موهبة", t: "n" },
+                    { en: "passion", ar: "شغف", t: "n" },
+                    { en: "perfect", ar: "مثالي / كامل", t: "adj" },
+                    { en: "movie star", ar: "نجم سينمائي", t: "" },
+                    { en: "actress", ar: "ممثلة", t: "n" },
+                    { en: "meaningful", ar: "ذو معنى / هادف", t: "adj" },
+                    { en: "make sense", ar: "له معنى / منطقي", t: "" },
+                    { en: "ways", ar: "طرق", t: "n" },
+                    { en: "deserve (d)", ar: "يستحق", t: "v" },
+                    { en: "fabric", ar: "قماش", t: "n" },
+                    { en: "painter", ar: "رسام", t: "n" },
+                    { en: "role", ar: "دور", t: "n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "absolutely", ar: "على الإطلاق", t: "adv" },
+                    { en: "musician", ar: "موسيقار", t: "n" },
+                    { en: "feelings", ar: "مشاعر", t: "n" },
+                    { en: "section", ar: "قسم", t: "n" },
+                    { en: "immediately", ar: "على الفور", t: "adv" },
+                    { en: "modern art", ar: "فن حديث", t: "" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "succeed (ed)", ar: "ينجح", t: "v" },
+                    { en: "Arab World", ar: "العالم العربي", t: "" },
+                    { en: "pleased", ar: "مسرور", t: "adj" },
+                    { en: "theater", ar: "مسرح", t: "n" },
+                    { en: "role", ar: "دور", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "make sense", def: "to be clear and easy to understand.", ar: "منطقي / يعطي معنى: أن يكون واضحاً وسهل الفهم.", t: "def" },
+                    { en: "meaningful", def: "having a serious, important, or useful quality.", ar: "ذو معنى / هادف: امتلاك جودة جادة أو مهمة أو مفيدة.", t: "def" },
+                    { en: "creativity", def: "to come up with new ideas.", ar: "الإبداع: الابتكار والإتيان بأفكار جديدة.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "express creativity", ar: "يعبر عن الإبداع", t: "coll" },
+                    { en: "play a role", ar: "يلعب دوراً", t: "coll" },
+                    { en: "touch the heart", ar: "يلمس القلب", t: "coll" },
+                    { en: "deserve recognition", ar: "يستحق التقدير", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "point of view", ar: "وجهة نظر", t: "exp" },
+                    { en: "do the same", ar: "يقوم بنفس الشيء", t: "exp" },
+                    { en: "in its own way", ar: "بطريقته الخاصة", t: "exp" },
+                    { en: "walk through", ar: "يتجول في / يمر عبر", t: "exp" },
+                    { en: "in a new way", ar: "بطريقة جديدة", t: "exp" },
+                    { en: "run out of", ar: "ينفد / ينتهي", t: "exp" },
+                    { en: "connect with", ar: "يتصل بـ", t: "exp" },
+                    { en: "passion for acting", ar: "شغف للتمثيل", t: "exp" },
+                    { en: "Exactly!", ar: "بالضبط!", t: "exp" },
+                    { en: "known for", ar: "معروف / مشهور بـ", t: "exp" },
+                    { en: "just like in", ar: "مثلما في / تماماً كما في", t: "exp" }
+                ]
+            }
+        },
+        u5: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "continent", ar: "قارة", t: "n" },
+                    { en: "culture", ar: "ثقافة", t: "n" },
+                    { en: "unforgettable", ar: "لا يُنسى", t: "adj" },
+                    { en: "population", ar: "تعداد السكان", t: "n" },
+                    { en: "landmark", ar: "معلم بارز", t: "n" },
+                    { en: "capital", ar: "عاصمة", t: "n" },
+                    { en: "curious", ar: "فضولي", t: "adj" },
+                    { en: "ceremony", ar: "احتفال / مراسم", t: "n" },
+                    { en: "treasure", ar: "كنز", t: "n" },
+                    { en: "souvenirs", ar: "هدايا تذكارية", t: "n" },
+                    { en: "mysterious", ar: "غامض", t: "adj" },
+                    { en: "mummies", ar: "مومياوات", t: "n" }
+                ],
+                "Extra Vocabulary": [
+                    { en: "organized", ar: "منظم", t: "adj" },
+                    { en: "guided-tour", ar: "جولة مع مرشد", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "traditional food", ar: "طعام تقليدي", t: "" },
+                    { en: "Morocco", ar: "دولة المغرب", t: "n" },
+                    { en: "travel blogger", ar: "مدون سفريات", t: "" },
+                    { en: "tagine", ar: "طاجن", t: "n" },
+                    { en: "ramen", ar: "نوع من النودلز (أكلة يابانية)", t: "n" },
+                    { en: "wedding", ar: "حفل زفاف", t: "n" },
+                    { en: "manners", ar: "أخلاق", t: "n" },
+                    { en: "custom", ar: "عادة (مجتمعية)", t: "n" },
+                    { en: "combine (d)", ar: "يجمع / يدمج", t: "v" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "government", ar: "الحكومة", t: "n" },
+                    { en: "bazaar", ar: "بازار / سوق", t: "n" },
+                    { en: "pharaohs", ar: "فراعنة", t: "n" },
+                    { en: "jewelry", ar: "مجوهرات", t: "n" },
+                    { en: "golden mask", ar: "قناع ذهبي", t: "" },
+                    { en: "tomb", ar: "مقبرة", t: "n" },
+                    { en: "statue", ar: "تمثال", t: "n" },
+                    { en: "wonders", ar: "عجائب", t: "n" }
+                ],
+                "Famous Places, Landmarks & Monuments": [
+                    { en: "Morocco", ar: "دولة المغرب", t: "Place" },
+                    { en: "Marrakech", ar: "مدينة مراكش في المغرب", t: "Place" },
+                    { en: "Central Cairo", ar: "وسط القاهرة", t: "Place" },
+                    { en: "Japan", ar: "دولة اليابان", t: "Place" },
+                    { en: "Asia", ar: "قارة آسيا", t: "Place" },
+                    { en: "Africa", ar: "قارة إفريقيا", t: "Place" },
+                    { en: "Koutoubia Mosque", ar: "مسجد الكتبية", t: "Landmark" },
+                    { en: "Tahrir Square", ar: "ميدان التحرير", t: "Landmark" },
+                    { en: "The New Administrative Capital", ar: "العاصمة الإدارية الجديدة", t: "Landmark" },
+                    { en: "Mount Fuji", ar: "جبل فوجي في اليابان", t: "Landmark" },
+                    { en: "Khan El-Khalili Bazaar", ar: "بازار خان الخليلي", t: "Landmark" },
+                    { en: "Grand Egyptian Museum", ar: "المتحف المصري الكبير", t: "Landmark" },
+                    { en: "The Pyramids of Giza", ar: "أهرامات الجيزة", t: "Monument" },
+                    { en: "Great Sphinx", ar: "تمثال أبو الهول", t: "Monument" },
+                    { en: "Tutankhamun Mask", ar: "قناع توت عنخ آمون", t: "Monument" },
+                    { en: "statues", ar: "تماثيل", t: "Monument" },
+                    { en: "mummies", ar: "المومياوات", t: "Monument" }
+                ],
+                "Definitions": [
+                    { en: "continent", def: "a group of countries on one large land area.", ar: "قارة: مجموعة من الدول على مساحة أرضية واحدة كبيرة.", t: "def" },
+                    { en: "capital", def: "the main city of a country.", ar: "عاصمة: المدينة الرئيسية في الدولة.", t: "def" },
+                    { en: "landmark", def: "a famous place or building people visit.", ar: "معلم بارز: مكان أو مبنى شهير يزوره الناس.", t: "def" },
+                    { en: "population", def: "the number of people living in a place.", ar: "تعداد السكان: عدد الأشخاص الذين يعيشون في مكان ما.", t: "def" },
+                    { en: "tradition", def: "a custom that people do regularly.", ar: "عادة / تقليد: عادة يمارسها الناس بانتظام.", t: "def" },
+                    { en: "souvenirs", def: "small things people buy or keep to remember a place or trip.", ar: "هدايا تذكارية: أشياء صغيرة يشتريها الناس أو يحتفظون بها لتذكر مكان أو رحلة.", t: "def" },
+                    { en: "mummies", def: "dead bodies that have been preserved for a long time, especially in ancient Egypt.", ar: "مومياوات: جثث موتى تم حفظها لفترة طويلة، خاصة في مصر القديمة.", t: "def" },
+                    { en: "treasure", def: "a collection of valuable things like gold, silver, or jewels.", ar: "كنز: مجموعة من الأشياء الثمينة مثل الذهب أو الفضة أو الجواهر.", t: "def" },
+                    { en: "mysterious", def: "something strange or unknown that makes you curious / something that is not known clearly.", ar: "غامض: شيء غريب أو غير معروف يجعلك فضولياً / شيء غير معروف بوضوح.", t: "def" },
+                    { en: "mask", def: "a cover for the face, often used in celebrations, shows, or for protection.", ar: "قناع: غطاء للوجه، غالباً ما يُستخدم في الاحتفالات أو العروض أو للحماية.", t: "def" },
+                    { en: "ceremony", def: "a formal event held for a special reason.", ar: "مراسم: حدث رسمي يُقام لسبب خاص.", t: "def" },
+                    { en: "curious", def: "wanting to know or learn something.", ar: "فضولي: رغبة في معرفة أو تعلم شيء ما.", t: "def" },
+                    { en: "impressive", def: "very good and admired by others.", ar: "مبهر: جيد جداً ومحط إعجاب الآخرين.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "explore places", ar: "يستكشف الأماكن", t: "coll" },
+                    { en: "join a ceremony", ar: "ينضم إلى حفل / مراسم", t: "coll" },
+                    { en: "take photos", ar: "يلتقط صوراً", t: "coll" },
+                    { en: "appreciate order", ar: "يقدر النظام", t: "coll" },
+                    { en: "buy souvenirs", ar: "يشتري هدايا تذكارية", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "figure out", ar: "يستنتج", t: "exp" },
+                    { en: "on a guided-tour", ar: "في جولة منظمة (مع مرشد سياحي)", t: "exp" },
+                    { en: "do regularly", ar: "يؤدي بانتظام", t: "exp" },
+                    { en: "personal view", ar: "وجهة نظر شخصية", t: "exp" },
+                    { en: "stay in", ar: "يقيم في", t: "exp" },
+                    { en: "tell (someone) about", ar: "يخبر (شخص) عن", t: "exp" },
+                    { en: "focus on", ar: "يركز على", t: "exp" },
+                    { en: "travel across", ar: "يسافر عبر", t: "exp" },
+                    { en: "open to", ar: "منفتحاً على", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "destinations", ar: "وجهات (سفر)", t: "n" },
+                    { en: "awesome", ar: "رائع / مدهش", t: "adj" },
+                    { en: "memories", ar: "ذكريات", t: "n" },
+                    { en: "trail", ar: "ممر / درب", t: "n" },
+                    { en: "lagoon", ar: "بحيرة (شاطئية صغيرة)", t: "n" },
+                    { en: "trading", ar: "تجارة / تجاري", t: "n/adj" },
+                    { en: "hiking", ar: "رياضة المشي لمسافات طويلة", t: "n" },
+                    { en: "geothermal pool", ar: "بركة مياه ساخنة طبيعية", t: "" },
+                    { en: "glaciers", ar: "أنهـار جليدية", t: "n" },
+                    { en: "carved", ar: "منحوت", t: "adj" },
+                    { en: "charm", ar: "سحر / جاذبية", t: "n" },
+                    { en: "peace", ar: "سلام / سكينة", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "gateway", ar: "بوابة / مدخل", t: "n" },
+                    { en: "guide", ar: "دليل إرشادي", t: "n" },
+                    { en: "spices", ar: "توابل", t: "n" },
+                    { en: "lost", ar: "مفقود", t: "adj" },
+                    { en: "Inca", ar: "حضارة قديمة (في أمريكا الجنوبية)", t: "" },
+                    { en: "northernmost", ar: "أقصى الشمال", t: "adj" },
+                    { en: "volcano", ar: "بركان", t: "n" },
+                    { en: "silk", ar: "حرير", t: "n" },
+                    { en: "adventure", ar: "مغامرة", t: "n" }
+                ],
+                "Famous Places": [
+                    { en: "Petra", ar: "مدينة البتراء (في الأردن)", t: "Place" },
+                    { en: "Jordan", ar: "الأردن", t: "Place" },
+                    { en: "Machu Picchu", ar: "مدينة ماتشو بيتشو", t: "Place" },
+                    { en: "Peru", ar: "دولة بيرو", t: "Place" },
+                    { en: "the Andes", ar: "جبال الإنديز", t: "n" },
+                    { en: "Reykjavik", ar: "مدينة ريكيافيك", t: "Place" },
+                    { en: "Chefchaouen", ar: "شفشاون (مدينة في المغرب)", t: "Place" },
+                    { en: "Iceland", ar: "دولة أيسلندا", t: "Place" },
+                    { en: "Morocco", ar: "دولة المغرب", t: "Place" },
+                    { en: "Treasury", ar: "الخزنة (معلم أثري في الأردن)", t: "Landmark" }
+                ],
+                "Definitions": [
+                    { en: "trail", def: "a path or way for walking.", ar: "ممر / درب: طريق أو مسار للمشي.", t: "def" },
+                    { en: "lagoon", def: "a small lake near the sea.", ar: "بحيرة صغيرة: بحيرة صغيرة بالقرب من البحر.", t: "def" },
+                    { en: "glacier", def: "a large mass of ice that moves slowly.", ar: "نهر جليدي: كتلة ضخمة من الجليد تتحرك ببطء.", t: "def" },
+                    { en: "charm", def: "a special beauty or attraction.", ar: "جاذبية / جمال: جمال خاص أو جاذبية.", t: "def" },
+                    { en: "destinations", def: "places to which someone is going or something is being sent.", ar: "وجهة وصول: أماكن يتجه إليها شخص ما أو يُرسل إليها شيء ما.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "take a tour", ar: "يقوم بجولة", t: "coll" },
+                    { en: "bring peace / happiness", ar: "يجلب السلام / الهدوء / السعادة", t: "coll" },
+                    { en: "begin an adventure", ar: "يبدأ مغامرة", t: "coll" },
+                    { en: "give (someone) memories", ar: "يمنح ذكريات", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "feel like being inside a painting", ar: "يشعر وكأنه داخل اللوحة", t: "exp" },
+                    { en: "home of", ar: "موطن لـ", t: "exp" },
+                    { en: "get there", ar: "يصل هناك", t: "exp" },
+                    { en: "fill with wonder", ar: "يملأ بالدهشة", t: "exp" },
+                    { en: "a single piece of stone", ar: "قطعة حجر واحدة", t: "exp" },
+                    { en: "the New Seven Wonders of the World", ar: "عجائب الدنيا السبع الحديثة", t: "exp" },
+                    { en: "travel abroad", ar: "يسافر للخارج", t: "exp" },
+                    { en: "gateway to", ar: "مدخل إلى", t: "exp" },
+                    { en: "take you on a tour", ar: "تأخذك في جولة", t: "exp" },
+                    { en: "special about", ar: "مميز بشأن", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "handicrafts", ar: "أعمال يدوية", t: "n" },
+                    { en: "site", ar: "موقع أثري", t: "n" },
+                    { en: "travel agency", ar: "شركة سياحة", t: "" },
+                    { en: "local", ar: "محلي", t: "adj" },
+                    { en: "postcard", ar: "بطاقة بريدية", t: "n" },
+                    { en: "attacks", ar: "هجمات", t: "n" },
+                    { en: "citadel", ar: "قلعة", t: "n" },
+                    { en: "huge", ar: "ضخم", t: "adj" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "necklace", ar: "عقد", t: "n" },
+                    { en: "sense", ar: "إحساس / شعور", t: "n" },
+                    { en: "temple", ar: "معبد", t: "n" },
+                    { en: "memory", ar: "ذاكرة / ذكرى", t: "n" },
+                    { en: "remind (ed)", ar: "يُذكر", t: "v" },
+                    { en: "forever", ar: "إلى الأبد", t: "adv" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "intelligent", ar: "ذكي", t: "adj" },
+                    { en: "catch attention", ar: "يجذب الانتباه", t: "" },
+                    { en: "emojis", ar: "رموز تعبيرية", t: "n" },
+                    { en: "marriage", ar: "زفاف", t: "n" },
+                    { en: "respectful", ar: "محترم - جدير بالاحترام", t: "adj" },
+                    { en: "deeper", ar: "أكثر عمقاً", t: "adj" }
+                ],
+                "Famous places": [
+                    { en: "Europe", ar: "أوروبا", t: "Place" },
+                    { en: "Temple of Horus", ar: "معبد حورس", t: "Landmark" },
+                    { en: "Colosseum", ar: "الكولوسيوم (مدرج روماني في روما)", t: "Landmark" },
+                    { en: "Edfu", ar: "مدينة أدفوا (أسوان)", t: "Place" }
+                ],
+                "Collocations": [
+                    { en: "buy souvenirs", ar: "يشتري هدايا تذكارية", t: "coll" },
+                    { en: "keep a memory", ar: "يحتفظ بذكرى", t: "coll" },
+                    { en: "explore a site", ar: "يستكشف موقعاً أثرياً", t: "coll" },
+                    { en: "get postcards", ar: "يشتري / يحصل على بطاقات بريدية", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "have a sense of peace", ar: "يشعر بالسلام", t: "exp" },
+                    { en: "That's amazing!", ar: "هذا مذهل!", t: "exp" },
+                    { en: "protect from attacks", ar: "يحمي من الهجمات", t: "exp" },
+                    { en: "bring ... from", ar: "يجلب... من", t: "exp" },
+                    { en: "remind ... of", ar: "يذكر... بـ", t: "exp" },
+                    { en: "during my stay", ar: "أثناء إقامتي", t: "exp" },
+                    { en: "It's been a while", ar: "مضت فترة طويلة (تُقال عند لقاء شخص لم تره منذ مدة)", t: "exp" },
+                    { en: "That sounds lovely!", ar: "هذا يبدو لطيفاً!", t: "exp" },
+                    { en: "keep forever", ar: "يستمر / يبقى للأبد", t: "exp" },
+                    { en: "at the site", ar: "في الموقع الأثري", t: "exp" },
+                    { en: "at sunset", ar: "وقت الغروب", t: "exp" },
+                    { en: "known for", ar: "معروف بـ", t: "exp" }
+                ]
+            }
+        },
+        u6: {
+            "12": {
+                "Key Vocabulary": [
+                    { en: "stuff", ar: "أغراض / أشياء", t: "n" },
+                    { en: "complex", ar: "معقد", t: "adj" },
+                    { en: "innovator", ar: "مبتكر", t: "n" },
+                    { en: "inspire (d)", ar: "يلهم", t: "v" },
+                    { en: "thought", ar: "فكرة", t: "n" },
+                    { en: "role model", ar: "قدوة / مثل أعلى", t: "" },
+                    { en: "steps", ar: "خطوات", t: "n" },
+                    { en: "inventors", ar: "المخترعون", t: "n" },
+                    { en: "version", ar: "نسخة / إصدار", t: "n" },
+                    { en: "impact", ar: "تأثير / أثر", t: "n" },
+                    { en: "professor", ar: "أستاذ جامعي", t: "n" },
+                    { en: "achievement", ar: "إنجاز", t: "n" }
+                ],
+                "Lesson 1 Vocabulary": [
+                    { en: "model", ar: "نموذج", t: "n" },
+                    { en: "list (ed)", ar: "يسجل في قائمة", t: "v" },
+                    { en: "test (ed)", ar: "يختبر / اختبار", t: "v/n" },
+                    { en: "imagination", ar: "خيال", t: "n" },
+                    { en: "patience", ar: "الصبر", t: "n" },
+                    { en: "effort", ar: "جهد / مجهود", t: "n" }
+                ],
+                "Lesson 2 Vocabulary": [
+                    { en: "interest", ar: "اهتمام", t: "n" },
+                    { en: "chemistry", ar: "الكيمياء", t: "n" },
+                    { en: "measure (d)", ar: "يقيس", t: "v" },
+                    { en: "institute", ar: "معهد", t: "n" },
+                    { en: "youth", ar: "الشباب", t: "n" },
+                    { en: "university", ar: "جامعة", t: "n" },
+                    { en: "trust (ed)", ar: "يثق بـ", t: "v" },
+                    { en: "reactions", ar: "تفاعلات", t: "n" },
+                    { en: "extremely", ar: "بشكل كبير", t: "adv" },
+                    { en: "field", ar: "مجال / تخصص", t: "n" },
+                    { en: "Nobel Prize", ar: "جائزة نوبل", t: "" },
+                    { en: "femtosecond", ar: "فيمتو ثانية (وحدة زمنية صغيرة جداً)", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "impact", def: "a strong effect that something has on someone or something.", ar: "تأثير: أثر قوي يحدثه شيء ما على شخص أو شيء آخر.", t: "def" },
+                    { en: "thought", def: "an idea, opinion, or something that comes to your mind.", ar: "فكرة: فكرة أو رأي أو شيء يخطر ببالك.", t: "def" },
+                    { en: "step", def: "an action in a series that is part of a process or procedure.", ar: "خطوة: إجراء ضمن سلسلة يمثل جزءاً من عملية أو إجراء.", t: "def" },
+                    { en: "complex", def: "something that has many parts and may be difficult to understand.", ar: "معقد: شيء يحتوي على أجزاء كثيرة وقد يكون من الصعب فهمه.", t: "def" },
+                    { en: "version", def: "a particular form of something that is different from others of the same type.", ar: "نسخة / إصدار: شكل معين من شيء ما يختلف عن غيره من نفس النوع.", t: "def" },
+                    { en: "femtosecond", def: "is one millionth of a billionth of a second.", ar: "فيمتو ثانية: جزء من مليون من المليار من الثانية.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "make a difference", ar: "يحدث فرقاً", t: "coll" },
+                    { en: "make a plan", ar: "يضع خطة / يخطط", t: "coll" },
+                    { en: "make changes", ar: "يحدث تغييرات", t: "coll" },
+                    { en: "receive prizes", ar: "يحصد جوائز", t: "coll" },
+                    { en: "build a model", ar: "يصنع نموذج", t: "coll" },
+                    { en: "build a real version", ar: "يقوم بإنشاء نسخة حقيقية", t: "coll" },
+                    { en: "show interest", ar: "يبدي اهتمامام", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "list the things", ar: "يسجل الأشياء في قائمة", t: "exp" },
+                    { en: "turn ..... into", ar: "يحول .... إلى", t: "exp" },
+                    { en: "from a young age", ar: "منذ الصغر", t: "exp" },
+                    { en: "open the door for", ar: "يفتح المجال لـ", t: "exp" },
+                    { en: "managing time", ar: "إدارة الوقت", t: "exp" },
+                    { en: "useful for", ar: "مفيد لـ", t: "exp" }
+                ]
+            },
+            "3": {
+                "Key Vocabulary": [
+                    { en: "civil engineering", ar: "الهندسة المدنية", t: "" },
+                    { en: "chief engineer", ar: "رئيس المهندسين", t: "" },
+                    { en: "poor hearing", ar: "ضعف السمع", t: "" },
+                    { en: "role model", ar: "قدوة / مثل أعلى", t: "" },
+                    { en: "biomedical engineer", ar: "مهندس الطب الحيوي", t: "" },
+                    { en: "sensors", ar: "أجهزة الاستشعار", t: "n" }
+                ],
+                "Lesson 3 Vocabulary": [
+                    { en: "Germany", ar: "دولة ألمانيا", t: "n" },
+                    { en: "Berlin", ar: "مدينة برلين", t: "n" },
+                    { en: "movement difficulties", ar: "صعوبات الحركة", t: "" },
+                    { en: "patient", ar: "مريض", t: "n" },
+                    { en: "support (ed)", ar: "يدعم / دعم", t: "v/n" },
+                    { en: "clues", ar: "مفاتيح اللغز / أدلة", t: "n" },
+                    { en: "relative", ar: "قريب من العائلة", t: "n" },
+                    { en: "in need", ar: "محتاج / في حاجة", t: "" }
+                ],
+                "Definitions": [
+                    { en: "role model", def: "a person looked to by others as an example to be imitated.", ar: "مثل أعلى: شخص ينظر إليه الآخرون كقدوة يُقتدى بها.", t: "def" },
+                    { en: "sensors", def: "special tools used by engineers to help patients with movement or hearing.", ar: "أجهزة استشعار: أدوات خاصة يستخدمها المهندسون لمساعدة المرضى الذين يعانون من مشاكل في الحركة أو السمع.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "make an impact", ar: "يحدث تأثيراً / يترك أثراً", t: "coll" },
+                    { en: "use technology", ar: "يستخدم العلم / التكنولوجيا", t: "coll" },
+                    { en: "change lives", ar: "يغير حياة الناس", t: "coll" },
+                    { en: "support inventors", ar: "يدعم المخترعين", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "(was) born in", ar: "ولد في + (المكان / سنة الميلاد)", t: "exp" },
+                    { en: "(was) born on", ar: "ولد في + (تاريخ الميلاد يوم محدد)", t: "exp" },
+                    { en: "(was) born into", ar: "ولد لعائلة (ينتمي لعائلة)", t: "exp" },
+                    { en: "known for", ar: "معروف بـ (صفة مميزة / ميزة)", t: "exp" },
+                    { en: "famous for", ar: "مشهور بـ (مع الأشخاص أو الأشياء المشهورة على مستوى واسع)", t: "exp" },
+                    { en: "support those in need", ar: "يدعم المحتاجين", t: "exp" },
+                    { en: "work as", ar: "يعمل كـ", t: "exp" },
+                    { en: "move to", ar: "ينقل إلى", t: "exp" },
+                    { en: "around the world", ar: "حول العالم", t: "exp" }
+                ]
+            },
+            "56": {
+                "Key Vocabulary": [
+                    { en: "water-saving", ar: "موفر للمياه", t: "adj" },
+                    { en: "solar-powered", ar: "يعمل بالطاقة الشمسية", t: "adj" },
+                    { en: "feedback", ar: "تغذية راجعة / ملاحظات", t: "n" },
+                    { en: "army", ar: "جيش", t: "n" },
+                    { en: "enemy", ar: "عدو", t: "n" },
+                    { en: "soldier", ar: "جندي", t: "n" },
+                    { en: "deadline", ar: "موعد نهائي", t: "n" },
+                    { en: "victory", ar: "انتصار", t: "n" },
+                    { en: "brainstorm (ed)", ar: "يطرح أفكار", t: "v" },
+                    { en: "improve (d)", ar: "يُحسن / يطور", t: "v" },
+                    { en: "secret code", ar: "شفرة سرية", t: "n" },
+                    { en: "honor (ed)", ar: "يكرم / يُجل", t: "v" },
+                    { en: "come up with", ar: "يبتكر", t: "" },
+                    { en: "competition", ar: "مسابقة", t: "n" }
+                ],
+                "Lesson 5 Vocabulary": [
+                    { en: "innovate (d)", ar: "يبتكر", t: "v" },
+                    { en: "innovation", ar: "ابتكار", t: "n" },
+                    { en: "backpack", ar: "حقيبة ظهر", t: "n" },
+                    { en: "design (ed)", ar: "يصمم", t: "v" },
+                    { en: "water pump", ar: "مضخة مياه", t: "" },
+                    { en: "design", ar: "تصميم", t: "n" }
+                ],
+                "Lesson 6 Vocabulary": [
+                    { en: "brave", ar: "شجاع", t: "adj" },
+                    { en: "Border Guard", ar: "حرس الحدود", t: "" },
+                    { en: "president", ar: "رئيس", t: "n" },
+                    { en: "war", ar: "حرب", t: "n" },
+                    { en: "officially", ar: "رسمياً", t: "adv" },
+                    { en: "biography", ar: "سيرة ذاتية", t: "n" },
+                    { en: "Nubian", ar: "نوبي", t: "adj" },
+                    { en: "serve (d)", ar: "يخدم في الجيش", t: "v" },
+                    { en: "suggest (ed)", ar: "يقترح", t: "v" },
+                    { en: "secretly", ar: "بطريقة سرية", t: "adv" },
+                    { en: "smart", ar: "ذكي", t: "adj" },
+                    { en: "order", ar: "وسام", t: "n" }
+                ],
+                "Definitions": [
+                    { en: "honored", def: "to be shown high respect or officially recognized for great roles.", ar: "يُكرَّم: أن يُظهر له احترام كبير أو يُعترف به رسمياً لأدوار عظيمة.", t: "def" }
+                ],
+                "Collocations": [
+                    { en: "miss the deadline", ar: "يفوت الموعد النهائي", t: "coll" },
+                    { en: "build a model", ar: "يصمم / يبني نموذجاً", t: "coll" },
+                    { en: "manage time", ar: "ينظم / يدير الوقت", t: "coll" },
+                    { en: "keep trying", ar: "يستمر في المحاولة", t: "coll" },
+                    { en: "solve a problem", ar: "يحل مشكلة", t: "coll" },
+                    { en: "save water", ar: "يوفر الماء", t: "coll" },
+                    { en: "save energy", ar: "يوفر الطاقة", t: "coll" }
+                ],
+                "Important Expressions & Prepositions": [
+                    { en: "That's a great idea.", ar: "يا لها من فكرة رائعة.", t: "exp" },
+                    { en: "at first", ar: "في بداية الأمر", t: "exp" },
+                    { en: "thanks to", ar: "بفضل", t: "exp" },
+                    { en: "serve in the army", ar: "يخدم في الجيش", t: "exp" },
+                    { en: "honor ........ with", ar: "يكرم (شخصاً) بـ / يمنحه", t: "exp" },
+                    { en: "in time", ar: "في الوقت المحدد", t: "exp" }
+                ]
+            }
+        }
+    };
+
+    function initNav() {
+        const nav = document.getElementById('unitNav');
+        nav.innerHTML = '';
+        for (let i = 1; i <= 6; i++) {
+            const btn = document.createElement('button');
+            btn.className = `unit-btn ${currU === 'u' + i ? 'active' : ''}`;
+            btn.innerText = `Unit ${i}`;
+            btn.onclick = () => setU('u' + i, btn);
+            nav.appendChild(btn);
+        }
+    }
+
+    function setU(u, btn) {
+        currU = u;
+        document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        stopPlayAll();
+        render();
+    }
+
+    function setL(l, tab) {
+        currL = l;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        stopPlayAll();
+        render();
+    }
+
+    function render() {
+        const container = document.getElementById('dictionaryContent');
+        const q = document.getElementById('search').value.toLowerCase().trim();
+        container.innerHTML = '';
+
+        let targetData = {};
+
+        if (currL === 'all') {
+            const uObj = data[currU] || {};
+            for (let lKey in uObj) {
+                for (let sec in uObj[lKey]) {
+                    if (!targetData[sec]) targetData[sec] = [];
+                    targetData[sec] = targetData[sec].concat(uObj[lKey][sec]);
+                }
+            }
+        } else {
+            targetData = (data[currU] && data[currU][currL]) ? data[currU][currL] : {};
+        }
+
+        let totalRendered = 0;
+
+        for (let sec in targetData) {
+            let words = targetData[sec] || [];
+            if (q) {
+                words = words.filter(w => 
+                    w.en.toLowerCase().includes(q) || 
+                    w.ar.includes(q) || 
+                    (w.def && w.def.toLowerCase().includes(q))
+                );
+            }
+
+            if (words.length > 0) {
+                totalRendered += words.length;
+
+                const secHeader = document.createElement('div');
+                secHeader.className = 'section-header';
+                secHeader.innerHTML = `
+                    <span class="section-title">${sec}</span>
+                    <span class="word-count">${words.length} items</span>
+                `;
+                container.appendChild(secHeader);
+
+                const card = document.createElement('div');
+                card.className = 'content-card';
+                let tableHtml = '<table>';
+
+                words.forEach(w => {
+                    const typeHtml = w.t ? `<span class="word-type">(${w.t})</span>` : '';
+                    
+                    let defHtml = '';
+                    if (w.def) {
+                        defHtml = `
+                            <span class="def-box" onclick="event.stopPropagation(); speak('${w.def.replace(/'/g, "\\'")}', this)">
+                                <span class="def-label">📖 Definition (Click to listen):</span>
+                                ${w.def}
+                            </span>
+                        `;
+                    }
+
+                    tableHtml += `
+                        <tr>
+                            <td>
+                                <span class="word-en" onclick="speak('${w.en.replace(/'/g, "\\'")}', this)">${w.en}</span>
+                                ${typeHtml}
+                                ${defHtml}
+                            </td>
+                            <td class="word-ar">${w.ar}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</table>';
+                card.innerHTML = tableHtml;
+                container.appendChild(card);
+            }
+        }
+
+        if (totalRendered === 0) {
+            container.innerHTML = `<div style="text-align:center; padding: 40px; color: var(--text); opacity:0.6;">لا توجد كلمات للعرض حالياً في هذه وحدة/درس</div>`;
+        }
+    }
+
+    window.onload = () => {
+        initNav();
+        render();
+    };
+</script>
+</body>
+</html>
