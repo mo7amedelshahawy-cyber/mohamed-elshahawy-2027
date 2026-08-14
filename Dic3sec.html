@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR MOHAMED ELSHAHAWY - Secondary 3 Master Dictionary</title>
+    <style>
+        :root {
+            --primary: #1e3a8a; 
+            --secondary: #ffffff; 
+            --accent: #dc2626; 
+            --bg: #f8fafc; 
+            --card: #ffffff; 
+            --text: #0f172a; 
+            --nav-bg: #e2e8f0;
+            --border: #cbd5e1;
+        }
+        [data-theme="midnight"] { 
+            --primary: #38bdf8; 
+            --secondary: #0f172a; 
+            --accent: #f59e0b; 
+            --bg: #0f172a; 
+            --card: #1e293b; 
+            --text: #f8fafc; 
+            --nav-bg: #334155;
+            --border: #475569;
+        }
+        [data-theme="forest"] { 
+            --primary: #15803d; 
+            --secondary: #ffffff; 
+            --accent: #d97706; 
+            --bg: #f0fdf4; 
+            --card: #ffffff; 
+            --text: #14532d; 
+            --nav-bg: #dcfce7;
+            --border: #bbf7d0;
+        }
+        [data-theme="purple"] { 
+            --primary: #c084fc; 
+            --secondary: #2e1065; 
+            --accent: #22d3ee; 
+            --bg: #2e1065; 
+            --card: #3b0764; 
+            --text: #faf5ff; 
+            --nav-bg: #581c87;
+            --border: #6b21a8;
+        }
+        [data-theme="golden"] { 
+            --primary: #fbbf24; 
+            --secondary: #18181b; 
+            --accent: #f97316; 
+            --bg: #18181b; 
+            --card: #27272a; 
+            --text: #f4f4f5; 
+            --nav-bg: #3f3f46;
+            --border: #52525b;
+        }
+        [data-theme="contrast"] { 
+            --primary: #000000; 
+            --secondary: #ffffff; 
+            --accent: #cc0000; 
+            --bg: #ffffff; 
+            --card: #ffffff; 
+            --text: #000000; 
+            --nav-bg: #e5e5e5;
+            --border: #000000;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); margin: 0; padding: 0; transition: background 0.3s, color 0.3s; color: var(--text); }
+        .brand { text-align: center; padding: 12px; font-size: 0.85rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+        .header { background: var(--primary); color: var(--secondary); padding: 20px 15px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: background 0.3s, color 0.3s; }
+        
+        .speed-control { margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 0.85rem; flex-wrap: wrap; }
+        .speed-control input { width: 100px; accent-color: var(--accent); cursor: pointer; }
+
+        .play-all-btn { background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 0.8rem; margin-top: 10px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .play-all-btn.playing { background: #555; }
+
+        .controls { display: flex; justify-content: center; margin-top: -22px; padding: 0 10px; }
+        .theme-toggle { padding: 10px 20px; border-radius: 15px; border: 2px solid var(--primary); background: var(--card); color: var(--text); box-shadow: 0 4px 12px rgba(0,0,0,0.15); cursor: pointer; font-weight: bold; font-size: 0.85rem; transition: 0.3s; }
+        
+        .search-wrapper { max-width: 500px; margin: 25px auto 15px; padding: 0 15px; }
+        .search-box { width: 100%; padding: 14px 20px; border-radius: 12px; border: 2px solid var(--primary); outline: none; background: var(--card); color: var(--text); box-sizing: border-box; font-size: 1rem; }
+        
+        /* تعديل تصميم أزرار الوحدات لتصبح 3 وحدات في كل صف */
+        .unit-nav { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 10px; 
+            padding: 10px 15px; 
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .unit-btn { padding: 10px 5px; border-radius: 12px; border: 1.5px solid var(--primary); background: transparent; color: var(--text); font-weight: bold; cursor: pointer; text-align: center; transition: 0.2s; font-size: 0.9rem; }
+        .unit-btn.active { background: var(--primary); color: var(--secondary); }
+        
+        .lesson-nav { display: flex; background: var(--nav-bg); margin: 15px auto; max-width: 600px; border-radius: 12px; padding: 5px; gap: 5px; }
+        .tab { flex: 1; text-align: center; padding: 12px 5px; cursor: pointer; border-radius: 10px; font-weight: bold; font-size: 0.85rem; color: var(--text); transition: 0.2s; }
+        .tab.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px 5px; max-width: 800px; margin: 0 auto; }
+        .section-title { font-weight: 800; color: var(--accent); font-size: 0.95rem; text-transform: uppercase; border-right: 4px solid var(--accent); padding-right: 8px; }
+        .word-count { font-size: 0.75rem; background: var(--primary); color: var(--secondary); padding: 2px 10px; border-radius: 20px; font-weight: bold; }
+        
+        .content-card { background: var(--card); margin: 10px auto 25px; max-width: 800px; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; }
+        td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: right; }
+        tr:last-child td { border-bottom: none; }
+        
+        .word-en, .def-en { color: var(--text); font-weight: 700; font-size: 1.05rem; cursor: pointer; display: inline-block; transition: color 0.2s, background 0.2s; }
+        .def-en { font-weight: 600; font-size: 0.95rem; color: var(--primary); font-style: italic; display: block; margin-bottom: 4px; direction: ltr; text-align: left; }
+        .word-ar { color: var(--text); font-size: 1rem; }
+        .def-ar { color: var(--text); font-size: 0.9rem; opacity: 0.9; margin-top: 3px; }
+        .exp-ar { font-size: 0.85rem; color: #16a34a; margin-top: 4px; font-weight: 600; }
+        
+        .word-en.active-speak, .def-en.active-speak { color: var(--accent) !important; text-decoration: underline; background: rgba(220, 38, 38, 0.1); border-radius: 5px; padding: 0 4px; }
+        .word-type { font-size: 0.75rem; color: var(--accent); font-weight: normal; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="brand">POWERED BY " MR MOHAMED ELSHAHAWY "</div>
+
+<div class="header">
+    <h2 style="margin:0; font-size: 1.3rem;">Secondary 3 Master Dictionary</h2>
+    
+    <div style="margin-top:10px; font-size:0.8rem; display: flex; justify-content: center; gap: 15px;">
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-US" checked onclick="vL='en-US'"> American 🇺🇸</label>
+        <label style="cursor:pointer;"><input type="radio" name="v" value="en-GB" onclick="vL='en-GB'"> British 🇬🇧</label>
+    </div>
+
+    <div class="speed-control">
+        <span>🐢 Slow</span>
+        <input type="range" id="speedRate" min="0.3" max="1.5" step="0.1" value="0.7" oninput="document.getElementById('speedVal').innerText = this.value + 'x'">
+        <span>Fast ⚡</span>
+        <span id="speedVal" style="font-weight:bold; width: 35px;">0.7x</span>
+        
+        <button id="playAllBtn" class="play-all-btn" onclick="togglePlayAll()">🔊 Play All</button>
+    </div>
+</div>
+
+<div class="controls">
+    <button class="theme-toggle" onclick="cycleThemes()">🎨 Mode: <span id="themeName">Classic Blue</span></button>
+</div>
+
+<div class="search-wrapper">
+    <input type="text" id="search" class="search-box" placeholder="Search... ابحث هنا" onkeyup="render()">
+</div>
+
+<div class="unit-nav" id="unitNav"></div>
+
+<div class="lesson-nav">
+    <div id="tab12" class="tab active" onclick="setL('12', this)">Lessons 1&2</div>
+    <div id="tab45" class="tab" onclick="setL('45', this)">Lessons 4&5</div>
+    <div id="tabAll" class="tab" onclick="setL('all', this)">All Words</div>
+</div>
+
+<div id="dictionaryContent"></div>
+
+<div class="brand" style="margin-bottom:40px; opacity:0.6;">MR MOHAMED ELSHAHAWY © 2026</div>
+
+<script>
+    let vL = 'en-US'; let currU = 'u1'; let currL = '12';
+    let themeIdx = 0; let isPlayingAll = false; let playAllIndex = 0;
+    const themes = [
+        {id:'default',n:'Classic Blue'},
+        {id:'midnight',n:'Midnight'},
+        {id:'forest',n:'Forest'},
+        {id:'purple',n:'Purple'},
+        {id:'golden',n:'Golden'},
+        {id:'contrast',n:'Contrast'}
+    ];
+
+    function cycleThemes(){
+        themeIdx=(themeIdx+1)%themes.length;
+        document.body.setAttribute('data-theme', themes[themeIdx].id);
+        document.getElementById('themeName').innerText = themes[themeIdx].n;
+    }
+
+    function speak(text, el, callback) {
+        if (!window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = vL;
+        ut.rate = parseFloat(document.getElementById('speedRate').value);
+        document.querySelectorAll('.word-en, .def-en').forEach(w => w.classList.remove('active-speak'));
+        if(el) el.classList.add('active-speak');
+        ut.onend = () => {
+            if(el) el.classList.remove('active-speak');
+            if(callback) callback();
+        };
+        ut.onerror = () => {
+            if(el) el.classList.remove('active-speak');
+            if(callback) callback();
+        };
+        window.speechSynthesis.speak(ut);
+    }
+
+    function togglePlayAll() {
+        const btn = document.getElementById('playAllBtn');
+        if (isPlayingAll) { stopPlayAll(); } 
+        else {
+            isPlayingAll = true;
+            btn.innerText = "🛑 Stop";
+            btn.classList.add('playing');
+            playAllIndex = 0;
+            playNextWord();
+        }
+    }
+
+    function stopPlayAll() {
+        isPlayingAll = false;
+        window.speechSynthesis.cancel();
+        const btn = document.getElementById('playAllBtn');
+        btn.innerText = "🔊 Play All";
+        btn.classList.remove('playing');
+        document.querySelectorAll('.word-en, .def-en').forEach(w => w.classList.remove('active-speak'));
+    }
+
+    function playNextWord() {
+        if (!isPlayingAll) return;
+        const playableElements = document.querySelectorAll('.word-en, .def-en');
+        if (playAllIndex < playableElements.length) {
+            const el = playableElements[playAllIndex];
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            speak(el.getAttribute('data-speak') || el.innerText, el, () => {
+                playAllIndex++;
+                setTimeout(playNextWord, 500);
+            });
+        } else { stopPlayAll(); }
+    }
+
+    const data = {
+        u1: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"administer", ar:"يُعطي دواءً / يُدير / يُنظّم", t:"v"},
+                    {en:"attention", ar:"اهتمام / انتباه", t:"n"},
+                    {en:"chaos", ar:"فوضى", t:"n"},
+                    {en:"chest", ar:"صدر", t:"n"},
+                    {en:"collapse", ar:"انهيار / ينهار / يتهاوى", t:"n - v"},
+                    {en:"consciousness", ar:"الوعي / الإدراك", t:"n"},
+                    {en:"CPR (Cardiopulmonary Resuscitation)", ar:"الإنقاذ القلب الرئوي", t:"n"},
+                    {en:"emergency", ar:"حالة طوارئ", t:"n"},
+                    {en:"grab", ar:"يُمسك بشدة / شَدّة / جَذْبة", t:"n - v"},
+                    {en:"heartbreaking", ar:"مؤلم / مُحزن", t:"adj"},
+                    {en:"paramedic", ar:"مُسعف", t:"n"},
+                    {en:"pulse", ar:"النبض", t:"n"},
+                    {en:"rewarding", ar:"مُجزي / مُرضي", t:"adj"},
+                    {en:"rollercoaster", ar:"قطار ملاهي / موقف متأرجح - تقلبات شديدة", t:"n"},
+                    {en:"shift", ar:"وردية عمل / دوام", t:"n"},
+                    {en:"victim", ar:"ضحية", t:"n"}
+                ],
+                "Important Vocabulary": [
+                    {en:"alarm", ar:"منبه / جهاز إنذار", t:"n"},
+                    {en:"anxiously", ar:"بتوتر / بقلق", t:"adv"},
+                    {en:"arise - arose - arisen", ar:"يبدأ / ينشأ", t:"v"},
+                    {en:"assist", ar:"يساعد / يُعين", t:"v"},
+                    {en:"beep", ar:"يصفر / يصدر صوت صغير", t:"n - v"},
+                    {en:"buzz", ar:"يصدر أزيزاً - ضجة أو نشاط", t:"n - v"},
+                    {en:"calmness", ar:"الهدوء / السكينة", t:"n"},
+                    {en:"care", ar:"رعاية / عناية / يرعى", t:"n - v"},
+                    {en:"challenge", ar:"تحدّي / يتحدّى", t:"n - v"},
+                    {en:"chart", ar:"جدول / كشف", t:"n"},
+                    {en:"colleague", ar:"زميل عمل", t:"n"},
+                    {en:"complain", ar:"يشكو", t:"v"},
+                    {en:"compression", ar:"ضغط", t:"n"},
+                    {en:"contaminated", ar:"ملوث / فاسد", t:"adj"},
+                    {en:"confusion", ar:"حيرة / ارتباك", t:"n"},
+                    {en:"disorder", ar:"اضطراب / ارتباك", t:"n"},
+                    {en:"document", ar:"يُوثّق / يُسجّل", t:"v"},
+                    {en:"elderly", ar:"كبير السن", t:"adj"},
+                    {en:"emergency operator", ar:"مشغل طوارئ", t:"n"},
+                    {en:"ensure", ar:"يضمن / يتأكد", t:"v"},
+                    {en:"exhausted", ar:"مُرهق", t:"adj"},
+                    {en:"fulfilled", ar:"شاعر بالرضا / قانع", t:"adj"},
+                    {en:"handle", ar:"مقبض / يتعامل مع", t:"n - v"},
+                    {en:"heart attack", ar:"أزمة قلبية", t:"n"},
+                    {en:"lifeguard", ar:"منقذ (السباحة)", t:"n"},
+                    {en:"medication", ar:"أدوية", t:"n"},
+                    {en:"mentally", ar:"ذهنيًا", t:"adv"},
+                    {en:"patience", ar:"الصبر", t:"n"},
+                    {en:"pleasure", ar:"سعادة / سرور", t:"n"},
+                    {en:"procedure", ar:"إجراء", t:"n"},
+                    {en:"progress", ar:"تقدُّم / يتقدّم / يتحسّن", t:"n - v"},
+                    {en:"regain", ar:"يستعيد / يسترد", t:"v"},
+                    {en:"relieve", ar:"يخفف (الألم)", t:"v"},
+                    {en:"review", ar:"يراجع / مراجعة", t:"n - v"},
+                    {en:"rush", ar:"يندفع / يُسرع / استعجال", t:"n - v"},
+                    {en:"satisfaction", ar:"ألاِعتِزاز / القناعة / الرضا", t:"n"},
+                    {en:"surgery", ar:"الجراحة - عملية جراحية", t:"n"},
+                    {en:"teamwork", ar:"العمل الجماعي", t:"n"},
+                    {en:"typical", ar:"مثالي - نموذجي", t:"adj"},
+                    {en:"weakness", ar:"ضعف", t:"n"},
+                    {en:"witness", ar:"يشهد", t:"v"},
+                    {en:"wrist", ar:"معصم اليد", t:"n"}
+                ],
+                "Definitions": [
+                    {en:"administer", defEn:"To give medicine or medical treatment to someone.", ar:"إعطاء دواء أو علاج لشخص ما.", t:"def"},
+                    {en:"attention", defEn:"The care or notice given to someone or something.", ar:"الرعاية أو الملاحظة التي تُمنح لشخص ما أو شيء ما.", t:"def"},
+                    {en:"buzz", defEn:"The sound of many people talking or machines working.", ar:"صوت العديد من الأشخاص الذين يتحدثون أو الآلات التي تعمل.", t:"def"},
+                    {en:"chaos", defEn:"A state of total confusion and disorder.", ar:"حالة من الارتباك والاضطراب الكاملين.", t:"def"},
+                    {en:"chest", defEn:"The front part of the body between the neck and stomach.", ar:"الجزء الأمامي من الجسم الواقع بين الرقبة والمعدة.", t:"def"},
+                    {en:"collapse", defEn:"To fall down suddenly, usually because of illness or weakness.", ar:"السقوط فجأة، عادة بسبب المرض أو الضعف (أو الإرهاق).", t:"def"},
+                    {en:"consciousness", defEn:"The state of being awake and aware of what is happening around you.", ar:"حالة الاستيقاظ والإدراك لما يحدث حولك.", t:"def"},
+                    {en:"CPR", defEn:"An emergency procedure that uses chest compressions to help a person whose heart has stopped.", ar:"إجراء طوارئ يستخدم ضغطات الصدر لمساعدة شخص توقف قلبه.", t:"def"},
+                    {en:"emergency", defEn:"A dangerous and unexpected situation that needs quick action.", ar:"موقف خطير وغير متوقع يتطلب اتخاذ إجراء سريع.", t:"def"},
+                    {en:"grab", defEn:"To take or hold something quickly and firmly.", ar:"أخذ أو إمساك شيء ما بسرعة وبقوة.", t:"def"},
+                    {en:"heartbreaking", defEn:"Extremely sad or distressing.", ar:"محزن للغاية أو مزعج.", t:"def"},
+                    {en:"paramedic / paramedics", defEn:"Medical professionals who provide urgent care and transport people to the hospital.", ar:"أخصائيون طبيون يقدمون الرعاية العاجلة وينقلون الناس إلى المستشفى بواسطة سيارة الإسعاف.", t:"def"},
+                    {en:"pulse", defEn:"The regular beating of the heart that you can feel in your wrist or neck.", ar:"النبض المنتظم للقلب الذي يمكنك الشعور به في معصمك أو رقبتك.", t:"def"},
+                    {en:"rewarding", defEn:"Giving a feeling of satisfaction or pleasure because you helped someone or achieved something good.", ar:"إعطاء شعور بالرضا أو المتعة لأنك ساعدت شخصًا ما أو حققت شيئًا جيدًا.", t:"def"},
+                    {en:"rollercoaster", defEn:"A situation or experience with many up and down changes, often emotional.", ar:"موقف أو تجربة بها العديد من التقلبات الصاعدة والهابطة، وغالبًا ما تكون عاطفية.", t:"def"},
+                    {en:"shift", defEn:"A set period of time during which a person works.", ar:"فترة زمنية محددة يعمل فيها الشخص (خاصة في المستشفيات والمصانع وما إلى ذلك).", t:"def"},
+                    {en:"victim", defEn:"A person who is harmed, killed, or affected by something bad.", ar:"شخص تعرّض للأذى أو القتل أو التأثر بشيء سيء مثل حادث أو جريمة.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"administer medication", ar:"يعطي الدواء"},
+                    {en:"check pulse", ar:"يتحقق من النبض"},
+                    {en:"do / start / perform CPR", ar:"يقوم بالإنعاش القلبي الرئوي"},
+                    {en:"document progress", ar:"يوثق التقدم أو تطور الحالة"},
+                    {en:"kick off the day", ar:"يبدأ اليوم"},
+                    {en:"take medication", ar:"يتناول الدواء"},
+                    {en:"make a good nurse", ar:"يساهم في إعداد ممرضة جيدة"},
+                    {en:"make a difference", ar:"يُحدث فرقاً"},
+                    {en:"reflect on the day", ar:"يتأمل اليوم / يفكر فيما حدث"},
+                    {en:"regain consciousness", ar:"يسترد الوعي"},
+                    {en:"review updates", ar:"يراجع المستجدات"}
+                ]
+            },
+            "45": {
+                "Key Vocabulary": [
+                    {en:"clutch", ar:"يمسك / يقبض على", t:"v"},
+                    {en:"forehead", ar:"جبهة / جبين", t:"n"},
+                    {en:"groan", ar:"يتأوه / يرتع", t:"n - v"},
+                    {en:"moan", ar:"أنين / يئن", t:"n - v"},
+                    {en:"panicked", ar:"مصاب بالذعر", t:"adj"},
+                    {en:"scope", ar:"منظار", t:"n"},
+                    {en:"stitch", ar:"غُرزة / يُخيّط / يُغرز", t:"n - v"},
+                    {en:"worsen", ar:"يتفاقم / يسوء", t:"v"}
+                ],
+                "Important Vocabulary": [
+                    {en:"appointment", ar:"موعد", t:"n"},
+                    {en:"beyond", ar:"خلف / وراء", t:"adv, prep"},
+                    {en:"choking", ar:"اختناق / مسبب للاختناق", t:"n, adj"},
+                    {en:"clinic", ar:"عيادة طبية", t:"n"},
+                    {en:"cold", ar:"زكام / دور برد", t:"n"},
+                    {en:"construction", ar:"بناء", t:"n"},
+                    {en:"cough", ar:"كُحّة / سعال / يكح", t:"n - v"},
+                    {en:"ER = Emergency Room", ar:"غرفة الطوارئ", t:"n"},
+                    {en:"experience", ar:"تجربة / موقف / يعايش", t:"n - v"},
+                    {en:"flexible", ar:"مرن", t:"adj"},
+                    {en:"gratitude", ar:"شكر / عرفان", t:"n"},
+                    {en:"ghost", ar:"شبح", t:"n"},
+                    {en:"hesitation", ar:"التردد", t:"n"},
+                    {en:"miserable", ar:"بائس / شقي", t:"adj"},
+                    {en:"nonstop", ar:"بلا توقف", t:"adj, adv"},
+                    {en:"pain", ar:"ألم / وجع", t:"n"},
+                    {en:"pale", ar:"شاحب", t:"adj"},
+                    {en:"prescription", ar:"وصفة طبية - روشتة", t:"n"},
+                    {en:"proudly", ar:"بفخر / بكبرياء", t:"adv"},
+                    {en:"relief", ar:"ارتياح", t:"n"},
+                    {en:"remind", ar:"يُذكّر", t:"v"},
+                    {en:"retrieve", ar:"يسترجع / يستعيد", t:"v"},
+                    {en:"serious", ar:"خطير / جاد", t:"adj"},
+                    {en:"severe", ar:"شديد / بالغ", t:"adj"},
+                    {en:"soaked", ar:"مُبلّل", t:"adj"},
+                    {en:"sore", ar:"ملتهب", t:"adj"},
+                    {en:"staff", ar:"طاقم العاملين", t:"n"},
+                    {en:"sterile", ar:"مُعقّم", t:"adj"},
+                    {en:"stethoscope", ar:"سماعة الطبيب", t:"n"},
+                    {en:"swallow", ar:"يبتلع", t:"v"},
+                    {en:"symptoms", ar:"أعراض", t:"n"},
+                    {en:"tears", ar:"دموع", t:"n"},
+                    {en:"throat", ar:"الحلق (الزور)", t:"n"},
+                    {en:"toddler", ar:"طفل صغير يتعلم المشي", t:"n"},
+                    {en:"urgency", ar:"حالة مستعجلة - ضرورة / إلحاح", t:"n"},
+                    {en:"viral", ar:"فيروسي", t:"adj"},
+                    {en:"weep - wept - wept", ar:"يبكي / يُذرف الدمع", t:"v"},
+                    {en:"wipe", ar:"منشفة - يمسح", t:"n - v"},
+                    {en:"withdrawn", ar:"منعزل / انطوائي", t:"adj"}
+                ],
+                "Definitions": [
+                    {en:"clutch", defEn:"Holding something tightly, often out of fear, pain, or urgency.", ar:"إمساك شيء ما بقوة، غالبًا بسبب الخوف أو الألم أو الاستعجال.", t:"def"},
+                    {en:"forehead", defEn:"The flat part of the face above the eyebrows.", ar:"الجزء المسطح من الوجه فوق الحواجب.", t:"def"},
+                    {en:"panicked", defEn:"Acting quickly and frantically because of fear or anxiety.", ar:"التصرف بسرعة وعشوائية/بجنون بسبب الخوف أو القلق أو الذعر.", t:"def"},
+                    {en:"groan", defEn:"Making a deep sound showing pain or annoyance.", ar:"إصدار صوت عميق ينم عن الألم أو الانزعاج.", t:"def"},
+                    {en:"moan", defEn:"Making a low sound to express pain, sadness, or complaint.", ar:"إصدار صوت خافت ومُنخفض للتعبير عن الألم أو الحزن أو الشكوى.", t:"def"},
+                    {en:"scope", defEn:"A medical instrument for looking inside the body.", ar:"أداة طبية للنظر داخل الجسم / أو مدى ونطاق شيء ما.", t:"def"},
+                    {en:"stitch", defEn:"Closing a wound using a needle and thread.", ar:"إغلاق الجرح باستخدام الإبرة والخيط.", t:"def"},
+                    {en:"worsen", defEn:"To become worse or make something more serious.", ar:"أن يصبح الشيء أكثر سوءًا أو يجعل الشيء أكثر خطورة.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"feel miserable", ar:"يشعر بالتعاسة"},
+                    {en:"give a prescription", ar:"يقدم وصفة طبية"},
+                    {en:"have a sore throat", ar:"يعاني من التهاب في الحلق"},
+                    {en:"hide tears", ar:"يخفي دموعه / حزنه"},
+                    {en:"make an appointment", ar:"يحجز موعدًا"},
+                    {en:"rain cats and dogs", ar:"تمطر بغزارة"},
+                    {en:"rush in a victim", ar:"يُدخل مصابًا بسرعة"},
+                    {en:"save lives", ar:"ينقذ الأرواح"},
+                    {en:"see a doctor", ar:"يذهب للطبيب"},
+                    {en:"soak to the skin", ar:"يصبح مبتل تمامًا"},
+                    {en:"take X-rays", ar:"يقوم بعمل أشعة إكس"},
+                    {en:"take temperature", ar:"يقيس درجة الحرارة"}
+                ],
+                "Expressions & Idioms": [
+                    {en:"come to an end", ar:"ينتهي"},
+                    {en:"feel much better", ar:"يشعر بتحسن كبير"},
+                    {en:"pale as a ghost", ar:"شديد الشحوب"},
+                    {en:"return to calm", ar:"يعود إلى هدوءه"},
+                    {en:"running nose", ar:"سيلان الأنف"},
+                    {en:"jump into action", ar:"بادر بالفعل"},
+                    {en:"saving lives", ar:"إنقاذ الأرواح"},
+                    {en:"sore throat", ar:"التهاب في الحلق"},
+                    {en:"weep with relief", ar:"يبكي فرحًا"},
+                    {en:"soak to the skin", ar:"مغمور بالماء / مبتل تمامًا"},
+                    {en:"It rains cats and dogs", ar:"تمطر بغزارة"}
+                ],
+                "Verb + Preposition": [
+                    {en:"burst in", ar:"يقتحم / يندفع", t:"phr. verb"},
+                    {en:"check up on", ar:"يتحقق من - يراقب", t:"prep"},
+                    {en:"come down with", ar:"يُصاب بـ (مرض)", t:"prep"},
+                    {en:"get over", ar:"يتعافى من المرض", t:"prep"},
+                    {en:"hurry into", ar:"يسرع إلى داخل", t:"prep"},
+                    {en:"rush in", ar:"يُدخِل / يَدخُل بسرعة", t:"prep"}
+                ]
+            }
+        },
+        u2: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"artifact / artefact", ar:"قطعة أثرية / تحفة", t:"n"},
+                    {en:"automation", ar:"التشغيل الآلي / التحكم الآلي", t:"n"},
+                    {en:"cable", ar:"كابل توصيل", t:"n"},
+                    {en:"charge", ar:"يشحن (بالكهرباء / الطاقة)", t:"v"},
+                    {en:"drive - drove - driven", ar:"يُعزز / يقود / يدفع للأمام", t:"v"},
+                    {en:"driver", ar:"برنامج/ملف التعريف (لأجهزة الكمبيوتر) / سائق", t:"n"},
+                    {en:"dynasty", ar:"سلالة حاكمة / أسرة حاكمة", t:"n"},
+                    {en:"enhance", ar:"يُحسّن / يطور / يُعزز", t:"v"},
+                    {en:"cotton gin", ar:"مَخْلَج (آلة فصل القطن عن البذور)", t:"n"},
+                    {en:"groundwork", ar:"أرضية / أساس / تمهيد", t:"n"},
+                    {en:"infrastructure", ar:"البنية التحتية", t:"n"},
+                    {en:"lever", ar:"رافعة / مقبض", t:"n"},
+                    {en:"offline", ar:"غير متصل بالإنترنت", t:"adj/adv"},
+                    {en:"online", ar:"متصل بالإنترنت", t:"adj/adv"},
+                    {en:"partnership", ar:"شراكة", t:"n"},
+                    {en:"productivity", ar:"الإنتاجية", t:"n"},
+                    {en:"right-click", ar:"ينقر على الزر الأيمن للموس", t:"v"},
+                    {en:"sophisticated", ar:"متطور / دقيق / معقد", t:"adj"},
+                    {en:"steeped in", ar:"غارق في / مليء بـ", t:"adj"},
+                    {en:"troubleshoot", ar:"يحدد المشكلة التقنية ويحلها", t:"v"},
+                    {en:"urgency", ar:"أهمية ملحة / ضرورة قصوى", t:"n"},
+                    {en:"version", ar:"نسخة / إصدار", t:"n"}
+                ],
+                "Important Vocabulary": [
+                    {en:"generation", ar:"جيل", t:"n"},
+                    {en:"adopt", ar:"يتبنى", t:"v"},
+                    {en:"revolutionize", ar:"يحدث ثورة / يغير جذرياً", t:"v"},
+                    {en:"initiative", ar:"مبادرة", t:"n"}
+                ],
+                "Definitions": [
+                    {en:"artifact / artefact", defEn:"An object made by a human being, typically one of cultural or historical interest.", ar:"جسم أو قطعة صنعها الإنسان في الماضي، ولها قيمة تاريخية أو ثقافية.", exp:"(الآثار والتحف)", t:"def"},
+                    {en:"automation", defEn:"The use of machines instead of people.", ar:"استخدام الآلات والتكنولوجيا لأداء المهام بدلاً من العنصر البشري لتوفير الوقت والجهد.", t:"def"},
+                    {en:"cable", defEn:"Wires used to connect devices.", ar:"أسلاك كهربائية أو إلكترونية تُستخدم لتوصيل الأجهزة ببعضها.", t:"def"},
+                    {en:"charge", defEn:"To store electrical energy in a battery or device.", ar:"تزويد الجهاز أو البطارية بالطاقة الكهربائية اللازمة للتشغيل.", t:"def"},
+                    {en:"drive - drove - driven", defEn:"To propel, cause to move, or urge forward.", ar:"توجيه أو دفع الشيء للتقدم والتطور إلى الأمام.", t:"def"},
+                    {en:"driver", defEn:"Software that helps devices work.", ar:"برامج صغيرة تُعرف بنظام التشغيل كيفية التعامل مع الملحقات مثل الطابعة.", t:"def"},
+                    {en:"dynasty", defEn:"A ruling family that holds power for several generations.", ar:"عائلة حاكمة تتوارث السلطة والحكم عبر عدة أجيال متتالية.", t:"def"},
+                    {en:"enhance", defEn:"To improve the quality, amount, or strength of something.", ar:"رفع مستوى الشيء وزيادة جودته أو قيمته أو فعاليته.", t:"def"},
+                    {en:"cotton gin", defEn:"A machine invented to quickly separate cotton fibers from seeds.", ar:"آلة محلاج القطن تُستخدم لفصل ألياف القطن عن البذور بسرعة.", t:"def"},
+                    {en:"groundwork", defEn:"Preparatory work or foundation for something to develop.", ar:"أعمال تمهيدية أو وضع حجر الأساس لتطوير مشروعات مستقبلاً.", t:"def"},
+                    {en:"infrastructure", defEn:"The basic systems and structures a country or organization needs to operate.", ar:"الأنظمة الهيكلية الأساسية التي تحتاجها الدولة أو المؤسسة للعمل (الطرق، الكهرباء...).", t:"def"},
+                    {en:"lever", defEn:"A bar used to force or move something.", ar:"ساق صلبة أو رافعة تُستخدم لرفع أو تحريك الأشياء الثقيلة بقوة أقل.", t:"def"},
+                    {en:"offline", defEn:"Not connected to the network/internet.", ar:"وضع يكون فيه الجهاز غير متصل بشبكة الإنترنت.", t:"def"},
+                    {en:"online", defEn:"Connected to the internet or computer network.", ar:"حالة الاتصال النشط بشبكة الإنترنت واستقبال أو إرسال البيانات.", t:"def"},
+                    {en:"partnership", defEn:"A relationship between two or more people, organizations, or countries involved in a common activity.", ar:"تعاون رسمي أو عمل مشترك بين أطراف متعددة لتحقيق هدف موحد.", t:"def"},
+                    {en:"productivity", defEn:"The rate at which goods are produced or work is completed.", ar:"معدل قدرة الفرد أو الآلة على إنجاز المهام وإخراج الإنتاج.", t:"def"},
+                    {en:"right-click", defEn:"Press the right mouse button.", ar:"الضغط على الزر الأيمن للماوس لإظهار قائمة الخيارات الإضافية.", t:"def"},
+                    {en:"sophisticated", defEn:"Complex or advanced in design, understanding, or technology.", ar:"شيء متطور جداً أو دقيق ومعقد في تصميمه وتقنيته.", t:"def"},
+                    {en:"steeped in", defEn:"Having a lot of a particular quality or historical background.", ar:"أن يكون المكان أو الشيء مشبعاً تماماً بالتاريخ أو الثقافة.", t:"def"},
+                    {en:"troubleshoot", defEn:"Fix problems step by step.", ar:"تحديد المشكلات والأعطال التقنية وتحليلها خطوة بخطوة لحلها.", t:"def"},
+                    {en:"urgency", defEn:"Importance requiring rapid action.", ar:"حالة الأهمية القصوى والضرورة التي تتطلب إتخاذ إجراء سريع.", t:"def"},
+                    {en:"version", defEn:"One form of something that is slightly different to other forms of the same thing.", ar:"إصدار أو نسخة محدثة من برنامج أو كتاب تختلف قليلاً.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"charge full steam ahead", ar:"يسارع/يمضي قدماً بكل قوة وحماس"},
+                    {en:"enhance productivity", ar:"يُحسّن/يُعزّز الإنتاجية"},
+                    {en:"lay the groundwork", ar:"يُمَهّد الطريق / يضع حجر الأساس"},
+                    {en:"play a pivotal role", ar:"يلعب دوراً محشورياً/رئيسياً"},
+                    {en:"replace human labor", ar:"يحل محل العمالة البشرية"},
+                    {en:"revolutionize agriculture", ar:"يُحدث ثورة في الزراعة"},
+                    {en:"troubleshoot problems", ar:"يكتشف المشكلات التقنية ويحلها"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"blend old and new", ar:"يمزج بين القديم والحديث"},
+                    {en:"drive forward", ar:"يدفع للإمام / يعزز التقدم"},
+                    {en:"tools, not replacements", ar:"أدوات مساعدة وليست بدائل"},
+                    {en:"during the industrial revolution", ar:"أثناء الثورة الصناعية"}
+                ]
+            },
+            "45": {
+                "Key Vocabulary": [
+                    {en:"appliance", ar:"جهاز (منزلي)", t:"n"},
+                    {en:"automated", ar:"آلي / مُبَرمَج", t:"adj"},
+                    {en:"chores", ar:"أعمال وفروض منزلية يومية", t:"n"},
+                    {en:"efficiency", ar:"كفاءة / فاعلية", t:"n"},
+                    {en:"household", ar:"أسرة / منزلي", t:"n/adj"},
+                    {en:"standstill", ar:"ساكن / توقف تام / شلل", t:"adj/n"},
+                    {en:"track", ar:"يراقب / يتبع / ممر", t:"v/n"},
+                    {en:"pack", ar:"يحزم الأمتعة / يعبئ", t:"v"}
+                ],
+                "Important Vocabulary": [
+                    {en:"appliance", ar:"جهاز منزل", t:"n"},
+                    {en:"automated", ar:"يعمل آلياً", t:"adj"}
+                ],
+                "Definitions": [
+                    {en:"appliance", defEn:"A device or piece of equipment, especially one used in the home to perform a specific task.", ar:"جهاز كهربائي منزلي مُصمم لأداء وظيفة معينة.", exp:"(مثل الغسالة أو الثلاجة)", t:"def"},
+                    {en:"automated", defEn:"Operated automatically using machines or computers instead of people.", ar:"مُتَمتَت / يعمل بشكل آلي وتلقائي باستخدام الكمبيوتر دون تدخل بشري.", t:"def"},
+                    {en:"chores", defEn:"Regular, everyday tasks, especially around the house such as cleaning or cooking.", ar:"الأعمال والمهام المنزلية اليومية الروتينية كالطبخ والتنظيف.", t:"def"},
+                    {en:"efficiency", defEn:"The ability to do something well without wasting time, energy, or resources.", ar:"الكفاءة والقدرة على إنجاز العمل ببراعة دون إهدار الوقت أو الجهد.", t:"def"},
+                    {en:"household", defEn:"Relating to a house or to the people living in it.", ar:"كل ما يتعلق بالمنزل أو أفراد الأسرة المقيمين فيه.", t:"def"},
+                    {en:"standstill", defEn:"A situation in which all activity or movement has stopped.", ar:"حالة السكون أو التوقف التام والحركة المشلولة.", t:"def"},
+                    {en:"track", defEn:"To follow or monitor the movement or progress of something.", ar:"يتتبع أو يراقب مسار حركة أو تقدم شيء معين عبر الوقت.", t:"def"},
+                    {en:"pack", defEn:"To put things into containers or boxes, usually for storage or transport.", ar:"يُعبئ أو يحزم الأغراض في صناديق أو حقائب للتخزين أو النقل.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"bring comfort", ar:"يجلب الراحة"},
+                    {en:"lose focus", ar:"يفقد التركيز"},
+                    {en:"maintain control", ar:"يحافظ على السيطرة/التحكم"},
+                    {en:"oppose an idea", ar:"يعارض فكرة"},
+                    {en:"react under pressure", ar:"يتصرف/يتفاعل تحت الضغط"},
+                    {en:"track heart rate / sleep quality", ar:"يراقب معدل ضربات القلب / جودة النوم"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"come to a standstill", ar:"يتعطل / يصاب بشلل في الحركة"},
+                    {en:"live on autopilot", ar:"يعيش حياة نمطية/تلقائية دون تفكير"},
+                    {en:"control over technology", ar:"السيطرة والتحكم في التكنولوجيا"},
+                    {en:"for or against", ar:"مع أو ضد"},
+                    {en:"rely on", ar:"يعتمد على", t:"prep"},
+                    {en:"work with", ar:"يعمل مع / يتعامل مع", t:"prep"},
+                    {en:"depend on", ar:"يعتمد على", t:"prep"},
+                    {en:"wake up", ar:"يستيقظ", t:"phr. verb"}
+                ]
+            }
+        },
+        u3: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"activist", ar:"ناشط", t:"n"},
+                    {en:"bear the brunt", ar:"يتحمل العبء الأكبر", t:"v expr"},
+                    {en:"brunt", ar:"عبء / هَمّ", t:"n"},
+                    {en:"climate resilience", ar:"المرونة المناخية", t:"n"},
+                    {en:"crisis", ar:"أزمة", t:"n"},
+                    {en:"emphasize(d)", ar:"يؤكد على / يركز", t:"v"},
+                    {en:"equity", ar:"مساواة / عدالة", t:"n"},
+                    {en:"extreme weather", ar:"طقس قاسٍ / شديد", t:"n"},
+                    {en:"forecast", ar:"تنبؤ - يتنبأ بـ", t:"n - v"},
+                    {en:"greenhouse gas emissions", ar:"انبعاثات الغازات الدفيئة", t:"n"},
+                    {en:"heatwave", ar:"موجة حارة", t:"n"},
+                    {en:"marginalized", ar:"مُهَمَّش / مُهْمَل", t:"adj"},
+                    {en:"marginalized communities", ar:"المجتمعات المهمشة", t:"n"},
+                    {en:"meteorologist", ar:"خبير أرصاد", t:"n"},
+                    {en:"optimistic", ar:"متفائل / مستبشر", t:"adj"},
+                    {en:"pessimistic", ar:"متشائم", t:"adj"},
+                    {en:"profound", ar:"عميق / خطير", t:"adj"},
+                    {en:"prolonged", ar:"طويل", t:"adj"},
+                    {en:"scorching", ar:"شديد الحرارة", t:"adj"},
+                    {en:"sustainable", ar:"مستدام", t:"adj"},
+                    {en:"uphold", ar:"يدعم / يدافع عن", t:"v"},
+                    {en:"vulnerable", ar:"مِعْرَّض للخطر", t:"adj"}
+                ],
+                "Important Vocabulary": [
+                    {en:"activist", ar:"ناشط في مجال حقوقي أو بيئي", t:"n"}
+                ],
+                "Definitions": [
+                    {en:"activist", defEn:"A person who takes action to bring about political or social change.", ar:"شخص يقوم بأنشطة وأعمال جادة لإحداث تغيير سياسي أو اجتماعي.", t:"def"},
+                    {en:"bear the brunt", defEn:"To suffer the worst part of something.", ar:"التضرر أو تحمل الجزء الأسوأ والأقسى من مشكلة أو أزمة معينة.", t:"def"},
+                    {en:"brunt", defEn:"The main force or worst part of something unpleasant.", ar:"الوقوع تحت وطأة الجزء الأشد ثقلاً وقسوة من الأزمة.", t:"def"},
+                    {en:"climate resilience", defEn:"Ability to recover from climate events.", ar:"القدرة على التعافي والنهوض بسرعة بعد التعرض للكوارث والتقلبات المناخية.", t:"def"},
+                    {en:"crisis", defEn:"A time of intense difficulty or danger.", ar:"وقت عصيب يتسم بالصعوبة الشديدة أو الخطر البالغ.", t:"def"},
+                    {en:"emphasize(d)", defEn:"To give special importance or attention to something.", ar:"إعطاء أهمية أو تركيز خاص لشيء معين للفت الانتباه إليه.", t:"def"},
+                    {en:"equity", defEn:"Fairness or equal treatment.", ar:"تحقيق الإنصاف والعدالة والمعاملة المتساوية بين الجميع.", t:"def"},
+                    {en:"extreme weather", defEn:"A weather condition that is unusually strong, dangerous or destructive.", ar:"ظروف جوية قاسية وغير معتادة تكون شديدة الخطورة أو مدمرة.", exp:"(مثل الأعاصير والجفاف)", t:"def"},
+                    {en:"forecast", defEn:"The prediction of future weather conditions.", ar:"التنبؤ بحالة الطقس والأحوال الجوية في المستقبل بناءً على معطيات علمية.", t:"def"},
+                    {en:"greenhouse gas emissions", defEn:"Pollution that traps heat in the Earth’s atmosphere.", ar:"انبعاثات الغازات الملوثة التي تحبس الحرارة داخل الغلاف الجوي للكتكب.", t:"def"},
+                    {en:"heatwave", defEn:"A very long period of dangerously hot weather.", ar:"فترة طويلة وممتدة من الطقس الحار جداً بشكل يشكل خطورة.", t:"def"},
+                    {en:"marginalized", defEn:"Pushed to the edge of society, given less importance, or denied rights or opportunities.", ar:"فئة مبعَدة ومهمشة على هامش المجتمع، تُسلب منها الحقوق والفرص.", t:"def"},
+                    {en:"marginalized communities", defEn:"Groups with little power or resources.", ar:"مجتمعات ضعيفة تمتلك القليل جداً من السلطة أو الموارد.", t:"def"},
+                    {en:"meteorologist", defEn:"Someone who studies or predicts the weather.", ar:"خبير متقيد بدراسة وتحليل والتنبؤ بالتغيرات والظروف الجوية.", t:"def"},
+                    {en:"optimistic", defEn:"Having a positive outlook or expecting good things to happen.", ar:"النظر للأمور بإيجابية وتوقع حدوث الأفضل في المستقبل.", t:"def"},
+                    {en:"pessimistic", defEn:"Expecting bad or negative outcome.", ar:"النظر للأمور بسلبية وتوقع الن نتائج السيئة دائماً.", t:"def"},
+                    {en:"profound", defEn:"Very deep, intense, or significant in meaning or effect.", ar:"شيء عميق جداً أو ذو تأثير وأهمية بالغة.", t:"def"},
+                    {en:"prolonged", defEn:"Lasting for a long time.", ar:"شيء ممتد أو مستمر لفترة زمنية طويلة.", t:"def"},
+                    {en:"scorching", defEn:"Very hot.", ar:"حار جداً بدرجة حارقة.", t:"def"},
+                    {en:"sustainable", defEn:"Capable of being continued over the long term without harming the environment or depleting resources.", ar:"قابل للاستمرار على المدى الطويل دون الإضرار بالبيئة.", t:"def"},
+                    {en:"uphold", defEn:"Support or defend (a rule or right).", ar:"دعم أو الدفاع عن قانون، حق، أو مبدأ معين وإعلاء شأنه.", t:"def"},
+                    {en:"vulnerable", defEn:"Easily harmed, physically or emotionally; at risk.", ar:"سهل الإيذاء أو التعرض للضرر جسدياً أو نفسياً؛ واقع تحت الخطر.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"extreme weather events", ar:"أحوال جوية متطرفة"},
+                    {en:"global warming", ar:"الاحتباس الحراري"},
+                    {en:"take stronger action", ar:"يتخذ إجراءات أقوى"},
+                    {en:"take urgent precautions", ar:"يتخذ احتياطات عاجلة"},
+                    {en:"take the heat", ar:"يتحمل الانتقاد أو اللوم"},
+                    {en:"shoulder the burden", ar:"يتحمل مسؤولية صعبة"},
+                    {en:"address a challenge", ar:"يواجه تحدياً"},
+                    {en:"convince the reader", ar:"يقنع القارئ"},
+                    {en:"create change", ar:"يُحدث تغييراً"},
+                    {en:"demonstrate recognition", ar:"يُظهر اعترافاً أو وعياً"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"according to", ar:"وفقاً لـ / حسب"},
+                    {en:"at its core", ar:"في جوهره"},
+                    {en:"be left to suffer", ar:"يُترك ليعاني وحده"},
+                    {en:"bear the brunt", ar:"يتحمل النصيب الأكبر من العبء"},
+                    {en:"contribute the least", ar:"يساهم بأقل قدر"},
+                    {en:"equal treatment", ar:"معاملة متساوية"},
+                    {en:"face the music", ar:"يتحمل العواقب حتى لو كانت صعبة"},
+                    {en:"to what extent", ar:"إلى أي مدى"}
+                ]
+            },
+            "45": {
+                "Key Vocabulary": [
+                    {en:"accelerated", ar:"متسارع", t:"adj"},
+                    {en:"accompanied", ar:"مصحوب بـ", t:"adj"},
+                    {en:"adaptation", ar:"تكيف", t:"n"},
+                    {en:"climate migration", ar:"هجرة المناخ", t:"n"},
+                    {en:"commitment", ar:"التزام", t:"n"},
+                    {en:"displacement", ar:"نزوح", t:"n"},
+                    {en:"documented", ar:"موثق", t:"adj"},
+                    {en:"expansion", ar:"تمدد", t:"n"},
+                    {en:"implemented", ar:"منفذ / مطبق", t:"adj"},
+                    {en:"implications", ar:"تداعيات / آثار", t:"n"},
+                    {en:"indicate(d)", ar:"يوضح / يشير إلى", t:"v"},
+                    {en:"inundation", ar:"غمر بالماء - إغراق", t:"n"},
+                    {en:"megacity", ar:"مدينة ضخمة", t:"n"},
+                    {en:"migration", ar:"هجرة", t:"n"},
+                    {en:"mitigate(d)", ar:"يخفف", t:"v"},
+                    {en:"persistence", ar:"إصرار - مثابرة", t:"n"},
+                    {en:"persistent", ar:"مثابر - مستمر", t:"adj"},
+                    {en:"phenomenon", ar:"ظاهرة", t:"n"},
+                    {en:"projections", ar:"توقعات", t:"n"},
+                    {en:"substantial", ar:"كبير / جوهري", t:"adj"},
+                    {en:"thermal", ar:"حراري (أرضي)", t:"adj"},
+                    {en:"transformative", ar:"تحويلي - يُحدث تغييراً جذرياً", t:"adj"}
+                ],
+                "Important Vocabulary": [
+                    {en:"megacity", ar:"مدينة يتجاوز سكانها 10 ملايين", t:"n"}
+                ],
+                "Definitions": [
+                    {en:"accelerated", defEn:"Faster than normal or expected.", ar:"تزايد السرعة والوتيرة بشكل أسرع من المعتاد.", t:"def"},
+                    {en:"accompanied", defEn:"Provided or occurring together with something else.", ar:"مقترن ومصاحب لوجود حدث أو شيء آخر.", t:"def"},
+                    {en:"adaptation", defEn:"The process of changing to suit new conditions or environment.", ar:"التأقلم وتغيير السلوك لتناسب الظروف والمناخ الجديد.", t:"def"},
+                    {en:"climate migration", defEn:"Movement of people driven by climate impacts.", ar:"انتقال وهجرة السكان بسبب الظروف والتغيرات المناخية القاسية.", t:"def"},
+                    {en:"commitment", defEn:"A pledge or promise to do something.", ar:"التعهد والتعهد الصارم بتحقيق هدف أو واجب محدد.", t:"def"},
+                    {en:"displacement", defEn:"The forced movement of people from their locality or environment.", ar:"اضطرار الأفراد والمجتمعات لمغادرة منازلهم ومناطقهم قسراً.", t:"def"},
+                    {en:"documented", defEn:"Recorded or supported by written evidence.", ar:"مسجل ومثبت بأدلة أو مستندات وثائقية رسمية.", t:"def"},
+                    {en:"expansion", defEn:"The action of becoming larger or more extensive.", ar:"التوسع والزيادة في المساحة أو النطاق أو الحجم.", t:"def"},
+                    {en:"implemented", defEn:"Put into effect or carried out.", ar:"شيء تم تطبيقه وتنفيده فعلياً على أرض الواقع.", t:"def"},
+                    {en:"implications", defEn:"The possible results or effects of an action or decision.", ar:"النتائج والآثار المترتبة المستقبليّة لحدث أو قرار معين.", t:"def"},
+                    {en:"indicate(d)", defEn:"To point out or show something.", ar:"إظهار أو تقديم دلالة واضحة على شيء ما.", t:"def"},
+                    {en:"inundation", defEn:"An overwhelming abundance of water or flooding.", ar:"فيضان شديد يؤدي لإغراق وغمر المناطق بالكامل بالماء.", t:"def"},
+                    {en:"megacity", defEn:"A very large city, typically one with a population of over ten million people.", ar:"مدينة عملاقة ويتجاوز عدد سكانها عادةً الـ 10 ملايين نسمة.", t:"def"},
+                    {en:"migration", defEn:"Movement from one region to another.", ar:"انتقال الأفراد أو مجموعات الكائنات من مكان لآخر.", t:"def"},
+                    {en:"mitigate(d)", defEn:"To make something less severe, serious, or painful.", ar:"الحد وتقليل درجة شدة أو خطورة المشكلات والأضرار.", t:"def"},
+                    {en:"persistence", defEn:"Continued effort to do or achieve something despite difficulties.", ar:"المواصلة والمحاولة المستمرة لتحقيق الهدف بالرغم من الصعوبات.", t:"def"},
+                    {en:"persistent", defEn:"Continuing firmly or obstinately in a course of action.", ar:"صفة للشخص أو الفعل المستمر بصلابة ودون استسلام.", t:"def"},
+                    {en:"phenomenon", defEn:"A fact or situation that is observed to exist or happen.", ar:"حدث أو واقعة طبيعية أو اجتماعية ملحوظة تستدعي الدراسة.", t:"def"},
+                    {en:"projections", defEn:"Estimates or forecasts of a future situation based on study.", ar:"تقديرات وتنبؤات للمستقبل تعتمد على البيانات الحالية.", t:"def"},
+                    {en:"substantial", defEn:"Of considerable importance, size, or value.", ar:"شيء ذو حجم، أهمية، أو قيمة كبيرة وملحوظة.", t:"def"},
+                    {en:"thermal", defEn:"Relating to heat.", ar:"كل ما يرتبط ويتعلق بالحرارة أو الطاقة الحرارية.", t:"def"},
+                    {en:"transformative", defEn:"Causing a marked change in someone or something.", ar:"تأثير يسبب تحولاً جذرياً وملموساً في الوضع أو الطبيعة.", t:"def"}
+                ],
+                "Verbal Collocations": [
+                    {en:"document an increase", ar:"يُوثق زيادة"},
+                    {en:"drive change", ar:"يسبب تغييراً"},
+                    {en:"drive a phenomenon", ar:"يسبب ظاهرة"},
+                    {en:"face risks / problems", ar:"يواجه مخاطر / مشكلات"},
+                    {en:"implement solutions", ar:"يُنفذ حلولاً"},
+                    {en:"indicate trends", ar:"يدل على توجهات"},
+                    {en:"indicate data", ar:"يشير إلى بيانات"},
+                    {en:"make a difference", ar:"يُحدث فرقاً"},
+                    {en:"predict displacement", ar:"يتنبأ بنزوح"},
+                    {en:"project sea level rise", ar:"يتنبأ بارتفاع مستوى البحر"},
+                    {en:"share your opinion", ar:"يُشارك رأيه"},
+                    {en:"slow sea level rise", ar:"يُبطئ ارتفاع مستوى البحر"},
+                    {en:"take action", ar:"يَتّخذ إجراءً"},
+                    {en:"take meaningful steps", ar:"يَتّخذ خطوات ذات معنى"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"advocating for fair policies", ar:"مناصرة سياسات عادلة"},
+                    {en:"ambhibious architecture", ar:"عمارة / هندسة برمائية"},
+                    {en:"collective action", ar:"عمل جماعي"},
+                    {en:"emotional appeals", ar:"مؤثرات عاطفية"},
+                    {en:"ethical businesses", ar:"شركات ذات أخلاقيات"},
+                    {en:"flood-prone regions", ar:"مناطق مًعَرَّضة للفيضانات"},
+                    {en:"for instance", ar:"على سبيل المثال"},
+                    {en:"individual commitment", ar:"التزام فردي"},
+                    {en:"low-lying zones", ar:"مناطق منخفضة"},
+                    {en:"persistence leads to change", ar:"الإصرار يؤدي إلى التغيير"},
+                    {en:"rather than", ar:"بدلاً من"},
+                    {en:"small but meaningful", ar:"صغيرة ولكن ذات مغزى"},
+                    {en:"strong reasons and evidence", ar:"أسباب وأدلة قوية"},
+                    {en:"contribute to + (inf.+ing)", ar:"يساهم في", t:"prep"},
+                    {en:"give up", ar:"يُقلع عن - يستسلم", t:"phr. verb"},
+                    {en:"look forward to + (inf.+ing)", ar:"يتطلع إلى", t:"prep"},
+                    {en:"show up", ar:"يظهر / يحضر", t:"phr. verb"},
+                    {en:"suffer from", ar:"يعاني من", t:"prep"},
+                    {en:"take part in", ar:"يشارك في", t:"prep"},
+                    {en:"trap in", ar:"يحتجز / يحبس في", t:"prep"},
+                    {en:"advocate for", ar:"يدفع عن", t:"prep"},
+                    {en:"be situated in", ar:"يقع في", t:"prep"},
+                    {en:"begin with", ar:"يبدأ بـ", t:"prep"},
+                    {en:"build on", ar:"يبني على (سابق معرفة / خبرة)", t:"prep"},
+                    {en:"compare ... to", ar:"يقارن ... بـ ...", t:"prep"},
+                    {en:"driven by", ar:"مدفوع بـ / ناتج عن", t:"prep"},
+                    {en:"hear about", ar:"يسمع عن", t:"prep"},
+                    {en:"lead to + inf. + ing", ar:"يؤدي إلى", t:"prep"},
+                    {en:"protect from", ar:"يحمي من", t:"prep"},
+                    {en:"reside in", ar:"يقيم في", t:"prep"},
+                    {en:"slow down", ar:"يبطئ", t:"phr. verb"},
+                    {en:"support ... with", ar:"يدعم ... بـ", t:"prep"}
+                ]
+            }
+        },
+        u4: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"bleach(ed)", ar:"يَبْهَت / يَفْقِد لَوْنَهُ", t:"v"},
+                    {en:"breathtaking", ar:"يَخْطَف الأَنْفَاس", t:"adj"},
+                    {en:"dedicated", ar:"مُخْلِص", t:"adj"},
+                    {en:"disrupt(ed)", ar:"يُشَوِّش عَلَى / يَقْطَع", t:"v"},
+                    {en:"diverse", ar:"مُتَنَوِّع", t:"adj"},
+                    {en:"entangled", ar:"مُتَشَابِك - غَالِق", t:"adj"},
+                    {en:"erosion", ar:"التَّآكُل", t:"n"},
+                    {en:"fragile", ar:"هَشّ - ضَعِيف", t:"adj"},
+                    {en:"haunting", ar:"مُؤَثِّر (صَعْب النِّسْيَان)", t:"adj"},
+                    {en:"hazardous", ar:"خَطِير", t:"adj"},
+                    {en:"magnificent", ar:"رَائِعَة", t:"adj"},
+                    {en:"non-invasive", ar:"سَطْحِي/ظَاهِرِي", t:"adj"},
+                    {en:"pose(d)", ar:"يُشَكِّل - يُمَثِّل - يَفْرِض", t:"v"},
+                    {en:"struggle(d)", ar:"كِفَاح/نِضَال - يُكَافِح", t:"n - v"},
+                    {en:"thrive(d)", ar:"يَزْدَهِر", t:"v"},
+                    {en:"underestimate(d)", ar:"يَسْتَهِينُ بِـ - يَبْخَس قَدْر", t:"v"},
+                    {en:"vivid", ar:"زَاهِيَة", t:"adj"}
+                ],
+                "Important Vocabulary": [
+                    {en:"accidentally", ar:"عَنْ طَرِيقِ الخَطَأ", t:"adv"},
+                    {en:"act(ed)", ar:"يَتَصَرَّف", t:"v"},
+                    {en:"admire(d)", ar:"يُعْجَبُ بِـ - يُقَدِّر", t:"v"},
+                    {en:"alive", ar:"حَيّ", t:"adj"},
+                    {en:"attract(ed)", ar:"يَجْذِب", t:"v"},
+                    {en:"awareness", ar:"الوَعْي", t:"n"},
+                    {en:"ban(ned)", ar:"يَحْظُر", t:"v"},
+                    {en:"beneath", ar:"تَحْت", t:"prep"},
+                    {en:"biologist", ar:"عَالِم أَحْيَاء", t:"n"},
+                    {en:"brilliant", ar:"رَائِع - مُتَأَلِّق", t:"adj"},
+                    {en:"brightly-colored", ar:"زَاهِي الأَلْوَان", t:"adj"},
+                    {en:"cheerful", ar:"بَشُوش / فَرِح", t:"adj"},
+                    {en:"colorful", ar:"مُلَوَّن", t:"adj"},
+                    {en:"conditions", ar:"ظُرُوف", t:"n"},
+                    {en:"conservation", ar:"الحِفَاظ عَلَى", t:"n"},
+                    {en:"contrast(ed)", ar:"النَّقِيض - يُنَاقِض", t:"n - v"},
+                    {en:"coral reef", ar:"الشِّعَاب المَرْجَانِيَّة", t:"n"},
+                    {en:"creamy", ar:"كَرِيمِي - غَنِي بِالقِشْدَة", t:"adj"},
+                    {en:"creature", ar:"مَخْلُوق - كَائِن", t:"n"},
+                    {en:"crystal-clear", ar:"صَافٍ كَالْبَلُّور - وَاضِح", t:"adj"},
+                    {en:"damage(d)", ar:"ضَرَر / يَتْلَف / يُدَمِّر", t:"n - v"},
+                    {en:"dangers", ar:"مَخَاطِر", t:"n"},
+                    {en:"destination", ar:"وِجْهَة - مَقْصِد", t:"n"},
+                    {en:"destructive", ar:"مُدَمِّر", t:"adj"},
+                    {en:"disturbance", ar:"إِزْعَاج", t:"n"},
+                    {en:"divine", ar:"مُقَدَّس - لَذِيذ جِدًّا (مَجَازًا)", t:"adj"},
+                    {en:"drone", ar:"طَائِرَة بِدُون طَيَّار", t:"n"},
+                    {en:"eco-friendly", ar:"صَدِيق لِلْبِيئَة", t:"adj"},
+                    {en:"ecosystem", ar:"النِّظَام البِيئِي", t:"n"},
+                    {en:"ensure(d)", ar:"يَضْمَن", t:"v"},
+                    {en:"essential", ar:"ضَرُورِي", t:"adj"},
+                    {en:"fictional", ar:"خَيَالِي", t:"adj"},
+                    {en:"fishing", ar:"صَيْد السَّمَك", t:"n"},
+                    {en:"frightened", ar:"خَائِف جِدًّا - مَرْعُوب", t:"adj"},
+                    {en:"fussy", ar:"صَعْب الإِرْضَاء", t:"adj"},
+                    {en:"gentle", ar:"لَطِيف - رَاقِي", t:"adj"},
+                    {en:"giant", ar:"عِمْلَاق", t:"n"},
+                    {en:"grand", ar:"عَظِيم - كَبِير", t:"adj"},
+                    {en:"graceful", ar:"رَشِيق", t:"adj"},
+                    {en:"habitat", ar:"مَوْطِن", t:"n"},
+                    {en:"home", ar:"مَوْطِن", t:"n"},
+                    {en:"human-made", ar:"مِنْ صُنْع الإِنْسَان", t:"adj"},
+                    {en:"journey", ar:"رِحْلَة", t:"n"},
+                    {en:"known for", ar:"مَعْرُوف بِـ", t:"adj"},
+                    {en:"lifeless", ar:"بِلَا حَيَاة", t:"adj"},
+                    {en:"long-term", ar:"طَوِيل الأَمَد", t:"adj"},
+                    {en:"marine", ar:"بَحْرِي", t:"adj"},
+                    {en:"massive", ar:"ضَخْم", t:"adj"},
+                    {en:"matter(ed)", ar:"يَهُمّ - أَمْر", t:"n - v"},
+                    {en:"memorable", ar:"لَا يُنْسَى - عَالِق بِالذَّهْن", t:"adj"},
+                    {en:"migratoty", ar:"خَاصّ بِالْهِجْرَة", t:"adj"},
+                    {en:"motion", ar:"حَرَكَة", t:"n"},
+                    {en:"pollution", ar:"التَّلَوُّث", t:"n"},
+                    {en:"poor", ar:"رَدِيء", t:"adj"},
+                    {en:"practices", ar:"مُمَارَسَات", t:"n"},
+                    {en:"preserve(d)", ar:"يُحَافِظ عَلَى", t:"v"},
+                    {en:"prevent(ed)", ar:"يَمْنَع", t:"v"},
+                    {en:"priceless", ar:"لَا يُقَدَّر بِثَمَن", t:"adj"},
+                    {en:"promote(d)", ar:"يُرَوِّج - يُعَزِّز", t:"v"},
+                    {en:"protection", ar:"حِمَايَة", t:"n"},
+                    {en:"recover(ed)", ar:"يَتَعَافَى - يَسْتَفِيق", t:"v"},
+                    {en:"reliable", ar:"يُعْتَمَد عَلَيْهِ - مَوْثُوق", t:"adj"},
+                    {en:"renewed", ar:"مُتَجَدِّد", t:"adj"},
+                    {en:"role", ar:"دَوْر", t:"n"},
+                    {en:"role-play", ar:"تَمْثِيل أَدْوَار - يَلْعَب دَوْر", t:"n - v"},
+                    {en:"shelter(ed)", ar:"مَأْوَى - يُؤْوِي", t:"n - v"},
+                    {en:"slow-moving", ar:"بَطِيء الحَرَكَة", t:"adj"},
+                    {en:"sonar", ar:"السُّونَار", t:"n"},
+                    {en:"species", ar:"أَنْوَاع", t:"n"},
+                    {en:"stitch(ed)", ar:"غَرْزَة - يَغْرِز", t:"n - v"},
+                    {en:"stricter", ar:"أَشَدّ صَرَامَة", t:"adj"},
+                    {en:"surprisingly", ar:"بِشَكْل مُفَاجِئ", t:"adv"},
+                    {en:"survival", ar:"البَقَاء", t:"n"},
+                    {en:"tasteless", ar:"بِلَا طَعْم", t:"adj"},
+                    {en:"threat", ar:"تَهْدِيد", t:"n"},
+                    {en:"tirelessly", ar:"بِلَا كَلَل", t:"adv"},
+                    {en:"tone", ar:"نَبْرَة - أُسْلُوب", t:"n"},
+                    {en:"track(ed)", ar:"يَتَعَقَّب", t:"v"},
+                    {en:"vital", ar:"حَيَوِي", t:"adj"},
+                    {en:"widespread", ar:"وَاسِع الاِنْتِشَار", t:"adj"},
+                    {en:"wooden", ar:"خَشَبِي", t:"adj"}
+                ],
+                "Verbal Collocations": [
+                    {en:"ban harmful sonar", ar:"يَحْظُر السُّونَار الضَّارّ"},
+                    {en:"ban harmful practices", ar:"يَحْظُر المُمَارَسَات الضَّارَّة"},
+                    {en:"build protection", ar:"يَحْمِي - يُحَصِّن"},
+                    {en:"call for action", ar:"يَدْعُو إِلَى العَمَل"},
+                    {en:"cause damage", ar:"يُسَبِّب ضَرَرًا"},
+                    {en:"disrupt communication", ar:"يُشَوِّش عَلَى التَّوَاصُل"},
+                    {en:"educate communities", ar:"يُثَقِّف المُجْتَمَعَات"},
+                    {en:"encourage conservation", ar:"يُشَجِّع عَلَى الحِفَاظ"},
+                    {en:"face threats", ar:"يُوَاجِه تَهْدِيدَات"},
+                    {en:"gain awareness", ar:"يَكْتَسِب وَعْيًا"},
+                    {en:"lose color", ar:"يَفْقِد اللَّوْن"},
+                    {en:"play a role in", ar:"يَلْعَب دَوْرًا فِي"},
+                    {en:"pose a threat", ar:"يُشَكِّل خَطَرًا"},
+                    {en:"preserve biodiversity", ar:"يُحَافِظ عَلَى التَّنَوُّع الحَيَوِي"},
+                    {en:"prevent damage", ar:"يَمْنَع الضَّرَر"},
+                    {en:"promote eco-friendly tourism", ar:"يُرَوِّج لِلْسِّيَاحَة الصَّدِيقَة لِلْبِيئَة"},
+                    {en:"raise awareness", ar:"يَزِيد الوَعْي"},
+                    {en:"reduce waste", ar:"يُقَلِّل النَّفَايَات"},
+                    {en:"restore habitats", ar:"يُرَمِّم المَوَاطِن الطَّبِيعِيَّة"},
+                    {en:"support marine life", ar:"يَدْعَم الحَيَاة البَحْرِيَّة"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"a colorful underwater city", ar:"مَدِينَة مُلَوَّنَة تَحْت القَاع"},
+                    {en:"a matter of time", ar:"مَسْأَلَة وَقْت"},
+                    {en:"a stitch in time saves nine", ar:"الوِقَايَة خَيْرٌ مِن العِلَاج"},
+                    {en:"a thing of the past", ar:"شَيْء مِن المَاضِي"},
+                    {en:"as the saying goes", ar:"كَمَا يَقُول المَثَل"},
+                    {en:"before it's too late", ar:"قَبْل فَوَات الأَوَّان"},
+                    {en:"connected to everything", ar:"مُرْتَبِط بِكُلِّ شَيْء"},
+                    {en:"every little action makes a difference", ar:"كُلُّ تَصَرُّف صَغِير يُحْدِث فَرْقًا"},
+                    {en:"in contrast", ar:"عَلَى النَّقِيض"},
+                    {en:"in real life", ar:"فِي الحَيَاة الوَاقِعِيَّة"},
+                    {en:"in the context of", ar:"فِي سِيَاق"},
+                    {en:"protect for future generations", ar:"يَحْمِي لِلأَجْيَال القَادِمَة"},
+                    {en:"deal with", ar:"يَتَعَامَل مَعَ", t:"prep"},
+                    {en:"engage in", ar:"يُشَارِك فِي", t:"prep"},
+                    {en:"focus on", ar:"يُرَكِّز عَلَى", t:"prep"},
+                    {en:"look after", ar:"يَرْعَي - يَعْتَنِي بِـ", t:"prep"}
+                ]
+            },
+            "45": {
+                "Key Vocabulary": [],
+                "Important Vocabulary": [],
+                "Definitions": [],
+                "Verbal Collocations": [],
+                "Expressions & Prepositions": []
+            }
+        },
+        u5: {
+            "12": {
+                "Key Vocabulary": [],
+                "Important Vocabulary": [],
+                "Definitions": [],
+                "Verbal Collocations": [],
+                "Expressions & Prepositions": []
+            },
+            "45": {
+                "Key Vocabulary": [],
+                "Important Vocabulary": [],
+                "Definitions": [],
+                "Verbal Collocations": [],
+                "Expressions & Prepositions": []
+            }
+        },
+        u6: {
+            "12": {
+                "Key Vocabulary": [
+                    {en:"affection", ar:"مَوَدَّة / عاطِفَة", t:"n"},
+                    {en:"anxiety", ar:"قَلَق", t:"n"},
+                    {en:"clumsiness", ar:"التَّصَرُّف بِغَباء أو بِدُون مَهارَة", t:"n"},
+                    {en:"clumsy", ar:"أَخْرَق - غَيْر ماهِر", t:"adj"},
+                    {en:"cruelty", ar:"قَسْوَة", t:"n"},
+                    {en:"depression", ar:"اكْتِئاب", t:"n"},
+                    {en:"disaster", ar:"كَارِثَة", t:"n"},
+                    {en:"glamorous", ar:"فَاتِن - سَاحِر", t:"adj"},
+                    {en:"hang out", ar:"يَتَنَزَّه - يَسْتَرْخِي مع الأَصْدِقاء", t:"v"},
+                    {en:"hit the town", ar:"يَخْرُج لِلْتَّنَزُّه (في المَدِينَة)", t:"v expr"},
+                    {en:"hormone", ar:"هُرْمُون", t:"n"},
+                    {en:"keep my hands to myself", ar:"لا أَتَدَخَّل فِيمَا لا يَعْنِينِي / أَتَجَنَّب لَمْس الآخَرِينَ", t:"v expr"},
+                    {en:"maintain(ed)", ar:"يُحافِظ - يَقُوم بِصِيانَة", t:"v"},
+                    {en:"mortify(ied)", ar:"يُخْجِل - يُحْرِج", t:"v"},
+                    {en:"mortifying", ar:"مُخْجِل", t:"adj"},
+                    {en:"reassure(d)", ar:"يُطَمْئِن", t:"v"},
+                    {en:"socialize(d)", ar:"يَنْدَمِج اجْتِماعِيًّا", t:"v"},
+                    {en:"strengthen(ed)", ar:"يُقَوِّي", t:"v"},
+                    {en:"superficially", ar:"بِشَكْل سَطْحِيّ", t:"adv"},
+                    {en:"weeknight", ar:"لَيْلَة أُسْبُوعِيَّة", t:"n"},
+                    {en:"well-being", ar:"رَفاهِيَة - سَعادَة", t:"n"}
+                ],
+                "Important Vocabulary": [
+                    {en:"accept(ed)", ar:"يَقْبَل", t:"v"},
+                    {en:"admit(ted)", ar:"يَعْتَرِف", t:"v"},
+                    {en:"apologize(d)", ar:"يَعْتَذِر", t:"v"},
+                    {en:"ashamed", ar:"خَجْلان", t:"adj"},
+                    {en:"atmosphere", ar:"الجَوّ", t:"n"},
+                    {en:"awkward", ar:"مُرْبِك", t:"adj"},
+                    {en:"beneficial", ar:"مُفِيد", t:"adj"},
+                    {en:"benefit(ed)", ar:"فائِدَة - يَسْتَفِيد", t:"n-v"},
+                    {en:"bite - bit - bitten", ar:"يَعَضّ", t:"v"},
+                    {en:"boost(ed)", ar:"يُعَزِّز", t:"v"},
+                    {en:"bowling", ar:"لُعْبَة البُولِينْج", t:"n"},
+                    {en:"brand-new", ar:"جَدِيد كُلِّيًّا", t:"adj"},
+                    {en:"cancel(ed)", ar:"يُلْغِي", t:"v"},
+                    {en:"celebrate(d)", ar:"يَحْتَفِل", t:"v"},
+                    {en:"cheerful", ar:"مُبْهِج", t:"adj"},
+                    {en:"close", ar:"مُقَرَّب", t:"adj"},
+                    {en:"convince(d)", ar:"يُقْنِع", t:"v"},
+                    {en:"count(ed)", ar:"يَعْتَمِد", t:"v"},
+                    {en:"decline(d)", ar:"يَرْفُض", t:"v"},
+                    {en:"deny(ied)", ar:"يُنْكِر", t:"v"},
+                    {en:"downtown", ar:"وَسَط المَدِينَة", t:"n"},
+                    {en:"dull", ar:"مُمِلّ", t:"adj"},
+                    {en:"embarrass(ed)", ar:"يُحْرِج", t:"v"},
+                    {en:"experience(d)", ar:"يُجَرِّب / يُعايِش - تَجْرِبَة", t:"v-n"},
+                    {en:"fancy(ied)", ar:"فاخِر / يَتَخَيَّل", t:"adj-v"},
+                    {en:"forgiveness", ar:"غُفْران / تَسامُح", t:"n"},
+                    {en:"gathering", ar:"تَجَمُّع", t:"n"},
+                    {en:"grab(bed)", ar:"يُمْسِك", t:"v"},
+                    {en:"helpless", ar:"عَاجِز", t:"adj"},
+                    {en:"hiking", ar:"التَّنَزُّه سَيْرًا", t:"n"},
+                    {en:"immune", ar:"مَناعِيّ - لَدَيْهِ مَناعَة", t:"adj"},
+                    {en:"incredibly", ar:"بِشَكْل لا يُصَدَّق", t:"adv"},
+                    {en:"insist(ed)", ar:"يُصِرّ", t:"v"},
+                    {en:"interaction", ar:"تَفَاعُل", t:"n"},
+                    {en:"invest(ed)", ar:"يَسْتَثْمِر", t:"v"},
+                    {en:"jokingly", ar:"مَارِحًا", t:"adv"},
+                    {en:"kindness", ar:"لُطْف", t:"n"},
+                    {en:"lasting", ar:"دَائِم", t:"adj"},
+                    {en:"lively", ar:"نَشِيط", t:"adj"},
+                    {en:"mood", ar:"الحَالَة المِزاجِيَّة", t:"n"},
+                    {en:"particularly", ar:"خُصُوصًا", t:"adv"},
+                    {en:"promotion", ar:"تَرْقِيَة", t:"n"},
+                    {en:"quality", ar:"جَوْدَة - قِيمَة", t:"n"},
+                    {en:"quantity", ar:"كَمِّيَّة", t:"n"},
+                    {en:"rate", ar:"نِسْبَة", t:"n"},
+                    {en:"release(d)", ar:"يُطْلِق", t:"v"},
+                    {en:"research", ar:"بَحْث", t:"n"},
+                    {en:"salt shaker", ar:"مَلّاحَة / وِعاء المِلْح", t:"n"},
+                    {en:"silence", ar:"صَمْت", t:"n"},
+                    {en:"sociable", ar:"اجْتِماعِيّ", t:"adj"},
+                    {en:"splash(ed)", ar:"يَرُشّ", t:"v"},
+                    {en:"sprinkle(d)", ar:"يَرُشّ", t:"v-n"},
+                    {en:"support(ed)", ar:"دَعْم - يَدْعَم", t:"v-n"},
+                    {en:"supportive", ar:"داعِم", t:"adj"},
+                    {en:"tend(ed)", ar:"يَمِيل", t:"v"},
+                    {en:"unaware", ar:"غَيْر مُدْرِك", t:"adj"},
+                    {en:"unbearable", ar:"غَيْر مُحْتَمَل", t:"adj"},
+                    {en:"warn(ed)", ar:"يُحَذِّر", t:"v"},
+                    {en:"whenever", ar:"كُلَّما", t:"adv"}
+                ],
+                "Verbal Collocations": [
+                    {en:"boost mood", ar:"يُحَسِّن الحَالَة المِزاجِيَّة"},
+                    {en:"catch up on old times", ar:"يَسْتَرْجِع الذَّكَرَيَات القَدِيمَة"},
+                    {en:"create memories", ar:"يَصْنَع ذَكَرَيَات"},
+                    {en:"develop skills", ar:"يُطَوِّر مَهارات"},
+                    {en:"do revision", ar:"يُراجِع الدُّرُوس"},
+                    {en:"hit the town", ar:"يَخْرُج لِلْتَّنَزُّه"},
+                    {en:"invest in well-being", ar:"يَسْتَثْمِر في الرَّفاهِيَة"},
+                    {en:"keep my hands to myself", ar:"أَتَجَنَّب لَمْس الآخَرِينَ"},
+                    {en:"maintain friendships", ar:"يُحافِظ عَلَى الصَّداقات"},
+                    {en:"make plans", ar:"يَضَع خُطَطًا"},
+                    {en:"share experiences", ar:"يُشارِك التَّجَارِب"},
+                    {en:"strengthen friendships", ar:"يُقَوِّي الصَّداقات"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"catch up on old times", ar:"يَسْتَرْجِع الذَّكَرَيَات القَدِيمَة"},
+                    {en:"dry cleaning", ar:"التَّنْظِيف الجَافّ"},
+                    {en:"face-to-face interaction", ar:"تَفَاعُل وَجْهًا لِوَجْه"},
+                    {en:"gas tank", ar:"خَزَّان الوُقُود"},
+                    {en:"hit the town", ar:"يَخْرُج لِلْتَّنَزُّه"},
+                    {en:"instead of", ar:"بَدَلًا مِنْ"},
+                    {en:"invest in your well-being", ar:"إِسْتَثْمِر في رَفاهِيَتِك"},
+                    {en:"lasting memories", ar:"ذَكَرَيَات دَائِمَة"},
+                    {en:"opposite of", ar:"في مُقابِل"},
+                    {en:"quality over quantity", ar:"الكَيْف أَهَمّ مِن الكَمّ"},
+                    {en:"true friendship", ar:"الصَّداقَة الحَقِيقِيَّة"},
+                    {en:"stand by your side", ar:"يَقِف مَعَك في الشِّدَّة"},
+                    {en:"pale as a ghost", ar:"شَاحِب جِدًّا"},
+                    {en:"agree to", ar:"يُوافِق عَلَى", t:"prep"},
+                    {en:"apologize for", ar:"يَعْتَذِر عَنْ", t:"prep"},
+                    {en:"bump into", ar:"يَصْطَدِم بِـ", t:"prep"},
+                    {en:"catch up (on)", ar:"يُتابِع / يَتَبَادَل الأَخْبَار", t:"prep"},
+                    {en:"fill up", ar:"يَمْلَأ", t:"phr. verb"},
+                    {en:"forgive ... for", ar:"يُسامِح ... عَلَى", t:"prep"},
+                    {en:"go beyond", ar:"يَتَجَاوَز", t:"prep"},
+                    {en:"hang out (with)", ar:"يَتَنَزَّه (مع)", t:"prep"},
+                    {en:"insist on", ar:"يُصِرّ عَلَى", t:"prep"},
+                    {en:"invest in", ar:"يَسْتَثْمِر في", t:"prep"},
+                    {en:"knock over", ar:"يُسْقِط", t:"phr. verb"},
+                    {en:"pay for", ar:"يَدْفَع مُقابِل", t:"prep"},
+                    {en:"reach for", ar:"يَمُدّ يَدَهُ لِيَتَناوَل", t:"prep"},
+                    {en:"remind ... to", ar:"يُذَكِّر ... بِـ", t:"prep"},
+                    {en:"share ... with", ar:"يُشارِك مع", t:"prep"},
+                    {en:"spend time (with)", ar:"يَقْضِي وَقْتًا (مع)", t:"prep"},
+                    {en:"warn ... to/not to", ar:"يُحَذِّر ... أنْ / أَلَّا", t:"prep"}
+                ]
+            },
+            "45": {
+                "Key Vocabulary": [
+                    {en:"compromise(d)", ar:"يَتَفَاوَض", t:"v"},
+                    {en:"destructive", ar:"مُدَمِّر", t:"adj"},
+                    {en:"disappointing", ar:"مُخَيِّب - مُحْبِط", t:"adj"},
+                    {en:"entertainment", ar:"تَرْفِيه - تَسْلِيَة", t:"n"},
+                    {en:"interaction", ar:"تَفَاعُل", t:"n"},
+                    {en:"overwhelming", ar:"مُزْهِق / غَامِر", t:"adj"},
+                    {en:"packed", ar:"مُمْتَلِئ - مُغَصَّب", t:"adj"},
+                    {en:"recommend(ed)", ar:"يُوصِي بِـ / يُزَكِّي", t:"v"}
+                ],
+                "Important Vocabulary": [
+                    {en:"bench", ar:"مَقْعَد", t:"n"},
+                    {en:"chat(ted)", ar:"يَتَحاوَث", t:"v"},
+                    {en:"chemicals", ar:"المَواد الكِيمِيائِيَّة", t:"n"},
+                    {en:"depth", ar:"عُمْق", t:"n"},
+                    {en:"despite", ar:"عَلَى الرَّغْم مِنْ", t:"prep"},
+                    {en:"effort", ar:"جَهْد", t:"n"},
+                    {en:"empathy", ar:"تَعاطُف", t:"n"},
+                    {en:"feature", ar:"مِيزَة", t:"n"},
+                    {en:"forgive", ar:"يُسامِح", t:"v"},
+                    {en:"form(ed)", ar:"يُشَكِّل - شَكْل - صِيغَة", t:"v-n"},
+                    {en:"greet(ed)", ar:"يُحَيِّي", t:"v"},
+                    {en:"hurry", ar:"عَجَلَة", t:"n"},
+                    {en:"immune", ar:"مَناعِيّ", t:"adj"},
+                    {en:"impression", ar:"انْطِباع", t:"n"},
+                    {en:"interest", ar:"اهْتِمام", t:"n"},
+                    {en:"invest(ed)", ar:"يَسْتَثْمِر", t:"v"},
+                    {en:"meaningful", ar:"ذُو مَعْنًى", t:"adj"},
+                    {en:"occasion", ar:"مُناسَبَة", t:"n"},
+                    {en:"option", ar:"خِيار", t:"n"},
+                    {en:"order (ed)", ar:"يَطْلُب", t:"v"},
+                    {en:"overall", ar:"عُمُومًا", t:"adv"},
+                    {en:"performance", ar:"أَدَاء", t:"n"},
+                    {en:"persuade(d)", ar:"يُقْنِع", t:"v"},
+                    {en:"practice(d)", ar:"يُمارِس", t:"v"},
+                    {en:"relationship", ar:"عَلاقَة", t:"n"},
+                    {en:"relaxed", ar:"مُسْتَرْخٍ", t:"adj"},
+                    {en:"schedule", ar:"جَدْوَل", t:"n"},
+                    {en:"stay in touch", ar:"يَبْقَى عَلَى تَواصُل", t:"v"},
+                    {en:"stress", ar:"تُؤَتُّر", t:"n"},
+                    {en:"struggle(d)", ar:"يُعانِي / يُكافِح", t:"v"},
+                    {en:"terrific", ar:"رائِع", t:"adj"},
+                    {en:"texting", ar:"إِرْسال رَسائِل نَصِّيَّة", t:"n"},
+                    {en:"thriller", ar:"فِيلْم إِثَارَة", t:"n"},
+                    {en:"throughout", ar:"طُوال", t:"prep"}
+                ],
+                "Verbal Collocations": [
+                    {en:"develop empathy", ar:"يُطَوِّر التَّعاطُف"},
+                    {en:"do revision", ar:"يَقُوم بِالمُراجَعَة"},
+                    {en:"form new friendships", ar:"يُكَوِّن صَداقات جَدِيدَة"},
+                    {en:"give reasons", ar:"يُقَدِّم أَسْبابًا"},
+                    {en:"go to a movie", ar:"يَذْهَب لِمُشاهَدَة فِيلْم"},
+                    {en:"grab coffee", ar:"يَتَناوَل القَهْوَة"},
+                    {en:"highlight a positive point", ar:"يُبْرِز نُقْطَة إِيجابِيَّة"},
+                    {en:"introduce the film", ar:"يُقَدِّم الفِيلْم"},
+                    {en:"maintain friendships", ar:"يُحافِظ عَلَى الصَّداقات"},
+                    {en:"make an effort", ar:"يَبْذُل جُهْدًا"},
+                    {en:"make plans", ar:"يَضَع خُطَطًا"},
+                    {en:"practice communication", ar:"يَتَواصَل"},
+                    {en:"provide examples", ar:"يُقَدِّم أَمْثِلَة"},
+                    {en:"restate your opinion", ar:"يُؤَكِّد رَأْيَك"},
+                    {en:"stay in touch", ar:"يَبْقَى عَلَى اتِّصال"}
+                ],
+                "Expressions & Prepositions": [
+                    {en:"balanced opinion", ar:"رَأْي مُتَوَازِن"},
+                    {en:"be busy with", ar:"يَكُون مَشْغُولًا بِـ"},
+                    {en:"be open to", ar:"يَكُون مُنْفَتِحًا عَلَى"},
+                    {en:"be worth it", ar:"يَسْتَحِقّ"},
+                    {en:"contrasting ideas", ar:"أَفْكار مُتَبايِنَة"},
+                    {en:"health benefits", ar:"فَوائِد صِحِّيَّة"},
+                    {en:"learn to compromise", ar:"يَتَعَلَّم الوُصُول لِتَسْوِيَة"},
+                    {en:"meaningful moments", ar:"لَحَظات مُغَذَّاة"},
+                    {en:"negative opinion", ar:"رَأْي سَلْبِيّ"},
+                    {en:"packed schedule", ar:"جَدْوَل مَلِيء بِالمَهامّ"},
+                    {en:"positive opinion", ar:"رَأْي إِيجابِيّ"},
+                    {en:"quick dinner", ar:"عَشاء سَرِيع"},
+                    {en:"special occasion", ar:"مُناسَبَة خاصَّة"},
+                    {en:"check on", ar:"يَتَفَقَّد", t:"prep"},
+                    {en:"forgive ...for", ar:"يُسامِح ... عَلَى", t:"prep"},
+                    {en:"invest in", ar:"يَسْتَثْمِر في", t:"prep"},
+                    {en:"look for", ar:"يَبْحَث عَنْ", t:"prep"},
+                    {en:"stay in touch with", ar:"يَبْقَى عَلَى اتِّصال مع", t:"prep"},
+                    {en:"struggle to", ar:"يُكافِح مِن أَجْل", t:"prep"},
+                    {en:"wait for", ar:"يَنْتَظِر", t:"prep"}
+                ]
+            }
+        }
+    };
+
+    function initNav(){
+        const nav = document.getElementById('unitNav');
+        nav.innerHTML = '';
+        Object.keys(data).forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `unit-btn ${u===currU?'active':''}`;
+            btn.innerText = `Unit ${u.replace('u','')}`;
+            btn.onclick = () => {
+                currU = u;
+                document.querySelectorAll('.unit-btn').forEach(b=>b.classList.remove('active'));
+                btn.classList.add('active');
+                render();
+            };
+            nav.appendChild(btn);
+        });
+    }
+
+    function setL(l, el){
+        currL = l;
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        el.classList.add('active');
+        render();
+    }
+
+    function render(){
+        const container = document.getElementById('dictionaryContent');
+        container.innerHTML = '';
+        const query = document.getElementById('search').value.toLowerCase().trim();
+
+        let unitsToSearch = query ? Object.keys(data) : [currU];
+
+        unitsToSearch.forEach(uKey => {
+            let lessonsToSearch = (currL === 'all' || query) ? ['12', '45'] : [currL];
+            
+            lessonsToSearch.forEach(lKey => {
+                const categories = data[uKey][lKey];
+                if(!categories) return;
+
+                Object.keys(categories).forEach(catName => {
+                    const items = categories[catName];
+                    const filtered = items.filter(i => {
+                        const enMatch = i.en && i.en.toLowerCase().includes(query);
+                        const arMatch = i.ar && i.ar.includes(query);
+                        const defEnMatch = i.defEn && i.defEn.toLowerCase().includes(query);
+                        const defArMatch = i.defAr && i.defAr.includes(query);
+                        return enMatch || arMatch || defEnMatch || defArMatch;
+                    });
+
+                    if(filtered.length > 0){
+                        const header = document.createElement('div');
+                        header.className = 'section-header';
+                        let displayTitle = catName;
+                        if(query || currL === 'all') {
+                            displayTitle = `Unit ${uKey.replace('u','')} - L${lKey === '12' ? '1&2' : '4&5'} : ${catName}`;
+                        }
+                        header.innerHTML = `<span class="section-title">${displayTitle}</span><span class="word-count">${filtered.length}</span>`;
+                        container.appendChild(header);
+
+                        const card = document.createElement('div');
+                        card.className = 'content-card';
+                        let tableHtml = '<table>';
+
+                        filtered.forEach(item => {
+                            tableHtml += '<tr><td>';
+                            if(item.defEn){
+                                tableHtml += `<span class="word-en" onclick="speak('${item.en.replace(/'/g, "\\'")}', this)">${item.en}</span>`;
+                                if(item.t) tableHtml += `<span class="word-type">(${item.t})</span>`;
+                                tableHtml += `<span class="def-en" onclick="speak('${item.defEn.replace(/'/g, "\\'")}', this)">${item.defEn}</span>`;
+                                tableHtml += `<div class="word-ar">${item.ar}</div>`;
+                                if(item.exp) tableHtml += `<div class="exp-ar">${item.exp}</div>`;
+                            } else {
+                                tableHtml += `<span class="word-en" onclick="speak('${item.en.replace(/'/g, "\\'")}', this)">${item.en}</span>`;
+                                if(item.t) tableHtml += `<span class="word-type">(${item.t})</span>`;
+                                tableHtml += `<div class="word-ar">${item.ar}</div>`;
+                            }
+                            tableHtml += '</td></tr>';
+                        });
+
+                        tableHtml += '</table>';
+                        card.innerHTML = tableHtml;
+                        container.appendChild(card);
+                    }
+                });
+            });
+        });
+
+        if(container.innerHTML === ''){
+            container.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text); opacity:0.6;">لا توجد نتائج لعرضها</div>';
+        }
+    }
+
+    initNav();
+    render();
+</script>
+</body>
+</html>
